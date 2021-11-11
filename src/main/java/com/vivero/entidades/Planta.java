@@ -1,35 +1,40 @@
 package com.vivero.entidades;
 
+import com.vivero.enumeraciones.Luz;
+import com.vivero.enumeraciones.Ubicacion;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 
 @Entity
 public class Planta extends Producto{
-    
-    private String luz;
-    private String ubicacion;
+    @Enumerated(EnumType.STRING)
+    private Luz luz;
+    @Enumerated(EnumType.STRING)
+    private Ubicacion ubicacion;
 
     public Planta() {
     }
 
-    public Planta(String luz, String ubicacion, String id, String tipo, String nombre, Integer precio, Integer stock, String tamaño, Foto foto, String descripcion, Boolean activo) {
+    public Planta(Luz luz, Ubicacion ubicacion, String id, String tipo, String nombre, Integer precio, Integer stock, String tamaño, Foto foto, String descripcion, Boolean activo) {
         super(id, tipo, nombre, precio, stock, tamaño, foto, descripcion, activo);
         this.luz = luz;
         this.ubicacion = ubicacion;
     }
 
-    public String getLuz() {
+    public Luz getLuz() {
         return luz;
     }
 
-    public void setLuz(String luz) {
+    public void setLuz(Luz luz) {
         this.luz = luz;
     }
 
-    public String getUbicacion() {
+    public Ubicacion getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(Ubicacion ubicacion) {
         this.ubicacion = ubicacion;
     }
     
