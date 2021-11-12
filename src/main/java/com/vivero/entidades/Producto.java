@@ -1,12 +1,18 @@
 package com.vivero.entidades;
 
+import com.vivero.enumeraciones.Tamaño;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Producto {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -16,7 +22,8 @@ public class Producto {
     private String nombre;
     private Integer precio;
     private Integer stock;
-    private String tamaño;
+    @Enumerated(EnumType.STRING)
+    private Tamaño tamaño;
     @OneToOne
     private Foto foto;
     private String descripcion;
@@ -25,7 +32,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String id, String tipo, String nombre, Integer precio, Integer stock, String tamaño, Foto foto, String descripcion, Boolean activo) {
+    public Producto(String id, String tipo, String nombre, Integer precio, Integer stock, Tamaño tamaño, Foto foto, String descripcion, Boolean activo) {
         this.id = id;
         this.tipo = tipo;
         this.nombre = nombre;
@@ -77,11 +84,11 @@ public class Producto {
         this.stock = stock;
     }
 
-    public String getTamaño() {
+    public Tamaño getTamaño() {
         return tamaño;
     }
 
-    public void setTamaño(String tamaño) {
+    public void setTamaño(Tamaño tamaño) {
         this.tamaño = tamaño;
     }
 
@@ -108,8 +115,6 @@ public class Producto {
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
-    
-    
-    
+
     
 }

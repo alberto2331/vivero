@@ -1,6 +1,7 @@
 package com.vivero.entidades;
 
 import com.vivero.enumeraciones.Luz;
+import com.vivero.enumeraciones.Tamaño;
 import com.vivero.enumeraciones.Ubicacion;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,7 +17,7 @@ public class Planta extends Producto{
     public Planta() {
     }
 
-    public Planta(Luz luz, Ubicacion ubicacion, String id, String tipo, String nombre, Integer precio, Integer stock, String tamaño, Foto foto, String descripcion, Boolean activo) {
+    public Planta(Luz luz, Ubicacion ubicacion, String id, String tipo, String nombre, Integer precio, Integer stock, Tamaño tamaño, Foto foto, String descripcion, Boolean activo) {
         super(id, tipo, nombre, precio, stock, tamaño, foto, descripcion, activo);
         this.luz = luz;
         this.ubicacion = ubicacion;
@@ -37,6 +38,6 @@ public class Planta extends Producto{
     public void setUbicacion(Ubicacion ubicacion) {
         this.ubicacion = ubicacion;
     }
-    
+
     
 }
