@@ -1,5 +1,8 @@
-package com.vivero.servicios;
-
-public class ProductoService {
-
-}
+//package com.vivero.servicios;
+//
+//import org.springframework.stereotype.Service;
+//
+//@Service
+//public class ProductoService {
+//    
+//}
