@@ -1,0 +1,59 @@
+[33mcommit 030d873573b8fdef4b8d439393789f7ce968c16b[m[33m ([m[1;36mHEAD -> [m[1;32mbackend[m[33m, [m[1;31morigin/backend[m[33m)[m
+Author: MolinaYamilaJimena <molinayamilajimena@gmail.com>
+Date:   Thu Nov 11 18:29:51 2021 -0300
+
+    nuevo package enumeraciones
+
+[33mcommit fa5f78a75fc6f20fbfc907c848b633468effd645[m
+Author: MolinaYamilaJimena <molinayamilajimena@gmail.com>
+Date:   Wed Nov 10 21:43:06 2021 -0300
+
+    creacion entidad producto e hijos
+
+[33mcommit d9a525878ff017651ac581ec50642fb36e600733[m
+Author: Fernando Lerner <fernandoelerner@gmail.com>
+Date:   Wed Nov 10 21:17:20 2021 -0300
+
+    cambios en entidad admin
+
+[33mcommit f7bf680ef8729b93e84dd5b5d6274eeddabba50c[m
+Author: Fernando Lerner <fernandoelerner@gmail.com>
+Date:   Wed Nov 10 21:13:03 2021 -0300
+
+    creacion entidad admin
+
+[33mcommit d4b11986a88686d53b3b3faef25f45e21cb5ac7a[m
+Author: Alberto Saiz <saizguidarelli@gmail.com>
+Date:   Wed Nov 10 21:11:02 2021 -0300
+
+    creacion entidad Cliente
+
+[33mcommit 560c0d6ae5f1dddb956f8708e7f27981d4a45b98[m
+Author: Alberto Saiz <saizguidarelli@gmail.com>
+Date:   Wed Nov 10 20:35:05 2021 -0300
+
+    creacion Clase Producto-Cliente
+
+[33mcommit 26440eb1f36634a266d6cf78a01ee89e04808114[m
+Author: Alberto Saiz <saizguidarelli@gmail.com>
+Date:   Wed Nov 10 20:22:22 2021 -0300
+
+    index a borrar
+
+[33mcommit 8324e57573eb6b029a33a990695e22504663ee06[m
+Author: Fernando Lerner <fernandoelerner@gmail.com>
+Date:   Tue Nov 9 21:01:24 2021 -0300
+
+    commiteo el backend
+
+[33mcommit 9cfe4ec149f28628d0ad77bd1bddd3e0d8ffad49[m[33m ([m[1;31morigin/development[m[33m)[m
+Author: Juan Guardiola <jguardiolagarcia@gmail.com>
+Date:   Tue Nov 9 20:01:33 2021 -0300
+
+    juan commit
+
+[33mcommit 6234fb2df50ae445f6624a80dab6b63a4917be53[m
+Author: Alberto Saiz <saizguidarelli@gmail.com>
+Date:   Tue Nov 9 19:41:18 2021 -0300
+
+    primer commit
