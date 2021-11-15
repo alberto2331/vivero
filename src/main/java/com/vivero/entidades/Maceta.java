@@ -1,5 +1,6 @@
 package com.vivero.entidades;
 
+import com.vivero.enumeraciones.Tamaño;
 import javax.persistence.Entity;
 
 @Entity
@@ -10,7 +11,7 @@ public class Maceta extends Producto{
     public Maceta() {
     }
 
-    public Maceta(String color, String id, String tipo, String nombre, Integer precio, Integer stock, String tamaño, Foto foto, String descripcion, Boolean activo) {
+    public Maceta(String color, String id, String tipo, String nombre, Integer precio, Integer stock, Tamaño tamaño, Foto foto, String descripcion, Boolean activo) {
         super(id, tipo, nombre, precio, stock, tamaño, foto, descripcion, activo);
         this.color = color;
     }
