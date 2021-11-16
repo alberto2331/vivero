@@ -19,75 +19,59 @@
 		<p>To return to the main menu<a href="/"> HERE</a></p>
 			<hr/>
 	</div>
-
-	<form class="needs-validation" action="/planta/planta" method="POST">
+	<div th:if="${error}" class="alert alert-danger alert dismissible fade show mt-3" role="alert">
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+    </div>
+	<form class="needs-validation" action="/planta/guardar" method="POST" enctype="multipart/form-data">
 		<div class="row g-4">
 			<div class="col-sm-6">
-				<!--<label class="form-label" for="tipo">Tipo de producto: planta, maceta, accesorio</label>
-				<input id="tipo" type="text" name="tipo" class="form-control">-->
-				<select class="form-select" aria-label= "Tipo de producto:">
-					<option selected>Producto</option>
-					<option value="1">Planta</option>
-					<option value="2">Maceta</option>
-					<option value="3">Accesorio</option>
-				</select>				
-			</div>
-			<div class="col-sm-6">
 				<label class="form-label" for="nombre">Nombre</label>
-				<input id="nombre" type="text" name="nombre" class="form-control">
+				<input id="nombre" type="text" name="nombre" class="form-control" value="">
 			</div>
 			<div class="col-sm-6">
 				<label class="form-label" for="precio">Precio</label>
-				<input id="precio" type="number" name="precio" class="form-control">
+				<input id="precio" type="number" name="precio" step="any" class="form-control" value=0>
 			</div>
 			<div class="col-sm-6">
 				<label class="form-label" for="stock">Stock</label>
-				<input id="stock" type="number" name="stock" class="form-control">
+				<input id="stock" type="number" name="stock" class="form-control" value=0>
 			</div>
 			<div class="col-sm-6">
 				<!--<label class="form-label" for="tamaño">Tamaño</label>
 				<input id="tamaño" type="text" name="tamaño" class="form-control">-->
-				<select class="form-select" aria-label= "Tipo de producto:">
-					<option selected>Tamaño</option>
-					<option value="1">Chico</option>
-					<option value="2">Mediano</option>
-					<option value="3">Grande</option>
+				<select class="form-control" type="text" id="tamanio" name="tamanio">
+					<option selected value="">Tamaño</option>
+					<option value="chico">Chico</option>
+					<option value="mediano">Mediano</option>
+					<option value="grande">Grande</option>
 				</select>				
 			</div>
 			<div class="col-sm-6">
-				<label class="form-label" for="tamaño">Foto</label>
-				<input id="foto" type="file" name="foto" class="form-control" accept="image/png, .jpeg, .jpg, image/gif">
+				<label class="form-label" for="archivo">Foto</label>
+				<input id="archivo" type="file" name="archivo" class="form-control" accept="image/png, .jpeg, .jpg, image/gif">
 			</div>	
 			<div class="col-sm-6">
 				<label class="form-label" for="descripcion">Descripción</label>
-				<input id="descripcion" type="text" name="descripcion" class="form-control">
-			</div>	
-			<div class="col-sm-6">
-				<!--<label class="form-label" for="activo">Activo</label>
-				<input id="activo" type="text" name="activo" class="form-control">-->
-				<select class="form-select" aria-label= "Tipo de producto:">
-					<option selected>Activo</option>
-					<option value="1">Activo</option>
-					<option value="2">Inactivo</option>					
-				</select>				
-			</div>	
+				<input id="descripcion" type="text" name="descripcion" class="form-control" value="">
+			</div>		
 			<div class="col-sm-6">
 				<!--<label class="form-label" for="luz">Luz</label>
 				<input id="luz" type="text" name="luz" class="form-control">-->
-				<select class="form-select" aria-label= "Tipo de producto:">
-					<option selected>Tamaño</option>
-					<option value="1">Poca</option>
-					<option value="2">Media</option>
-					<option value="3">Mucha</option>
+				<select class="form-control" type="text" id="luz" name="luz">
+					<option selected value="">Luz</option>
+					<option value="poca">Poca</option>
+					<option value="media">Media</option>
+					<option value="mucha">Mucha</option>
 				</select>				
 			</div>	
 			<div class="col-sm-6">
 				<!--<label class="form-label" for="ubicacion">Ubicacion</label>
 				<input id="ubicacion" type="text" name="ubicacion" class="form-control">-->
-				<select class="form-select" aria-label= "Tipo de producto:">
-					<option selected>Ubicacion</option>
-					<option value="1">Interior</option>
-					<option value="2">Exterior</option>					
+				<select class="form-control" type="text" id="ubicacion" name="ubicacion">
+					<option selected value="">Ubicacion</option>
+					<option value="interior">Interior</option>
+					<option value="exterior">Exterior</option>					
 				</select>				
 			</div>	
 			<div class="col-sm-12 pull right">

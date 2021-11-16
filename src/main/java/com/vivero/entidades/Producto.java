@@ -1,9 +1,9 @@
 package com.vivero.entidades;
 
-import com.vivero.enumeraciones.Tamanio;
+//import com.vivero.enumeraciones.Tamanio;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+//import javax.persistence.EnumType;
+//import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -20,10 +20,10 @@ public class Producto {
     private String id;
     private String tipo;
     private String nombre;
-    private Integer precio;
+    private Double precio;
     private Integer stock;
-    @Enumerated(EnumType.STRING)
-    private Tamanio tamanio;
+    //@Enumerated(EnumType.STRING)
+    private String tamanio;
     @OneToOne
     private Foto foto;
     private String descripcion;
@@ -32,7 +32,7 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String id, String tipo, String nombre, Integer precio, Integer stock, Tamanio tamanio, Foto foto, String descripcion, Boolean activo) {
+    public Producto(String id, String tipo, String nombre, Double precio, Integer stock, String tamanio, Foto foto, String descripcion, Boolean activo) {
         this.id = id;
         this.tipo = tipo;
         this.nombre = nombre;
@@ -68,11 +68,11 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public Integer getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Integer precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 
@@ -84,11 +84,11 @@ public class Producto {
         this.stock = stock;
     }
 
-    public Tamanio getTamanio() {
+    public String getTamanio() {
         return tamanio;
     }
 
-    public void setTamanio(Tamanio tamanio) {
+    public void setTamanio(String tamanio) {
         this.tamanio = tamanio;
     }
 

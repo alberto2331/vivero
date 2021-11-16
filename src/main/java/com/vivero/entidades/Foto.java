@@ -17,18 +17,19 @@ public class Foto implements Serializable {
     private String id;
     private String nombre;
     private String mime;
-    @Lob @Basic(fetch=FetchType.LAZY)
+    @Lob
+    @Basic(fetch=FetchType.LAZY)
     private byte[] contenido;
 
     public Foto() {
     }
 
-    public Foto(String id, String nombre, String mime, byte[] contenido) {
+    /*public Foto(String id, String nombre, String mime, byte[] contenido) {
         this.id = id;
         this.nombre = nombre;
         this.mime = mime;
         this.contenido = contenido;
-    }
+    }*/
 
     public String getId() {
         return id;
