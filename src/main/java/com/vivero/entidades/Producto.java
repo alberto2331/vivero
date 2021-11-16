@@ -1,6 +1,6 @@
 package com.vivero.entidades;
 
-import com.vivero.enumeraciones.Tamaño;
+import com.vivero.enumeraciones.Tamanio;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -23,7 +23,7 @@ public class Producto {
     private Integer precio;
     private Integer stock;
     @Enumerated(EnumType.STRING)
-    private Tamaño tamaño;
+    private Tamanio tamanio;
     @OneToOne
     private Foto foto;
     private String descripcion;
@@ -32,13 +32,13 @@ public class Producto {
     public Producto() {
     }
 
-    public Producto(String id, String tipo, String nombre, Integer precio, Integer stock, Tamaño tamaño, Foto foto, String descripcion, Boolean activo) {
+    public Producto(String id, String tipo, String nombre, Integer precio, Integer stock, Tamanio tamanio, Foto foto, String descripcion, Boolean activo) {
         this.id = id;
         this.tipo = tipo;
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
-        this.tamaño = tamaño;
+        this.tamanio = tamanio;
         this.foto = foto;
         this.descripcion = descripcion;
         this.activo = activo;
@@ -84,12 +84,12 @@ public class Producto {
         this.stock = stock;
     }
 
-    public Tamaño getTamaño() {
-        return tamaño;
+    public Tamanio getTamanio() {
+        return tamanio;
     }
 
-    public void setTamaño(Tamaño tamaño) {
-        this.tamaño = tamaño;
+    public void setTamanio(Tamanio tamanio) {
+        this.tamanio = tamanio;
     }
 
     public Foto getFoto() {

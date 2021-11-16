@@ -3,6 +3,6 @@
 //import org.springframework.stereotype.Service;
 //
 //@Service
-//public class ProductoService {
+//public class ProductoServicio {
 //    
 //}

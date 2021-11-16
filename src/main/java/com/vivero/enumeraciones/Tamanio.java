@@ -1,5 +1,5 @@
 package com.vivero.enumeraciones;
 
-public enum Tamaño {
+public enum Tamanio {
     CHICO, MEDIANO, GRANDE;
 }
