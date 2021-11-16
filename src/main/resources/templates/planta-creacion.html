@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>Book register</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>	
+</head>
+<body class="bg-light" cz shortcut-list="true">
+										
+<div class="py-5 text center">
+		<h1>Registro de Planta</h1>
+			<br />
+		
+		<p>To return to the main menu<a href="/"> HERE</a></p>
+			<hr/>
+	</div>
+
+	<form class="needs-validation" action="/planta/planta" method="POST">
+		<div class="row g-4">
+			<div class="col-sm-6">
+				<!--<label class="form-label" for="tipo">Tipo de producto: planta, maceta, accesorio</label>
+				<input id="tipo" type="text" name="tipo" class="form-control">-->
+				<select class="form-select" aria-label= "Tipo de producto:">
+					<option selected>Producto</option>
+					<option value="1">Planta</option>
+					<option value="2">Maceta</option>
+					<option value="3">Accesorio</option>
+				</select>				
+			</div>
+			<div class="col-sm-6">
+				<label class="form-label" for="nombre">Nombre</label>
+				<input id="nombre" type="text" name="nombre" class="form-control">
+			</div>
+			<div class="col-sm-6">
+				<label class="form-label" for="precio">Precio</label>
+				<input id="precio" type="number" name="precio" class="form-control">
+			</div>
+			<div class="col-sm-6">
+				<label class="form-label" for="stock">Stock</label>
+				<input id="stock" type="number" name="stock" class="form-control">
+			</div>
+			<div class="col-sm-6">
+				<!--<label class="form-label" for="tamaño">Tamaño</label>
+				<input id="tamaño" type="text" name="tamaño" class="form-control">-->
+				<select class="form-select" aria-label= "Tipo de producto:">
+					<option selected>Tamaño</option>
+					<option value="1">Chico</option>
+					<option value="2">Mediano</option>
+					<option value="3">Grande</option>
+				</select>				
+			</div>
+			<div class="col-sm-6">
+				<label class="form-label" for="tamaño">Foto</label>
+				<input id="foto" type="file" name="foto" class="form-control" accept="image/png, .jpeg, .jpg, image/gif">
+			</div>	
+			<div class="col-sm-6">
+				<label class="form-label" for="descripcion">Descripción</label>
+				<input id="descripcion" type="text" name="descripcion" class="form-control">
+			</div>	
+			<div class="col-sm-6">
+				<!--<label class="form-label" for="activo">Activo</label>
+				<input id="activo" type="text" name="activo" class="form-control">-->
+				<select class="form-select" aria-label= "Tipo de producto:">
+					<option selected>Activo</option>
+					<option value="1">Activo</option>
+					<option value="2">Inactivo</option>					
+				</select>				
+			</div>	
+			<div class="col-sm-6">
+				<!--<label class="form-label" for="luz">Luz</label>
+				<input id="luz" type="text" name="luz" class="form-control">-->
+				<select class="form-select" aria-label= "Tipo de producto:">
+					<option selected>Tamaño</option>
+					<option value="1">Poca</option>
+					<option value="2">Media</option>
+					<option value="3">Mucha</option>
+				</select>				
+			</div>	
+			<div class="col-sm-6">
+				<!--<label class="form-label" for="ubicacion">Ubicacion</label>
+				<input id="ubicacion" type="text" name="ubicacion" class="form-control">-->
+				<select class="form-select" aria-label= "Tipo de producto:">
+					<option selected>Ubicacion</option>
+					<option value="1">Interior</option>
+					<option value="2">Exterior</option>					
+				</select>				
+			</div>	
+			<div class="col-sm-12 pull right">
+				<button class="btn btn-success" type="submit" style="float:right;">Next
+			</div>					
+			<hr>			
+		</div>
+	</form>		
+</body>
+</html>
