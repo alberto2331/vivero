@@ -7,13 +7,22 @@ import javax.persistence.Entity;
 public class Maceta extends Producto{
     
     private String color;
+    private String material;
 
     public Maceta() {
     }
 
-    public Maceta(String color, String id, String tipo, String nombre, Double precio, Integer stock, String tamanio, Foto foto, String descripcion, Boolean activo) {
+    public Maceta(String color, String material, String id, String tipo, String nombre, Double precio, Integer stock, String tamanio, Foto foto, String descripcion, Boolean activo) {
         super(id, tipo, nombre, precio, stock, tamanio, foto, descripcion, activo);
         this.color = color;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
     }
 
     public String getColor() {
