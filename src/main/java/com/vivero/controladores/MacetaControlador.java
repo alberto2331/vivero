@@ -18,7 +18,7 @@ public class MacetaControlador {
     @Autowired
     private MacetaServicio macetaServicio;
 
-    @GetMapping("/formMaceta")
+    @GetMapping("/maceta")
     public String registro(String color, String material, String nombre, Double precio, Integer stock,
                            String tamanio, MultipartFile archivo, String descripcion) throws ErrorServicio {
         return "maceta-creacion.html";
@@ -30,10 +30,16 @@ public class MacetaControlador {
     }
 
     @PostMapping("/guardar")
-    public String guardar(ModelMap modelo, @RequestParam String color, @RequestParam String material, @RequestParam
-                          String nombre,@RequestParam Double precio, @RequestParam Integer stock,@RequestParam String
-                          tamanio, @RequestParam MultipartFile archivo, @RequestParam String descripcion) {
-
+    public String guardar(ModelMap modelo, 
+    		@RequestParam String nombre,
+    		@RequestParam Double precio,
+    		@RequestParam Integer stock,
+    		@RequestParam String tamanio,
+    		@RequestParam MultipartFile archivo,    		
+    		@RequestParam String descripcion,
+    		@RequestParam String color,
+    		@RequestParam String material 
+    		) {
         try {
             macetaServicio.cargarMaceta(color, material, nombre, precio, stock, tamanio, archivo, descripcion);
             return "index";

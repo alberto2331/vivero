@@ -15,6 +15,7 @@ public class Maceta extends Producto{
     public Maceta(String color, String material, String id, String tipo, String nombre, Double precio, Integer stock, String tamanio, Foto foto, String descripcion, Boolean activo) {
         super(id, tipo, nombre, precio, stock, tamanio, foto, descripcion, activo);
         this.color = color;
+        this.color = material;
     }
 
     public String getMaterial() {
@@ -31,7 +32,5 @@ public class Maceta extends Producto{
 
     public void setColor(String color) {
         this.color = color;
-    }
-    
-    
+    }    
 }
