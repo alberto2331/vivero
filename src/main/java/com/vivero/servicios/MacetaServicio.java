@@ -20,7 +20,7 @@ public class MacetaServicio {
 
     @Transactional
     public void cargarMaceta(String color, String material, String nombre, Double precio, Integer stock, String tamanio, MultipartFile archivo, String descripcion) throws ErrorServicio {
-        validar(color, nombre, precio, stock, tamanio, archivo, descripcion);
+        validar(color,material, nombre, precio, stock, tamanio, archivo, descripcion);
         
         Maceta maceta = new Maceta();
         Foto foto = fotoServicio.guardarFoto(archivo);
@@ -38,15 +38,18 @@ public class MacetaServicio {
         macetaRepositorio.save(maceta);
     }
 
-    private void validar(String color, String nombre, Double precio, Integer stock, String tamanio, MultipartFile archivo, String descripcion) throws ErrorServicio {
+    private void validar(String color, String material,String nombre, Double precio, Integer stock, String tamanio, MultipartFile archivo, String descripcion) throws ErrorServicio {
 
-        if (color == null || color.isEmpty()) {
+        if (color == null || color.equals("")) {
             throw new ErrorServicio("El campo color no puede quedar vacío");
+        }
+        if (material == null || material.isEmpty()) {
+            throw new ErrorServicio("El campo material no puede quedar vacío");
         }
         if (nombre == null || nombre.isEmpty()) {
             throw new ErrorServicio("El nombre no puede quedar vacío");
         }
-        if (precio == null || precio.isNaN()) {
+        if (precio == null || precio<0) {
             throw new ErrorServicio("El precio debe ser igual o mayor a cero");
         }
         if (stock == null || stock.intValue() <= 0) {
