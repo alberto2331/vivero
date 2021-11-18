@@ -8,6 +8,7 @@ import com.vivero.entidades.Planta;
 //import com.vivero.enumeraciones.Ubicacion;
 //import com.vivero.errores.ErrorServicio;
 import com.vivero.repositorios.PlantaRepositorio;
+import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class PlantaServicio {
     private FotoServicio fotoServicio;
 
     @Transactional
-    public void cargarPlanta(String luz, String ubicacion, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile archivo) throws Exception {
+    public void cargarPlanta(String luz, String ubicacion, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile archivo, List<MultipartFile> galeria) throws Exception {
         /*Comentarios:
           1) Saqué el "id" de los datos que recibe este metodo ya que el mismo es generado automaticamente por JPA
           2) Saqué el "tipo" de los datos que recibe este metodo ya que si estamos cargando una planta, ese atribut
@@ -56,7 +57,8 @@ public class PlantaServicio {
 		}    	
     	  Planta planta = new Planta();                          
     	  Foto foto = fotoServicio.guardarFoto(archivo);          
-    	  planta.setFoto(foto);                  
+    	  planta.setFoto(foto);
+          planta.setGaleria(galeria);
         
           planta.setActivo(Boolean.TRUE);
           planta.setDescripcion(descripcion);

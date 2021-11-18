@@ -1,6 +1,7 @@
 package com.vivero.entidades;
 
 //import com.vivero.enumeraciones.Tamanio;
+import java.util.List;
 import javax.persistence.Entity;
 //import javax.persistence.EnumType;
 //import javax.persistence.Enumerated;
@@ -10,6 +11,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -26,13 +28,14 @@ public class Producto {
     private String tamanio;
     @OneToOne
     private Foto foto;
+    private List<MultipartFile> galeria;
     private String descripcion;
     private Boolean activo;
 
     public Producto() {
     }
 
-    public Producto(String id, String tipo, String nombre, Double precio, Integer stock, String tamanio, Foto foto, String descripcion, Boolean activo) {
+    public Producto(String id, String tipo, String nombre, Double precio, Integer stock, String tamanio, Foto foto, List<MultipartFile> galeria, String descripcion, Boolean activo) {
         this.id = id;
         this.tipo = tipo;
         this.nombre = nombre;
@@ -40,6 +43,7 @@ public class Producto {
         this.stock = stock;
         this.tamanio = tamanio;
         this.foto = foto;
+        this.galeria = galeria;
         this.descripcion = descripcion;
         this.activo = activo;
     }
@@ -100,6 +104,14 @@ public class Producto {
         this.foto = foto;
     }
 
+    public List<MultipartFile> getGaleria() {
+        return galeria;
+    }
+
+    public void setGaleria(List<MultipartFile> galeria) {
+        this.galeria = galeria;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -116,5 +128,4 @@ public class Producto {
         this.activo = activo;
     }
 
-    
 }

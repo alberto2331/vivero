@@ -6,6 +6,7 @@ package com.vivero.controladores;
 //import com.vivero.enumeraciones.Ubicacion;
 //import com.vivero.repositorios.PlantaRepositorio;
 import com.vivero.servicios.PlantaServicio;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,10 +42,12 @@ public class PlantaControlador {
 			@RequestParam String descripcion,
 			@RequestParam String luz,
 			@RequestParam String ubicacion,
-			MultipartFile archivo,
+			MultipartFile portada,
+                        List<MultipartFile> galeria,
 			Model model
 			){			
-		System.out.println(nombre);
+		System.out.println(galeria.toString());
+//                System.out.println(galeria.);
 		/*Consideraciones:
 		 * Si estoy cargando una planta entonces el "tipo" de producto no se lo debo preguntar al usuario
 		 * Si estoy creando un producto se supone que es uno activo
@@ -54,7 +57,7 @@ public class PlantaControlador {
 		 *	 	@RequestParam Ubicacion ubicacion,
 		*/
 		try {
-			plantaServicio.cargarPlanta(luz, ubicacion, nombre, precio, stock, tamanio, descripcion, archivo);
+			plantaServicio.cargarPlanta(luz, ubicacion, nombre, precio, stock, tamanio, descripcion, portada, galeria);
 			return "index";
 		}catch (Exception e) {
 			model.addAttribute("error", e.getMessage());						
