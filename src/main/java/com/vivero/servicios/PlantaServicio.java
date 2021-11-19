@@ -24,8 +24,9 @@ public class PlantaServicio {
     private FotoServicio fotoServicio;
 
     @Transactional
-    public void cargarPlanta(String luz, String ubicacion, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile archivo, List<MultipartFile> galeria) throws Exception {
-        /*Comentarios:
+    public void cargarPlanta(String luz, String ubicacion, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile archivo) throws Exception {
+      // , List<MultipartFile> galeria 
+    	/*Comentarios:
           1) Saqué el "id" de los datos que recibe este metodo ya que el mismo es generado automaticamente por JPA
           2) Saqué el "tipo" de los datos que recibe este metodo ya que si estamos cargando una planta, ese atribut
           	 debe ser si o si "planta"
@@ -58,7 +59,7 @@ public class PlantaServicio {
     	  Planta planta = new Planta();                          
     	  Foto foto = fotoServicio.guardarFoto(archivo);          
     	  planta.setFoto(foto);
-          planta.setGaleria(galeria);
+          //planta.setGaleria(galeria);
         
           planta.setActivo(Boolean.TRUE);
           planta.setDescripcion(descripcion);

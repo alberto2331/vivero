@@ -43,10 +43,10 @@ public class PlantaControlador {
 			@RequestParam String luz,
 			@RequestParam String ubicacion,
 			MultipartFile portada,
-                        List<MultipartFile> galeria,
+            //List<MultipartFile> galeria,
 			Model model
 			){			
-		System.out.println(galeria.toString());
+		//System.out.println(galeria.toString());
 //                System.out.println(galeria.);
 		/*Consideraciones:
 		 * Si estoy cargando una planta entonces el "tipo" de producto no se lo debo preguntar al usuario
@@ -57,7 +57,8 @@ public class PlantaControlador {
 		 *	 	@RequestParam Ubicacion ubicacion,
 		*/
 		try {
-			plantaServicio.cargarPlanta(luz, ubicacion, nombre, precio, stock, tamanio, descripcion, portada, galeria);
+			plantaServicio.cargarPlanta(luz, ubicacion, nombre, precio, stock, tamanio, descripcion, portada );
+			//galeria
 			return "index";
 		}catch (Exception e) {
 			model.addAttribute("error", e.getMessage());						
