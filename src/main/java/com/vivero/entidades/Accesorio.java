@@ -13,8 +13,8 @@ public class Accesorio extends Producto{
 	public Accesorio() {
     }
 
-    public Accesorio(String categoria, String id, String tipo, String nombre, Double precio, Integer stock, String tamanio, Foto foto, List<MultipartFile> galeria, String descripcion, Boolean activo) {
-        super(id, tipo, nombre, precio, stock, tamanio, foto, galeria, descripcion, activo);
+    public Accesorio(String categoria, String id, String codigo, String tipo, String nombre, Double precio, Integer stock, String tamanio, Portada portada, String descripcion, Boolean activo) {
+        super(id, codigo, tipo, nombre, precio, stock, tamanio, portada, descripcion, activo);
         this.categoria = categoria;
     }
     

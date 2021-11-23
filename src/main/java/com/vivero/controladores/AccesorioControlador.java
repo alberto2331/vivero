@@ -20,8 +20,7 @@ public class AccesorioControlador {
     private AccesorioServicio accesorioServicio;
 	
     @GetMapping("/accesorio")
-    public String registro(String categoria, String nombre, Double precio, Integer stock,
-                           String tamanio, MultipartFile archivo, String descripcion) throws ErrorServicio {
+    public String registro() {
         return "accesorio-creacion.html";
     }
 
@@ -30,13 +29,14 @@ public class AccesorioControlador {
     		@RequestParam String nombre,
     		@RequestParam Double precio,
     		@RequestParam Integer stock,
-    		@RequestParam String tamanio,
-    		@RequestParam MultipartFile archivo,    		
+    		@RequestParam String tamanio,    		
     		@RequestParam String descripcion,
-    		@RequestParam String categoria
+    		@RequestParam String categoria,
+    		@RequestParam MultipartFile portada,
+    		@RequestParam MultipartFile[] imagenes    		
     		){    	
     		try {
-				accesorioServicio.cargarAccesorio(nombre, precio, stock, tamanio, descripcion, archivo,categoria);
+				accesorioServicio.cargarAccesorio(nombre, precio, stock, tamanio, descripcion,categoria, portada,imagenes);
 				return "index";
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

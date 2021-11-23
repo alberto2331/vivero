@@ -6,14 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class Foto implements Serializable {
+public class Portada implements Serializable {
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -23,28 +20,16 @@ public class Foto implements Serializable {
     @Lob
     @Basic(fetch=FetchType.LAZY)
     private byte[] contenido;
-    @JoinColumn(referencedColumnName="id")
-    @ManyToOne(optional=false)
-    private Producto producto;
-    
 
-	public Foto() {
+    public Portada() {
     }
 
-    public Foto(String id, String nombre, String mime, byte[] contenido) {
+    public Portada(String id, String nombre, String mime, byte[] contenido) {
         this.id = id;
         this.nombre = nombre;
         this.mime = mime;
         this.contenido = contenido;
     }
-
-    public Producto getProducto() {
-		return producto;
-	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
-	}
 
     public String getId() {
         return id;

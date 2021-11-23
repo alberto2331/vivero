@@ -2,6 +2,7 @@ package com.vivero.servicios;
 
 import com.vivero.entidades.Foto;
 import com.vivero.entidades.Planta;
+import com.vivero.entidades.Portada;
 //import com.vivero.entidades.Producto;
 //import com.vivero.enumeraciones.Luz;
 //import com.vivero.enumeraciones.Tamanio;
@@ -21,27 +22,26 @@ public class PlantaServicio {
     private PlantaRepositorio plantaRepositorio;
     
     @Autowired
+    private PortadaServicio portadaServicio;
+    
+    @Autowired
     private FotoServicio fotoServicio;
 
     @Transactional
-    public void cargarPlanta(String luz, String ubicacion, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile archivo) throws Exception {
-      // , List<MultipartFile> galeria 
-    	/*Comentarios:
-          1) Saqué el "id" de los datos que recibe este metodo ya que el mismo es generado automaticamente por JPA
-          2) Saqué el "tipo" de los datos que recibe este metodo ya que si estamos cargando una planta, ese atribut
-          	 debe ser si o si "planta"
-          3) Saqué "activo", se supone que es un producto activo porqeu se está creando
-         */
+    public void cargarPlanta(String luz, String ubicacion, String estilo, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada ,MultipartFile[] imagenes) throws Exception {
     	if(tamanio.length()==0){
 			throw new Exception("Debe elegir entre: Chico, Mediano o Grande");
 		}
     	if(luz.length()==0){
 			throw new Exception("Debe elegir entre: Poca, Media o Mucha");
 		}
+    	if(estilo.length()==0){
+			throw new Exception("Debe elegir entre: Colgante o de tronco");
+		}
     	if(ubicacion.length()==0){
 			throw new Exception("Debe elegir entre: Interior o Exterior");
 		}
-    	if(archivo==null | archivo.isEmpty()) {
+    	if(portada==null | portada.isEmpty()) {
 			throw new Exception("El archivo imagen está vacío. Favor de cargar una imagen");
 		}
     	if(descripcion==null | descripcion.isEmpty() | descripcion.length()==0) {
@@ -56,11 +56,13 @@ public class PlantaServicio {
     	if(stock==null | stock<0){
 			throw new Exception("El stock ser igual o mayor a cero");
 		}    	
-    	  Planta planta = new Planta();                          
-    	  Foto foto = fotoServicio.guardarFoto(archivo);          
-    	  planta.setFoto(foto);
-          //planta.setGaleria(galeria);
+    	  Planta planta = new Planta();                                      
         
+    	  Portada foto = portadaServicio.guardarFoto(portada);
+    	  planta.setPortada(foto);
+    	  
+    	  //Generar codigo de producto:
+    	  generadorCodigo(planta);
           planta.setActivo(Boolean.TRUE);
           planta.setDescripcion(descripcion);
           planta.setLuz(luz);
@@ -69,13 +71,17 @@ public class PlantaServicio {
           planta.setStock(stock);
           planta.setTamanio(tamanio);
           planta.setTipo("planta");
+          planta.setEstilo(estilo);
           planta.setUbicacion(ubicacion);
           plantaRepositorio.save(planta);
+          fotoServicio.guardarFoto(imagenes, planta);                    
     }
     
-    /*private void validarDatos(Luz luz, Ubicacion ubicacion, String id, String tipo, String nombre, Integer precio, Integer stock, Tamanio tamanio, Foto foto, String descripcion, Boolean activo) throws ErrorServicio {
-        if (descripcion == null || descripcion.isEmpty()) {
-            throw new ErrorServicio("La descripcion no puede ser nula");
-        }
-    }*/
+    public void generadorCodigo(Planta planta) {
+    	Integer numero = (int)(plantaRepositorio.count()+1);
+    	Integer numero1= 1000 + numero;
+    	String codigo = String.valueOf(numero1);
+    	String codigo1 = codigo.substring(1);  
+    	planta.setCodigo("P-"+codigo1);    	
+    }
 }

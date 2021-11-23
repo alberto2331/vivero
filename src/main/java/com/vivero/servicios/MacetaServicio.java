@@ -2,6 +2,7 @@ package com.vivero.servicios;
 
 import com.vivero.entidades.Foto;
 import com.vivero.entidades.Maceta;
+import com.vivero.entidades.Portada;
 import com.vivero.errores.ErrorServicio;
 import com.vivero.repositorios.MacetaRepositorio;
 import javax.transaction.Transactional;
@@ -16,16 +17,20 @@ public class MacetaServicio {
     private MacetaRepositorio macetaRepositorio;
 
     @Autowired
+    private PortadaServicio portadaServicio;
+    
+    @Autowired
     private FotoServicio fotoServicio;
 
     @Transactional
-    public void cargarMaceta(String color, String material, String nombre, Double precio, Integer stock, String tamanio, MultipartFile archivo, String descripcion) throws ErrorServicio {
-        validar(color,material, nombre, precio, stock, tamanio, archivo, descripcion);
+    public void cargarMaceta(String color, String material, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada, MultipartFile[] imagenes) throws ErrorServicio {
+        validar(color,material, nombre, precio, stock, tamanio, descripcion, portada, imagenes);
         
         Maceta maceta = new Maceta();
-        Foto foto = fotoServicio.guardarFoto(archivo);
-        maceta.setFoto(foto);
 
+        Portada foto = portadaServicio.guardarFoto(portada);  	  
+        maceta.setPortada(foto);
+  	  
         maceta.setActivo(Boolean.TRUE);
         maceta.setColor(color);
         maceta.setMaterial(material);
@@ -36,9 +41,11 @@ public class MacetaServicio {
         maceta.setStock(stock);
         maceta.setTipo("maceta");
         macetaRepositorio.save(maceta);
+        fotoServicio.guardarFoto(imagenes, maceta);
+        
     }
 
-    private void validar(String color, String material,String nombre, Double precio, Integer stock, String tamanio, MultipartFile archivo, String descripcion) throws ErrorServicio {
+    private void validar(String color, String material,String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada,MultipartFile[] imagenes) throws ErrorServicio {
 
         if (color == null || color.equals("")) {
             throw new ErrorServicio("El campo color no puede quedar vacío");
@@ -58,12 +65,11 @@ public class MacetaServicio {
         if (tamanio == null || tamanio.isEmpty()) {
             throw new ErrorServicio("Debe elegir entre: Chico, Mediano o Grande");
         }
-        if (archivo == null || archivo.isEmpty()) {
-            throw new ErrorServicio("Falta elegir una imagen");
-        }
         if (descripcion == null || descripcion.isEmpty()) {
             throw new ErrorServicio("La descripción no puede quedar vacía");
         }
-
+        if(portada==null | portada.isEmpty()) {
+			throw new ErrorServicio("El archivo imagen está vacío. Favor de cargar una imagen");
+		}
     }
 }

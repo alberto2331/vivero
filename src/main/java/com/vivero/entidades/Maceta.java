@@ -14,8 +14,8 @@ public class Maceta extends Producto{
     public Maceta() {
     }
 
-    public Maceta(String color, String material, String id, String tipo, String nombre, Double precio, Integer stock, String tamanio, Foto foto, List<MultipartFile> galeria, String descripcion, Boolean activo) {
-        super(id, tipo, nombre, precio, stock, tamanio, foto, galeria, descripcion, activo);
+    public Maceta(String color, String material, String id, String codigo, String tipo, String nombre, Double precio, Integer stock, String tamanio,Portada portada, String descripcion, Boolean activo) {
+        super(id, codigo, tipo, nombre, precio, stock, tamanio, portada, descripcion, activo);
         this.color = color;
         this.material = material;
     }

@@ -1,6 +1,7 @@
 package com.vivero.servicios;
 
 import com.vivero.entidades.Foto;
+import com.vivero.entidades.Producto;
 import com.vivero.errores.ErrorServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,34 +17,23 @@ public class FotoServicio {
     private FotoRepositorio fotoRepositorio;
     
     @Transactional
-    public Foto guardarFoto(MultipartFile archivo) throws ErrorServicio{
-        if (archivo != null) {
+    public Foto guardarFoto(MultipartFile[] archivos, Producto producto) throws ErrorServicio{
+        if (archivos != null) {        	
             try {
-                Foto foto = new Foto();
-                foto.setMime(archivo.getContentType());
-                foto.setNombre(archivo.getName());
-                foto.setContenido(archivo.getBytes());
-                return fotoRepositorio.save(foto);
+                for(MultipartFile archivo : archivos) {
+                	//ok
+                	Foto foto = new Foto();
+                    foto.setMime(archivo.getContentType());
+                    foto.setNombre(archivo.getName());
+                    foto.setContenido(archivo.getBytes());
+                    foto.setProducto(producto);                    
+                    fotoRepositorio.save(foto);	
+                }
+            	
             } catch(Exception e){
                 System.err.println(e.getMessage());
             }
         }
         return null;
-    }
-    
-//    @Transactional
-//    public Foto guardarGaleria(List<MultipartFile> galeria) throws ErrorServicio{
-//        if (galeria != null) {
-//            try {
-//                List<MultipartFile> galeria = new List<MultipartFile>() {};
-//                galeria.set(galeria.iterator());
-//                galeria.setNombre(galeria.getName());
-//                galeria.setContenido(galeria.listIterator());
-//                return fotoRepositorio.save(galeria);
-//            } catch(Exception e){
-//                System.err.println(e.getMessage());
-//            }
-//        }
-//        return null;
-//    }
+    }   
 }

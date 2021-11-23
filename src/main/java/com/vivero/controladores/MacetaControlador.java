@@ -19,14 +19,8 @@ public class MacetaControlador {
     private MacetaServicio macetaServicio;
 
     @GetMapping("/maceta")
-    public String registro(String color, String material, String nombre, Double precio, Integer stock,
-                           String tamanio, MultipartFile archivo, String descripcion) throws ErrorServicio {
-        return "maceta-creacion.html";
-        /*Este GET tiene por finalidad navegar al form que permite realizar la carga de una planta
-        TO DO:
-	1) Acordar con la gente del front el nombre de la ruta desde el index al form que permite cargar macetas
-	Por el momento la ruta es: "/maceta/formMaceta" 
-         */
+    public String registro() {
+        return "maceta-creacion.html";        
     }
 
     @PostMapping("/guardar")
@@ -34,14 +28,15 @@ public class MacetaControlador {
     		@RequestParam String nombre,
     		@RequestParam Double precio,
     		@RequestParam Integer stock,
-    		@RequestParam String tamanio,
-    		@RequestParam MultipartFile archivo,    		
+    		@RequestParam String tamanio,    		
     		@RequestParam String descripcion,
     		@RequestParam String color,
-    		@RequestParam String material 
+    		@RequestParam String material,
+    		@RequestParam MultipartFile portada,
+    		@RequestParam MultipartFile[] imagenes
     		) {
         try {
-            macetaServicio.cargarMaceta(color, material, nombre, precio, stock, tamanio, archivo, descripcion);
+            macetaServicio.cargarMaceta(color, material, nombre, precio, stock, tamanio, descripcion, portada, imagenes);
             return "index";
         } catch (ErrorServicio e) {
             modelo.put("error", e.getMessage());

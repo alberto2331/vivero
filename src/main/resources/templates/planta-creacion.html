@@ -47,57 +47,7 @@
                         <option value="grande">Grande</option>
                     </select>				
                 </div>
-                <!--<div class="col-sm-6">
-                        <label class="form-label" for="archivo">Foto</label>
-                        <input id="archivo" type="file" name="archivo" class="form-control" accept="image/png, .jpeg, .jpg, image/gif">
-                </div>-->
-                <!--<div class="form-group">
-                    <div class="col-sm-3">
-                        <label class="control-label small" for="file_img">Portada (jpg/png):</label>
-                        <input type="file" accept="image/*" onchange="loadFile(event)" name="portada">
-                        <img id="output" style="width: 200px; height: 200px; margin-top: 10px">
-                        <script>
-                            var loadFile = function (event) {
-                            var output = document.getElementById('output');
-                            output.src = URL.createObjectURL(event.target.files[0]);
-                            output.onload = function () {
-                            URL.revokeObjectURL(output.src) // free memory
-                            }
-                            };
-                        </script>
-                    </div> <!-- form-group // -->
-                    <div class="form-group">
-                        <div class="col-sm-3">
-                            <label class="control-label small" for="file_img">Imagenes</label>
-                            <input type="file" id="gallery-photo-add" accept="image/*" name="galeria" multiple="multiple">
-                            <div class="gallery d-flex mt-1 " style="max-width: 200px;"></div>
-                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                            <script>
-                                $(function () {
-                                // Multiple images preview in browser
-                                var imagesPreview = function (input, placeToInsertImagePreview) {
-                                $(placeToInsertImagePreview).empty();
-                                if (input.files) {
-                                var filesAmount = input.files.length;
-                                for (i = 0; i < filesAmount; i++) {
-                                var reader = new FileReader();
-                                reader.onload = function (event) {
-                                var img = $($.parseHTML('<img>')).attr('src', event.target.result);
-                                img.attr('width', "200px");
-                                img.addClass("mx-2");
-                                img.appendTo(placeToInsertImagePreview);
-                                }
-                                reader.readAsDataURL(input.files[i]);
-                                }
-                                }
-                                };
-                                $('#gallery-photo-add').on('change', function () {
-                                imagesPreview(this, 'div.gallery');
-                                });
-                                });
-                            </script>
-                        </div>
-                    </div> <!-- form-group // -->
+              
                     <div class="col-sm-6">
                         <label class="form-label" for="descripcion">Descripción</label>
                         <input id="descripcion" type="text" name="descripcion" class="form-control" value="">
@@ -113,19 +63,64 @@
                         </select>				
                     </div>	
                     <div class="col-sm-6">
-                        <!--<label class="form-label" for="ubicacion">Ubicacion</label>
-                        <input id="ubicacion" type="text" name="ubicacion" class="form-control">-->
                         <select class="form-control" type="text" id="ubicacion" name="ubicacion">
                             <option selected value="">Ubicacion</option>
                             <option value="interior">Interior</option>
                             <option value="exterior">Exterior</option>					
                         </select>				
                     </div>	
+                    <div class="col-sm-6">
+                        <select class="form-control" type="text" id="estilo" name="estilo">
+                            <option selected value="">Estilo</option>
+                            <option value="colgante">Colgante</option>
+                            <option value="tronco">Tronco</option>					
+                        </select>				
+                    </div>	
+<!--Portada-->
+			<div class="col-sm-6">
+				<label class="form-label" for="portada">Foto</label>
+				<input id="archivo" type="file" name="portada" class="form-control" accept="image/png, .jpeg, .jpg, image/gif">
+			</div>	
+<!--Fin Portada-->                    
+<!--Pruebas de imagenes-->
+                                  <div class="form-group">
+                <div class="col-sm-3">
+                  <label class="control-label small" for="file_img">Imagenes</label>
+                  <input type="file" id="gallery-photo-add" accept="image/png, .jpeg, .jpg, image/gif" name="imagenes" multiple>
+                  <div class="gallery d-flex mt-1 " style="max-width: 200px;"></div>
+                  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+                  <script>
+                    $(function () {
+                      // Multiple images preview in browser
+                      var imagesPreview = function (input, placeToInsertImagePreview) {
+                        $(placeToInsertImagePreview).empty();
+                        if (input.files) {
+                          var filesAmount = input.files.length;
+                          for (i = 0; i < filesAmount; i++) {
+                            var reader = new FileReader();
+                            reader.onload = function (event) {
+                              var img = $($.parseHTML('<img>')).attr('src', event.target.result);
+                              img.attr('width', "200px");
+                              img.addClass("mx-2");
+                              img.appendTo(placeToInsertImagePreview);
+                            }
+                            reader.readAsDataURL(input.files[i]);
+                          }
+                        }
+                      };
+                      $('#gallery-photo-add').on('change', function () {
+                        imagesPreview(this, 'div.gallery');
+                      });
+                    });
+                  </script>
+                </div>
+              </div> <!-- form-group // -->
+<!--Fin Pruebas de imagenes-->
                     <div class="col-sm-12 pull right">
                         <button class="btn btn-success" type="submit" style="float:right;">Next
                     </div>					
                     <hr>			
-                </div>-->
+                </div>
         </form>		
     </body>
 </html>

@@ -20,30 +20,29 @@ public class Producto {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    private String codigo; //Codigo de identificacion amigable con el usuario
     private String tipo;
     private String nombre;
     private Double precio;
     private Integer stock;
-    //@Enumerated(EnumType.STRING)
     private String tamanio;
     @OneToOne
-    private Foto foto;
-    //private List<MultipartFile> galeria;
+    private Portada portada;
     private String descripcion;
-    private Boolean activo;
+    private Boolean activo;    
 
     public Producto() {
     }
 
-    public Producto(String id, String tipo, String nombre, Double precio, Integer stock, String tamanio, Foto foto, List<MultipartFile> galeria, String descripcion, Boolean activo) {
+    public Producto(String id, String codigo, String tipo, String nombre, Double precio, Integer stock, String tamanio,Portada portada, String descripcion, Boolean activo) {
         this.id = id;
+        this.codigo = codigo;
         this.tipo = tipo;
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
         this.tamanio = tamanio;
-        this.foto = foto;
-        //this.galeria = galeria;
+        this.portada = portada;
         this.descripcion = descripcion;
         this.activo = activo;
     }
@@ -56,7 +55,23 @@ public class Producto {
         this.id = id;
     }
 
-    public String getTipo() {
+    public Portada getPortada() {
+		return portada;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public void setPortada(Portada portada) {
+		this.portada = portada;
+	}
+
+	public String getTipo() {
         return tipo;
     }
 
@@ -95,22 +110,6 @@ public class Producto {
     public void setTamanio(String tamanio) {
         this.tamanio = tamanio;
     }
-
-    public Foto getFoto() {
-        return foto;
-    }
-
-    public void setFoto(Foto foto) {
-        this.foto = foto;
-    }
-
-    /*public List<MultipartFile> getGaleria() {
-        return galeria;
-    }
-
-    public void setGaleria(List<MultipartFile> galeria) {
-        this.galeria = galeria;
-    }*/
 
     public String getDescripcion() {
         return descripcion;
