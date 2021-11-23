@@ -23,14 +23,15 @@ public class MacetaServicio {
     private FotoServicio fotoServicio;
 
     @Transactional
-    public void cargarMaceta(String color, String material, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada, MultipartFile[] imagenes) throws ErrorServicio {
+    public void cargarMaceta( String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada ,MultipartFile[] imagenes, String color, String material) throws ErrorServicio {
         validar(color,material, nombre, precio, stock, tamanio, descripcion, portada, imagenes);
         
         Maceta maceta = new Maceta();
 
         Portada foto = portadaServicio.guardarFoto(portada);  	  
         maceta.setPortada(foto);
-  	  
+        
+  	generadorCodigo(maceta);
         maceta.setActivo(Boolean.TRUE);
         maceta.setColor(color);
         maceta.setMaterial(material);
@@ -71,5 +72,13 @@ public class MacetaServicio {
         if(portada==null | portada.isEmpty()) {
 			throw new ErrorServicio("El archivo imagen está vacío. Favor de cargar una imagen");
 		}
+    }
+    
+        public void generadorCodigo(Maceta maceta) {
+    	Integer numero = (int)(macetaRepositorio.count()+1);
+    	Integer numero1= 1000 + numero;
+    	String codigo = String.valueOf(numero1);
+    	String codigo1 = codigo.substring(1);  
+    	maceta.setCodigo("M-"+codigo1);    	
     }
 }

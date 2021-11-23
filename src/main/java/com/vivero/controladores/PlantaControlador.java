@@ -45,7 +45,7 @@ public class PlantaControlador {
 			plantaServicio.cargarPlanta(luz, ubicacion, estilo, nombre, precio, stock, tamanio, descripcion,portada,imagenes );
 			return "index";
 		}catch (Exception e) {
-			model.addAttribute("error", e.getMessage());						
+model.addAttribute("error", e.getMessage());						
 			return "planta-creacion";
 		}			
 	}

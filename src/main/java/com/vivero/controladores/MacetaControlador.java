@@ -36,11 +36,11 @@ public class MacetaControlador {
     		@RequestParam MultipartFile[] imagenes
     		) {
         try {
-            macetaServicio.cargarMaceta(color, material, nombre, precio, stock, tamanio, descripcion, portada, imagenes);
+            macetaServicio.cargarMaceta( nombre, precio, stock, tamanio, descripcion, portada, imagenes, color, material);
             return "index";
-        } catch (ErrorServicio e) {
-            modelo.put("error", e.getMessage());
-            return "maceta-creacion";
+        } catch (Exception e) {
+  modelo.addAttribute("error", e.getMessage());						
+			return "planta-creacion";
         }
     }
 }
