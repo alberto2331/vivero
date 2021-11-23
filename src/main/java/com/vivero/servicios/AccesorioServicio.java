@@ -25,7 +25,7 @@ public class AccesorioServicio {
     private FotoServicio fotoServicio;
 
 	@Transactional
-    public void cargarAccesorio(String nombre,  Double precio, Integer stock,  String tamanio, String descripcion , String categoria,MultipartFile portada, MultipartFile[] imagenes) throws Exception {
+    public void cargarAccesorio(String nombre, Double precio, Integer stock, String tamanio, String descripcion, String categoria, MultipartFile portada, MultipartFile[] imagenes) throws Exception {
 
 		if(nombre==null | nombre.isEmpty() | nombre.length()==0) {
 			throw new Exception("Falta el nombre de la planta creada");
@@ -58,6 +58,9 @@ public class AccesorioServicio {
     	  Accesorio accesorio = new Accesorio();                                                
 
     	  Portada foto = portadaServicio.guardarFoto(portada);
+          accesorio.setPortada(foto);
+          
+          generadorCodigo(accesorio);
     	  accesorio.setPortada(foto);
           accesorio.setActivo(Boolean.TRUE);
           accesorio.setDescripcion(descripcion);          
@@ -70,5 +73,12 @@ public class AccesorioServicio {
           accesorioRepositorio.save(accesorio);          
           fotoServicio.guardarFoto(imagenes, accesorio);
     }
-
+    
+    public void generadorCodigo(Accesorio accesorio) {
+    	Integer numero = (int)(accesorioRepositorio.count()+1);
+    	Integer numero1= 1000 + numero;
+    	String codigo = String.valueOf(numero1);
+    	String codigo1 = codigo.substring(1);  
+    	accesorio.setCodigo("A-"+codigo1);    	
+    }
 }

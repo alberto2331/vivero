@@ -15,35 +15,35 @@ import com.vivero.servicios.AccesorioServicio;
 @Controller
 @RequestMapping("/accesorio")
 public class AccesorioControlador {
-	
-	@Autowired
+
+    @Autowired
     private AccesorioServicio accesorioServicio;
-	
+
     @GetMapping("/accesorio")
     public String registro() {
         return "accesorio-creacion.html";
     }
 
     @PostMapping("/guardar")
-    public String guardar(ModelMap modelo, 
-    		@RequestParam String nombre,
-    		@RequestParam Double precio,
-    		@RequestParam Integer stock,
-    		@RequestParam String tamanio,    		
-    		@RequestParam String descripcion,
-    		@RequestParam String categoria,
-    		@RequestParam MultipartFile portada,
-    		@RequestParam MultipartFile[] imagenes    		
-    		){    	
-    		try {
-				accesorioServicio.cargarAccesorio(nombre, precio, stock, tamanio, descripcion,categoria, portada,imagenes);
-				return "index";
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				modelo.put("error", e.getMessage());
-	            return "accesorio-creacion";
-			}
-                           
+    public String guardar(ModelMap modelo,
+            @RequestParam String nombre,
+            @RequestParam Double precio,
+            @RequestParam Integer stock,
+            @RequestParam String tamanio,
+            @RequestParam String descripcion,
+            @RequestParam String categoria,
+            @RequestParam MultipartFile portada,
+            @RequestParam MultipartFile[] imagenes
+    ) {
+        try {
+            accesorioServicio.cargarAccesorio(nombre, precio, stock, tamanio, descripcion, categoria, portada, imagenes);
+            return "index";
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            modelo.put("error", e.getMessage());
+            return "accesorio-creacion";
+        }
+
     }
 
 }
