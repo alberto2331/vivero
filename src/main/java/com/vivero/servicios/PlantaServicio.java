@@ -3,6 +3,7 @@ package com.vivero.servicios;
 import com.vivero.entidades.Foto;
 import com.vivero.entidades.Planta;
 import com.vivero.entidades.Portada;
+import com.vivero.errores.ErrorServicio;
 //import com.vivero.entidades.Producto;
 //import com.vivero.enumeraciones.Luz;
 //import com.vivero.enumeraciones.Tamanio;
@@ -10,6 +11,7 @@ import com.vivero.entidades.Portada;
 //import com.vivero.errores.ErrorServicio;
 import com.vivero.repositorios.PlantaRepositorio;
 import java.util.List;
+import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,4 +86,15 @@ public class PlantaServicio {
     	String codigo1 = codigo.substring(1);  
     	planta.setCodigo("P-"+codigo1);    	
     }
+    
+    public Planta buscarPlanta(String id)throws ErrorServicio{
+        Optional<Planta> Resp= plantaRepositorio.findById(id);
+        if(Resp.isPresent()){
+            Planta planta = Resp.get();
+            return planta;
+        }else{
+            throw new ErrorServicio("Planta no encontrada");
+        }
+    }
+    
 }
