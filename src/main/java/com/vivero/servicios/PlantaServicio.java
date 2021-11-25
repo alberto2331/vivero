@@ -30,7 +30,7 @@ public class PlantaServicio {
     private FotoServicio fotoServicio;
 
     @Transactional
-    public void cargarPlanta(String luz, String ubicacion, String estilo, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada ,MultipartFile[] imagenes) throws Exception {
+    public void cargarPlanta(String luz, String ubicacion, String estilo, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada ,MultipartFile[] imagenes, Boolean destacado) throws Exception {
     	if(tamanio.length()==0){
 			throw new Exception("Debe elegir entre: Chico, Mediano o Grande");
 		}
@@ -56,8 +56,11 @@ public class PlantaServicio {
 			throw new Exception("El precio debe ser igual o mayor a cero");
 		}
     	if(stock==null | stock<0){
-			throw new Exception("El stock ser igual o mayor a cero");
+			throw new Exception("El stock ser igual o mayor a cero");  
 		}    	
+        if(destacado==null){
+			throw new Exception("Debe indicar sí o no");  
+		}    
     	  Planta planta = new Planta();                                      
         
     	  Portada foto = portadaServicio.guardarFoto(portada);
@@ -75,6 +78,7 @@ public class PlantaServicio {
           planta.setTipo("planta");
           planta.setEstilo(estilo);
           planta.setUbicacion(ubicacion);
+          planta.setDestacado(destacado);
           plantaRepositorio.save(planta);
           fotoServicio.guardarFoto(imagenes, planta);                    
     }

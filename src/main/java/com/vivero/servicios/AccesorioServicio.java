@@ -25,7 +25,7 @@ public class AccesorioServicio {
     private FotoServicio fotoServicio;
 
 	@Transactional
-    public void cargarAccesorio(String nombre, Double precio, Integer stock, String tamanio, String descripcion, String categoria, MultipartFile portada, MultipartFile[] imagenes) throws Exception {
+    public void cargarAccesorio(String nombre, Double precio, Integer stock, String tamanio, String descripcion, String categoria, MultipartFile portada, MultipartFile[] imagenes, Boolean destacado) throws Exception {
 
 		if(nombre==null | nombre.isEmpty() | nombre.length()==0) {
 			throw new Exception("Falta el nombre de la planta creada");
@@ -54,7 +54,10 @@ public class AccesorioServicio {
     	if(categoria==null | categoria.length()==0 | categoria.equals("0")){
 			throw new Exception("Debe seleccionar una categoría válida");
 		}    	
-    		
+        if(destacado==null){
+			throw new Exception("Debe indicar sí o no");  
+		}    
+        	
     	  Accesorio accesorio = new Accesorio();                                                
 
     	  Portada foto = portadaServicio.guardarFoto(portada);
@@ -69,7 +72,8 @@ public class AccesorioServicio {
           accesorio.setStock(stock);
           accesorio.setTamanio(tamanio);
           accesorio.setCategoria(categoria);
-          accesorio.setTipo("accesorio");          
+          accesorio.setTipo("accesorio");     
+          accesorio.setDestacado(destacado);
           accesorioRepositorio.save(accesorio);          
           fotoServicio.guardarFoto(imagenes, accesorio);
     }

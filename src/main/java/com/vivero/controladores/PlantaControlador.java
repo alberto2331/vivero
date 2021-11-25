@@ -39,10 +39,11 @@ public class PlantaControlador {
 			@RequestParam String estilo,
 			@RequestParam MultipartFile portada,
 			@RequestParam MultipartFile[] imagenes,
+                        @RequestParam Boolean destacado,
 			Model model
 			){					
 		try {			
-			plantaServicio.cargarPlanta(luz, ubicacion, estilo, nombre, precio, stock, tamanio, descripcion,portada,imagenes );
+			plantaServicio.cargarPlanta(luz, ubicacion, estilo, nombre, precio, stock, tamanio, descripcion,portada,imagenes, destacado);
 			return "index";
 		}catch (Exception e) {
 model.addAttribute("error", e.getMessage());						

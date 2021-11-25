@@ -23,8 +23,8 @@ public class MacetaServicio {
     private FotoServicio fotoServicio;
 
     @Transactional
-    public void cargarMaceta( String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada ,MultipartFile[] imagenes, String color, String material) throws ErrorServicio {
-        validar(color,material, nombre, precio, stock, tamanio, descripcion, portada, imagenes);
+    public void cargarMaceta( String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada ,MultipartFile[] imagenes, String color, String material, Boolean destacado) throws ErrorServicio {
+        validar(color,material, nombre, precio, stock, tamanio, descripcion, portada, imagenes, destacado);
         
         Maceta maceta = new Maceta();
 
@@ -41,12 +41,13 @@ public class MacetaServicio {
         maceta.setTamanio(tamanio);
         maceta.setStock(stock);
         maceta.setTipo("maceta");
+        maceta.setDestacado(destacado);
         macetaRepositorio.save(maceta);
         fotoServicio.guardarFoto(imagenes, maceta);
         
     }
 
-    private void validar(String color, String material,String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada,MultipartFile[] imagenes) throws ErrorServicio {
+    private void validar(String color, String material,String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada,MultipartFile[] imagenes, Boolean destacado) throws ErrorServicio {
 
         if (color == null || color.equals("")) {
             throw new ErrorServicio("El campo color no puede quedar vacío");
@@ -72,6 +73,9 @@ public class MacetaServicio {
         if(portada==null | portada.isEmpty()) {
 			throw new ErrorServicio("El archivo imagen está vacío. Favor de cargar una imagen");
 		}
+        if(destacado==null){
+			throw new ErrorServicio("Debe indicar sí o no");  
+		}   
     }
     
         public void generadorCodigo(Maceta maceta) {

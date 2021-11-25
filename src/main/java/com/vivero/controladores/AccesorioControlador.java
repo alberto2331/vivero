@@ -33,10 +33,11 @@ public class AccesorioControlador {
             @RequestParam String descripcion,
             @RequestParam String categoria,
             @RequestParam MultipartFile portada,
-            @RequestParam MultipartFile[] imagenes
+            @RequestParam MultipartFile[] imagenes,
+            @RequestParam Boolean destacado
     ) {
         try {
-            accesorioServicio.cargarAccesorio(nombre, precio, stock, tamanio, descripcion, categoria, portada, imagenes);
+            accesorioServicio.cargarAccesorio(nombre, precio, stock, tamanio, descripcion, categoria, portada, imagenes, destacado);
             return "index";
         } catch (Exception e) {
             // TODO Auto-generated catch block

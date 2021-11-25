@@ -29,12 +29,13 @@ public class Producto {
     @OneToOne
     private Portada portada;
     private String descripcion;
-    private Boolean activo;    
+    private Boolean activo;
+    private Boolean destacado;
 
     public Producto() {
     }
 
-    public Producto(String id, String codigo, String tipo, String nombre, Double precio, Integer stock, String tamanio,Portada portada, String descripcion, Boolean activo) {
+    public Producto(String id, String codigo, String tipo, String nombre, Double precio, Integer stock, String tamanio,Portada portada, String descripcion, Boolean activo, Boolean destacado) {
         this.id = id;
         this.codigo = codigo;
         this.tipo = tipo;
@@ -45,6 +46,7 @@ public class Producto {
         this.portada = portada;
         this.descripcion = descripcion;
         this.activo = activo;
+        this.destacado = destacado;
     }
 
     public String getId() {
@@ -62,6 +64,10 @@ public class Producto {
 	public String getCodigo() {
 		return codigo;
 	}
+
+    public Boolean getDestacado() {
+        return destacado;
+    } 
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
@@ -101,6 +107,10 @@ public class Producto {
 
     public void setStock(Integer stock) {
         this.stock = stock;
+    }
+    
+     public void setDestacado(Boolean destacado) {
+        this.destacado = destacado;
     }
 
     public String getTamanio() {

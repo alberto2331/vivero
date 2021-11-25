@@ -1,10 +1,10 @@
 package com.vivero.controladores;
 
-import com.sun.istack.internal.logging.Logger;
+//import com.sun.istack.internal.logging.Logger;
 import com.vivero.entidades.Planta;
 import com.vivero.errores.ErrorServicio;
 import com.vivero.servicios.PlantaServicio;
-import java.util.logging.Level;
+//import java.util.logging.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import sun.util.logging.PlatformLogger;
+//import sun.util.logging.PlatformLogger;
 
 @Controller
 @RequestMapping("/foto")
