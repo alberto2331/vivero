@@ -54,7 +54,7 @@
             <!-------------------------------DESCRIPCIÓN--------------------------------------------------------->
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción:</label>
-                <textarea class="form-control" id="descripcion" rows="3"></textarea>
+                <textarea class="form-control" name="descripcion" id="descripcion" rows="3"></textarea>
             </div>
             <div class="row">
                 <!-------------------------------TAMAÑO------------------------------------------------------------->
@@ -110,16 +110,20 @@
 
                 <!-------------------------------ACTIVO----------------------------------------------------------->
                 <div class="col mb-3">
-                    <input type="checkbox" class="btn-check" id="activo" autocomplete="off">
-                    <label class="btn btn-outline-primary container-fluid" for="activo">Activo</label><br>
-
+                    <label class="form-label" for="stock">Activo</label>
+                    <select class="form-control" type="text" id="estilo" name="destacado">
+                    <option selected value="1">Si</option>
+                    <option value="0">No</option>
+                </select>
                 </div>
                 <!-------------------------------DESTACADO------------------------------------------------------->
                 <div class="col mb-3">
-                    <input type="checkbox" class="btn-check" id="destacado" autocomplete="off">
-                    <label class="btn btn-outline-primary container-fluid" for="destacado">Destacado</label><br>
+                    <label class="form-label" for="stock">Destacado</label>
+                    <select class="form-control" type="text" id="estilo" name="destacado">
+                    <option  selected value="1">Si</option>
+                    <option value="0">No</option>
+                </select>
                 </div>
-
             </div>
             <!-------------------------------PORTADA---------------------------------------------------------->
             <div class="mb-3">
@@ -173,7 +177,7 @@
                 </script>
             </div>
             <!-------------------------------CARGAR-PRODUCTO--------------------------------------------------->
-            <button class=" btn btn-primary container-fluid" type="submit" style="float:right;">Cargar producto</button>
+            <button class=" btn btn-primary container-fluid" type="submit">Cargar producto</button>
         </form>
         <div th:if="${error}" class="alert alert-danger alert dismissible fade show mt-3" role="alert">
             <span th:text="${error}"></span>
