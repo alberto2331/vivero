@@ -55,7 +55,7 @@
             <!-------------------------------DESCRIPCIÓN--------------------------------------------------------->
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción:</label>
-                <textarea class="form-control" id="descripcion" name="descripcion"  rows="3"></textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
             </div>
             <div class="row">
                 <!-------------------------------TAMAÑO------------------------------------------------------------->
@@ -77,25 +77,25 @@
                         <option value="interior">Interior</option>
                         <option value="exterior">Exterior</option>
                         <option value="interior/exterior">Interior/Exterior</option>
-
+                    </select>
+                </div>
+                <!-------------------------------LUZ----------------------------------------------------------->
+                <div class="col mb-3">
+                    <label for="luz" class="form-label">Luz</label>
+                    <select class="form-select" name="luz" id="luz">
+                        <option selected value="">Luz</option>
+                        <option value="sombra">Sombra</option>
+                        <option value="med-som">Media sombra</option>
+                        <option value="sol">Sol</option>
                     </select>
                 </div>
                 <!-------------------------------ESTILO----------------------------------------------------------->
                 <div class="col mb-3">
-                    <label for="luz" class="form-label">Luz</label>
-                    <select class="form-select" name="luz" id="luz">
-                        <option value="sombra">Sombra</option>
-                        <option value="media sombra">Media sombra</option>
-                        <option value="sol">Sol</option>
-                    </select>
-                </div>
-                <!-------------------------------TIPO----------------------------------------------------------->
-                <div class="col mb-3">
                     <label for="tipo" class="form-label">Flor</label>
-                    <select class="form-select" type="text" id="estilo" name="estilo" >
+                    <select class="form-select" type="text" id="estilo" name="estilo">
                         <option selected value="">Flor</option>
                         <option value="si">Si</option>
-                        <option value="no">No</option>	
+                        <option value="no">No</option>
                     </select>
                 </div>
             </div>
@@ -114,21 +114,21 @@
                         <input id="precio" type="number" name="precio" step="any" class="form-control" value=0>
                     </div>
                 </div>
-
                 <!-------------------------------ACTIVO----------------------------------------------------------->
                 <div class="col mb-3">
                     <label class="form-label" for="stock">Activo</label>
-                    <select class="form-control" type="text" id="estilo" name="destacado">
+                    <select class="form-control" type="text" id="activo" name="activo">
                         <option selected value="1">Si</option>
-                        <option value="0">No</option>	
+                        <option value="0">No</option>
                     </select>
                 </div>
                 <!-------------------------------DESTACADO------------------------------------------------------->
                 <div class="col mb-3">
                     <label class="form-label" for="stock">Destacado</label>
-                    <select class="form-control" type="text" id="estilo" name="destacado">
-                        <option  selected value="1">Si</option>
-                        <option value="0">No</option>	
+                    <select class="form-control" type="text" id="destacado" name="destacado">
+                        <option selected value="">Destacado</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
                     </select>
                 </div>
             </div>
@@ -155,7 +155,8 @@
             <!-------------------------------IMAGENES---------------------------------------------------------->
             <div class="mb-3">
                 <label class="control-label small" for="file_img">Imagenes</label>
-                <input class="form-control" name="imagenes" type="file" id="gallery-photo-add"  accept="image/png, .jpeg, .jpg, image/gif" multiple>
+                <input class="form-control" name="imagenes" type="file" id="gallery-photo-add"
+                    accept="image/png, .jpeg, .jpg, image/gif" multiple>
                 <div class="gallery d-flex mt-1 " style="max-width: 200px;"></div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
                 <script>
@@ -189,7 +190,7 @@
             <div th:if="${error}" class="alert alert-danger alert dismissible fade show mt-3" role="alert">
                 <span th:text="${error}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
-            </div>  
+            </div>
         </form>
 
     </div>

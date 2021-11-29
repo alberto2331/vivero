@@ -48,7 +48,7 @@ public class MacetaServicio {
     }
 
     private void validar(String color, String material,String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada,MultipartFile[] imagenes, Boolean destacado) throws ErrorServicio {
-
+        
         if (color == null || color.equals("")) {
             throw new ErrorServicio("El campo color no puede quedar vacío");
         }
