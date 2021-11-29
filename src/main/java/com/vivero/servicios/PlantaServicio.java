@@ -130,4 +130,42 @@ public class PlantaServicio {
         }
     }
 
+    public List<Planta> listaPlantas() {
+    	List<Planta> listaPlantas=plantaRepositorio.findAll();
+    	return listaPlantas;
+    }
+
+    public List<Planta> listaPlantasFiltradas(String nombre, Double precioMinimo, Double precioMaximo, String tamanio, Boolean destacado, String codigo,String estilo, String ubicacion, String luz) {
+    	//Tratamiendo de precios sin filtro especificados por usuario:
+    	if(precioMinimo==null || precioMinimo==0) {
+    		precioMinimo=0.0;
+    	}
+    	if(precioMaximo==null || precioMaximo==0) {
+    		precioMaximo=10000000.0;
+    	}
+    	//Tratamiendo de tamaños sin filtros especificados por usuario:
+    	if(tamanio.equals(null)) {
+    		tamanio="";
+    	}
+    	
+    	List<Planta> listaPlantas=plantaRepositorio.listarPlantas("%"+nombre+"%",precioMinimo, precioMaximo, "%"+tamanio+"%",destacado, "%"+codigo+"%", "%"+estilo+"%", "%"+ubicacion+"%","%"+luz+"%");
+    	return listaPlantas;
+    }
+    
+    public List<Planta> plantasFiltradasSinDestacado(String nombre, Double precioMinimo, Double precioMaximo, String tamanio , String codigo,String estilo, String ubicacion, String luz) {
+    	//Tratamiendo de precios sin filtro especificados por usuario:
+    	if(precioMinimo==null || precioMinimo==0) {
+    		precioMinimo=0.0;
+    	}
+    	if(precioMaximo==null || precioMaximo==0) {
+    		precioMaximo=10000000.0;
+    	}
+    	//Tratamiendo de tamaños sin filtros especificados por usuario:
+    	if(tamanio.equals(null)) {
+    		tamanio="";
+    	}
+    	
+    	List<Planta> listaPlantas=plantaRepositorio.listarPlantasSinDestacado("%"+nombre+"%",precioMinimo, precioMaximo, "%"+tamanio+"%", "%"+codigo+"%", "%"+estilo+"%", "%"+ubicacion+"%","%"+luz+"%");
+    	return listaPlantas;
+    }
 }
