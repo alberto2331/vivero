@@ -86,8 +86,8 @@ public class PlantaServicio {
         if (destacado == null) {
             throw new Exception("Debe indicar sí o no");
         }
-    }
-    String id1 = "a940985d-528d-4a3b-9687-0babe41e10c6";
+    }    
+    
     @Transactional
     public void editarPlanta(String id1, String luz, String ubicacion, String estilo, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada, MultipartFile[] imagenes, Boolean destacado) throws Exception {
         validar(luz, ubicacion, estilo, nombre, precio, stock, tamanio, descripcion, portada, destacado);

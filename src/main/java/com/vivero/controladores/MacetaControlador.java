@@ -51,8 +51,8 @@ public class MacetaControlador {
 			ModelMap modelo
 			){
     	//Este metodo es para traer todas las plantas de la base de datos
-    	List<Maceta> macetas =macetaServicio.listaMaceta();
-    	modelo.put("macetas",macetas );
+    	List<Maceta> macetasFiltradas =macetaServicio.listaMaceta();
+    	modelo.put("macetasFiltradas", macetasFiltradas);
 		return"consulta-maceta";
 	}
     

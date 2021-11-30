@@ -8,6 +8,9 @@ import com.vivero.entidades.Planta;
 //import com.vivero.repositorios.PlantaRepositorio;
 import com.vivero.servicios.PlantaServicio;
 import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,13 +56,14 @@ model.addAttribute("error", e.getMessage());
 		}			
 	}
         
+    //Consulta de plantas-------------------------------------------------------
     @GetMapping("/consultaPlanta")
 	public String consultaPlanta(
 			ModelMap modelo
 			){
     	//Este metodo es para traer todas las plantas de la base de datos
-    	List<Planta> plantas=plantaServicio.listaPlantas();
-    	modelo.put("plantas", plantas);
+    	List<Planta> plantasFiltradas=plantaServicio.listaPlantas();
+    	modelo.put("plantasFiltradas", plantasFiltradas);
 		return"consulta-planta";
 	}
     
@@ -113,4 +117,45 @@ model.addAttribute("error", e.getMessage());
     	}    	
 		return"consulta-planta";
 	}
+
+    //Modificar de planta-------------------------------------------------------
+    /*El Objeto Planta se define con scope general para poder usarse en los metodos:
+    		1) botonModificar
+    		2) modificar
+    */
+    Planta plantaModificar;
+    @GetMapping("/modificarPlanta")
+	public String modificarPlanta(
+			ModelMap modelo
+			){
+    	//Este metodo es para traer todas las plantas de la base de datos
+    	List<Planta> plantasFiltradas=plantaServicio.listaPlantas();
+    	modelo.put("plantasFiltradas", plantasFiltradas);
+		return"modificar-planta";
+    }
+    
+    @Transactional
+	@GetMapping("/botonModificar")
+    //Este metodo es obtener la planta a modificar por medio del id que provee el admin
+	public String botonModificar(ModelMap modelo,
+						   @RequestParam String id){			
+		System.out.println("El id es: "+id +"------------------------");			
+		try {
+			plantaModificar= plantaServicio.buscarPlanta(id);
+			modelo.addAttribute("plantaModificar", plantaModificar);
+			return "modificar-planta1";
+		}catch (Exception e) {
+			modelo.addAttribute("error", e.getMessage());								
+			return "modificar-planta1";
+		}
+	}
+    
+    @Transactional
+	@GetMapping("/modificar")
+	public String modificar(ModelMap modelo){				
+    		System.out.println("La planta de miercoles tiene por nombre: "+plantaModificar.getNombre());			
+	    	//modelo.addAttribute("plantaModificar", plantaModificar);
+	    	//put("plantaModificar", plantaModificar);																						
+			return "modificar-planta1";			    	    	    
+	}	
 }
