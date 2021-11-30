@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>Semillero</title>
+	<!-- Bootstrap CSS -->
+	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<!-- Css -->
+	<link rel="stylesheet" href="../static/indexcss.css" th:href="@{/static/indexcss.css}">
+	
+</head>
+<body class="bg-light" cz-shortcut-listen="true">
+									<!--Principio Navbar-->
+
+									<!--Fin Navbar-->
+
+<div class="container mt-5">
+<p>To return to the main menu<a href="/"> HERE</a></p>
+<br>
+  <h2>Lista de maceta </h2>            
+  <form class="needs-validation" action="/maceta/consultaMaceta" method="GET"></form>
+	
+  <table class="table table-dark table-hover mt-4">
+    <thead>
+      <tr>
+        <th scope="col">Codigo</th>        
+        <th scope="col">Nombre</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Tamaño</th>
+        <th scope="col">Destacado</th>
+        <th scope="col">color</th>
+        <th scope="col">material</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="maceta : ${macetasFiltradas}">
+        <td th:text=${maceta.codigo}></td>
+        <td th:text=${maceta.nombre}></td>
+        <td th:text=${maceta.precio}></td>
+        <td th:text=${maceta.tamanio}></td>
+        <td th:text=${maceta.destacado}></td>
+        <td th:text=${maceta.color}></td>
+        <td th:text=${maceta.material}></td>                      
+      </tr>     
+	</tbody>
+  </table>
+</div>
+  <!-- Form de consultas:-->
+   <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Filtros</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form class="needs-validation" action="/maceta/filtrarMaceta" method="GET">
+                <div class="form-group">
+                    <label class=" control-label">El nombre de la maceta contiene:</label>
+					<input id="nombre" type="text" name="nombre" class="form-control" value="">                    
+                </div> <!-- form-group // -->
+                <div class="form-group">
+                    <label class=" control-label">Precio</label>
+                    <input id="nombre" type="number" name="precioMinimo" class="form-control" value="" placeholder="precio minimo">
+                    <input id="nombre" type="number" name="precioMaximo" class="form-control" value="" placeholder="precio maximo">
+                </div>                
+				<div class="form-group">
+                    <label class=" control-label">Tamaño</label>
+                    <select class="form-select" aria-label="Default select example" name="tamanio">                        
+                        <option selected value="">-</option>
+                        <option value="no definido">No definido</option>
+                        <option value="chico">Chico</option>
+                        <option value="mediano">Mediano</option>
+                        <option value="grande">Grande</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class=" control-label">Destacado</label>
+                    <select class="form-select" aria-label="Default select example" name="destacadoController" type="number">                                                
+                        <option selected value="0">-</option>
+                        <option value="1">Si</option>
+                        <option value="2">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class=" control-label">Codigo</label>
+                    <input id="nombre" type="text" name="codigo" class="form-control" value="" placeholder="ingrese el codigo del producto">
+                </div>
+
+                <div class="form-group">
+                    <label class=" control-label">Color</label>
+                    <select class="form-select" aria-label="Default select example" name="color">
+                        <option selected value="">-</option>
+                        <option value="negro">Negro</option>
+                        <option value="blanco">Blanco</option>
+                        <option value="azul">Azul</option>
+                        <option value="rojo">Rojo</option>
+                    </select>
+                </div>                 
+                <div class="form-group">
+                    <label class=" control-label">Material</label>
+                    <select class="form-select" aria-label="Default select example" name="material">
+                        <option selected value="">-</option>
+                        <option value="plastico">Plastico</option>
+                        <option value="ceramica">Ceramica</option>
+                    </select>
+                </div> <!-- form-group // 
+                 <!-- form-group // 
+               -->
+                <button type="submit" class="btn btn-dark mt-2">Filtrar</button>
+            </form>
+        </div>
+    </div>
+  <!-- Fin Form de consultas:-->
+
+</body>
+</html>

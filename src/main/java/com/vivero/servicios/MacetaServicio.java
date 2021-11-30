@@ -5,6 +5,7 @@ import com.vivero.entidades.Maceta;
 import com.vivero.entidades.Portada;
 import com.vivero.errores.ErrorServicio;
 import com.vivero.repositorios.MacetaRepositorio;
+import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,4 +86,47 @@ public class MacetaServicio {
     	String codigo1 = codigo.substring(1);  
     	maceta.setCodigo("M-"+codigo1);    	
     }
+        
+           public List<Maceta> listaMaceta() {
+    	List<Maceta> listaMacetas= macetaRepositorio.findAll();
+    	return listaMacetas;
+    }
+
+    public List<Maceta> listaMacetasFiltradas(String nombre, Double precioMinimo, Double precioMaximo, String tamanio, Boolean destacado, String codigo,String color, String material) {
+    	//Tratamiendo de precios sin filtro especificados por usuario:
+    	if(precioMinimo==null || precioMinimo==0) {
+    		precioMinimo=0.0;
+    	}
+    	if(precioMaximo==null || precioMaximo==0) {
+    		precioMaximo=10000000.0;
+    	}
+    	//Tratamiendo de tamaños sin filtros especificados por usuario:
+    	if(tamanio.equals(null)) {
+    		tamanio="";
+    	}
+    	
+    	List<Maceta> listaMacetas=macetaRepositorio.listarMacetas("%"+nombre+"%",precioMinimo, precioMaximo, "%"+tamanio+"%",destacado, "%"+codigo+"%", "%"+color+"%", "%"+material+"%");
+    	return listaMacetas;
+    }
+    
+    public List<Maceta> macetasFiltradasSinDestacado(String nombre, Double precioMinimo, Double precioMaximo, String tamanio , String codigo,String color, String material) {
+    	//Tratamiendo de precios sin filtro especificados por usuario:
+    	if(precioMinimo==null || precioMinimo==0) {
+    		precioMinimo=0.0;
+    	}
+    	if(precioMaximo==null || precioMaximo==0) {
+    		precioMaximo=10000000.0;
+    	}
+    	//Tratamiendo de tamaños sin filtros especificados por usuario:
+    	if(tamanio.equals(null)) {
+    		tamanio="";
+    	}
+    	
+    	List<Maceta> listaMacetas=macetaRepositorio.listarMacetasSinDestacado("%"+nombre+"%",precioMinimo, precioMaximo, "%"+tamanio+"%", "%"+codigo+"%", "%"+color+"%","%"+material+"%");
+    	return listaMacetas;
+    }
+        
+        
+        
+        
 }

@@ -52,6 +52,7 @@ model.addAttribute("error", e.getMessage());
 			return "planta-creacion";
 		}			
 	}
+        
     @GetMapping("/consultaPlanta")
 	public String consultaPlanta(
 			ModelMap modelo
