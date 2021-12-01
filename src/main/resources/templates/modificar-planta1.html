@@ -81,7 +81,8 @@
                         </select>				
                     </div>	                     
 <!--Portada-->
-		<div class="mb-3">
+
+				<div class="mb-3">
                 <label class="form-label" for="portada">Portada</label>
                 <input id="archivo" type="file" name="portada" class="form-control"
                     accept="image/png, .jpeg, .jpg, image/gif" onchange="loadFile(event)">
@@ -100,6 +101,14 @@
                     };
                 </script>
             </div>
+
+		<!--Este metodo es para mostrar la portada en la base de datos-->
+				<tr th:each="portada : ${datosPortada}">            		
+            		<td> <img  th:src="@{'data:image/jpeg;base64,'+${portada}}" /></td>
+          		</tr>		
+		<!--Este metodo es para mostrar la portada en la base de datos-->
+
+
 <!--Fin Portada-->                    
 <!--Pruebas de imagenes-->
                             <div class="form-group">
@@ -134,6 +143,14 @@
                   </script>
                 </div>
               </div> <!-- form-group // -->
+              
+			
+			
+			<!--Este metodo es para mostrar las fotos que hay en la base de datos-->
+            	<tr th:each="foto : ${listaFotos}">            		
+            		<td> <img  th:src="@{'data:image/jpeg;base64,'+${foto}}" /></td>
+          		</tr>
+          	<!--Fin de metodo implementado para mostrar fotos-->  
 <!--Fin Pruebas de imagenes-->
                     <div class="col-sm-12 pull right">
                         <button class="btn btn-success" type="submit" style="float:right;">Next
