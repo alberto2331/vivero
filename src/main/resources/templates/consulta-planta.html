@@ -132,7 +132,137 @@
             </form>
         </div>
     </div>
-  <!-- Fin Form de consultas:-->
+
+    <!--------------------------------------------------------------------------------------------------------->
+
+
+    <!--------------------------------------------------------TARJETA PRODUCTO------------------------------------------------->
+
+    <div>
+        <!-- <div class="row">
+            <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas}">
+                <img src="img/01.jpg" class="img-fluid" th:src="'/imagen/planta/'+*{planta.id}" alt="" />
+                <div class="info">
+                    <a href="#" class="text-decoration-none parent">
+                        <p class="nombre_text text-decoration-none text-white" th:text=${planta.nombre}>PETUNIA</p>
+                    </a>
+                    <p class="precio_text" th:text=${planta.precio}>$800</p>
+                    <button type="button" class="btn btn-light child">
+                        COMPRAR
+                    </button>
+                </div>
+            </div>
+        </div>
+         -->
+         
+         
+         <div class="row"  >
+            <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas} "  style="height:50vh;" >
+                <img  class="img-fluid" th:src="'/imagen/planta/'+*{planta.id}" alt=""  style="height:50vh;" />
+                <div class="info">
+                    <a href="#" class="text-decoration-none parent">
+                        <p class="nombre_text text-decoration-none text-white" th:text=${planta.nombre} style="">PETUNIA</p>
+                    </a>
+                    <p class="precio_text" th:text=${planta.precio}>$800</p>
+                    <button type="button" class="btn btn-light child">
+                        COMPRAR
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tu Compra</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">CÓDIGO</th>
+                                    <th scope="col">TIPO</th>
+                                    <th scope="col">NOMBRE</th>
+                                    <th scope="col">CANT</th>
+                                    <th scope="col">PRECIO</th>
+                                    <th scope="col">SUBTOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>P001</td>
+                                    <td>Planta</td>
+                                    <td>Petunia</td>
+                                    <td>5</td>
+                                    <td>$500</td>
+                                    <td>$2500</td>
+                                    <td> <a href="#" style="color: black"><i class="bi bi-trash"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>P002</td>
+                                    <td>Planta</td>
+                                    <td>Monstera</td>
+                                    <td style="width:10%">3</td>
+                                    <td>$1500</td>
+                                    <td>$4500</td>
+                                    <td> <a href="#" style="color: black"><i class="bi bi-trash"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>A001</td>
+                                    <td>Accesorio</td>
+                                    <td>Nombre del acc.</td>
+                                    <td>1</td>
+                                    <td>$800</td>
+                                    <td>$800</td>
+                                    <td> <a href="#" style="color: black"><i class="bi bi-trash"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-8">
+
+                                </div>
+                                <div class="col-3 text-end">
+                                    <h5>TOTAL:</h5>
+                                </div>
+                                <div class="col-1">
+                                    <h5>$8000</h5>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $('.child').click(function (e) {
+                alert('Child');
+                if (!e) var e = window.event;
+                e.cancelBubble = true;
+                if (e.stopPropagation) e.stopPropagation();
+            });
+            $('.parent').click(function (e) {
+                alert('Parent');
+            });
+        </script>
 
 </body>
 </html>
