@@ -170,7 +170,7 @@
     <!--------------------------------------------------------TARJETA PRODUCTO------------------------------------------------->
 
     <div>
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas}">
                 <img src="img/01.jpg" class="img-fluid" th:src="'/imagen/planta/'+*{planta.id}" alt="" />
                 <div class="info">
@@ -184,6 +184,25 @@
                 </div>
             </div>
         </div>
+         -->
+         
+         
+         <div class="row"  >
+            <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas} "  style="height:50vh;" >
+                <img  class="img-fluid" th:src="'/imagen/planta/'+*{planta.id}" alt=""  style="height:50vh;" />
+                <div class="info">
+                    <a href="#" class="text-decoration-none parent">
+                        <p class="nombre_text text-decoration-none text-white" th:text=${planta.nombre} style="">PETUNIA</p>
+                    </a>
+                    <p class="precio_text" th:text=${planta.precio}>$800</p>
+                    <button type="button" class="btn btn-light child">
+                        COMPRAR
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
