@@ -11,6 +11,7 @@ import com.vivero.entidades.Foto;
 import com.vivero.entidades.Planta;
 import com.vivero.entidades.Portada;
 import com.vivero.repositorios.AccesorioRepositorio;
+import java.util.List;
 
 @Service
 public class AccesorioServicio {
@@ -84,5 +85,44 @@ public class AccesorioServicio {
     	String codigo = String.valueOf(numero1);
     	String codigo1 = codigo.substring(1);  
     	accesorio.setCodigo("A-"+codigo1);    	
+    }
+    
+    public List<Accesorio> listaAccesorios() {
+    	List<Accesorio> listaAccesorios = accesorioRepositorio.findAll();
+    	return listaAccesorios;
+    }
+
+    public List<Accesorio> listaAccesoriosFiltrados(String nombre, Double precioMinimo, Double precioMaximo, String tamanio, Boolean destacado, String codigo, String categoria) {
+    	//Tratamiendo de precios sin filtro especificados por usuario:
+    	if(precioMinimo==null || precioMinimo==0) {
+    		precioMinimo=0.0;
+    	}
+    	if(precioMaximo==null || precioMaximo==0) {
+    		precioMaximo=10000000.0;
+    	}
+    	//Tratamiendo de tamaños sin filtros especificados por usuario:
+    	if(tamanio.equals(null)) {
+    		tamanio="";
+    	}
+    	
+    	List<Accesorio> listaAccesorios = accesorioRepositorio.listarAccesorios("%"+nombre+"%",precioMinimo, precioMaximo, "%"+tamanio+"%",destacado, "%"+codigo+"%", "%"+categoria+"%");
+    	return listaAccesorios;
+    }
+    
+    public List<Accesorio> AccesoriosFiltradosSinDestacado(String nombre, Double precioMinimo, Double precioMaximo, String tamanio , String codigo, String categoria) {
+    	//Tratamiendo de precios sin filtro especificados por usuario:
+    	if(precioMinimo==null || precioMinimo==0) {
+    		precioMinimo=0.0;
+    	}
+    	if(precioMaximo==null || precioMaximo==0) {
+    		precioMaximo=10000000.0;
+    	}
+    	//Tratamiendo de tamaños sin filtros especificados por usuario:
+    	if(tamanio.equals(null)) {
+    		tamanio="";
+    	}
+    	
+    	List<Accesorio> listaAccesorios = accesorioRepositorio.listarAccesoriosSinDestacado("%"+nombre+"%",precioMinimo, precioMaximo, "%"+tamanio+"%", "%"+codigo+"%", "%"+categoria+"%");
+    	return listaAccesorios;
     }
 }
