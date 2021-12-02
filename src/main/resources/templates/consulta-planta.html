@@ -69,7 +69,7 @@
                         <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i>
                         </button>
                     </form>
-                    <button class="btn btn-outline-success mx-1" type="submit" data-bs-toggle="modal"
+                    <button class="btn btn-outline-success mx-1" id="cartButton" type="submit" data-bs-toggle="modal"
                         data-bs-target="#exampleModal"><i class="bi bi-cart-fill"></i>
                     </button>
                 </div>
@@ -170,39 +170,24 @@
     <!--------------------------------------------------------TARJETA PRODUCTO------------------------------------------------->
 
     <div>
-        <!-- <div class="row">
-            <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas}">
-                <img src="img/01.jpg" class="img-fluid" th:src="'/imagen/planta/'+*{planta.id}" alt="" />
-                <div class="info">
+
+        <div class="row">
+            <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas} " style="height:45vh;">
+                <img class=" w-100  img-fluid" th:src="'/imagen/planta/'+*{planta.id}" alt="" style="height:45vh;" />
+                <div class="info" th:id="'info'+*{planta.id}">
                     <a href="#" class="text-decoration-none parent">
-                        <p class="nombre_text text-decoration-none text-white" th:text=${planta.nombre}>PETUNIA</p>
+                        <p class="nombre_text text-decoration-none text-white px-5 py-10" th:text=${planta.nombre}
+                            style="">PETUNIA</p>
                     </a>
                     <p class="precio_text" th:text=${planta.precio}>$800</p>
-                    <button type="button" class="btn btn-light child">
+                    <button type="button" id="compraBoton" th:id="*{planta.id}" class="btW btn-light child compraBoton">
                         COMPRAR
                     </button>
                 </div>
             </div>
         </div>
-         -->
-         
-         
-         <div class="row"  >
-            <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas} "  style="height:45vh;" >
-                <img  class=" w-100  img-fluid" th:src="'/imagen/planta/'+*{planta.id}" alt=""  style="height:45vh;" />
-                <div class="info">
-                    <a href="#" class="text-decoration-none parent">
-                        <p class="nombre_text text-decoration-none text-white px-5 py-10" th:text=${planta.nombre} style="">PETUNIA</p>
-                    </a>
-                    <p class="precio_text" th:text=${planta.precio}>$800</p>
-                    <button type="button" class="btn btn-light child">
-                        COMPRAR
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        
+
+
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
@@ -216,16 +201,16 @@
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">CÓDIGO</th>
-                                    <th scope="col">TIPO</th>
+                                    <!-- <th scope="col">CÓDIGO</th> -->
+                                    <!-- <th scope="col">TIPO</th> -->
                                     <th scope="col">NOMBRE</th>
                                     <th scope="col">CANT</th>
                                     <th scope="col">PRECIO</th>
                                     <th scope="col">SUBTOTAL</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
+                            <tbody id="cartTableBody">
+                                <!-- <tr>
                                     <th scope="row">1</th>
                                     <td>P001</td>
                                     <td>Planta</td>
@@ -254,7 +239,7 @@
                                     <td>$800</td>
                                     <td>$800</td>
                                     <td> <a href="#" style="color: black"><i class="bi bi-trash"></i></a></td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                         <div class="container">
@@ -265,8 +250,8 @@
                                 <div class="col-3 text-end">
                                     <h5>TOTAL:</h5>
                                 </div>
-                                <div class="col-1">
-                                    <h5>$8000</h5>
+                                <div class="col-1" >
+                                    <h5 id="cartTotal">$0</h5>
                                 </div>
 
                             </div>
@@ -285,14 +270,106 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $('.child').click(function (e) {
-                alert('Child');
                 if (!e) var e = window.event;
                 e.cancelBubble = true;
                 if (e.stopPropagation) e.stopPropagation();
             });
             $('.parent').click(function (e) {
-                alert('Parent');
             });
+
+            $('.compraBoton').click(function () {
+                var botonId = $(this).attr('id');
+                var elementoInfoId = '#info' + botonId;
+                console.log('elementoInfoId: ' + elementoInfoId);
+
+                // var nombre = $( "#info3b601cc1-80d5-4ecd-8499-ae52737c6f09 > .nombre_text" ).text();
+
+                var nombre = $(elementoInfoId + " > a > .nombre_text").text();
+                console.log('nombre: ' + nombre);
+
+                var precio = $(elementoInfoId + " > .precio_text").text();
+                console.log('precio: ' + precio);
+
+                addtocart(botonId, nombre, precio);
+            });
+
+            function addtocart(pid, nombre, precio) {
+                // var quantity = $("#quantity").val() != "" ? parseInt($("#quantity").val()) : 0;
+                var quantity = 1;
+                var cart = localStorage.getItem("cart");
+                var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
+                //get index of the json array where the productid is there ...
+                var present_or_not = pcart.findIndex(item => item.productid == pid);
+                //if the item not presnt , is null
+                if (cart == null || present_or_not == null || present_or_not == -1) {
+                    var product = {
+                        productid: pid,
+                        nombre: nombre,
+                        precio: precio,
+                        quantity: quantity
+                    };
+                    pcart.push(product);
+                    localStorage.setItem("cart", JSON.stringify(pcart));
+                } else {
+                    //get the the json from index...
+                    var actual_stored_product = pcart[present_or_not];
+                    pcart.splice(present_or_not, 1); //remove the json array 
+                    //get the qty which was already prsnt
+                    var actual_qty = actual_stored_product.quantity == null || actual_stored_product.quantity == "" ? 0 : actual_stored_product.quantity;
+                    //update the value
+                    actual_stored_product.quantity = parseInt(actual_qty) + quantity;
+                    //now..we have updated value..push obj again..
+                    pcart.push(actual_stored_product);
+                    //store the json in local Storage
+                    localStorage.setItem("cart", JSON.stringify(pcart));
+                }
+                console.log(JSON.stringify(pcart));
+                // updatecart();
+            }
+
+            $('#cartButton').click(function () {
+                cartPreview();
+            })
+
+            var cartPreview = function () {
+                var cart = localStorage.getItem("cart");
+                var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
+                $('#cartTableBody').empty();
+                if (cart) {
+                    var contador = 1;
+                    var total = 0;
+                    pcart.forEach(producto => {
+                        console.log('producto: ', producto);
+                        var cant = parseInt(producto.quantity, 10);
+                        console.log('cant: ', cant);
+
+                        var precio = parseInt(producto.precio, 10);
+                        console.log('precio: ', precio);
+
+                        total += cant*precio;
+
+                        var tr = $($.parseHTML('<tr>'));
+                        var tdContador = $($.parseHTML('<td>')).text(contador);
+                        var tdNombre = $($.parseHTML('<td>')).text(producto.nombre);
+                        var tdPrecio = $($.parseHTML('<td>')).text(producto.precio);
+                        var tdCant = $($.parseHTML('<td>')).text(producto.quantity);
+                        var tdSubtotal = $($.parseHTML('<td>')).text(cant*precio);
+
+                        tr.append(tdContador);
+                        tr.append(tdNombre);
+                        tr.append(tdCant);
+                        tr.append(tdPrecio);
+                        tr.append(tdSubtotal);
+
+                        $('#cartTableBody').append(tr);
+
+                        contador++;
+                    });
+                    $('#cartTotal').text('$'+total);
+                }
+            };
+
+
         </script>
 
 </body>
