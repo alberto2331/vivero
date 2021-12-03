@@ -175,11 +175,13 @@
             <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas} " style="height:45vh;">
                 <img class=" w-100  img-fluid" th:src="'/imagen/planta/'+*{planta.id}" alt="" style="height:45vh;" />
                 <div class="info" th:id="'info'+*{planta.id}">
+                    
                     <a href="#" class="text-decoration-none parent">
                         <p class="nombre_text text-decoration-none text-white px-5 py-10" th:text=${planta.nombre}
                             style="">PETUNIA</p>
                     </a>
                     <p class="precio_text" th:text=${planta.precio}>$800</p>
+                    <p class="stock_text invisible" th:text=${planta.stock}>2</p>
                     <button type="button" id="compraBoton" th:id="*{planta.id}" class="btW btn-light child compraBoton">
                         COMPRAR
                     </button>
@@ -264,10 +266,11 @@
             </div>
         </div>
 
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             $('.child').click(function (e) {
                 if (!e) var e = window.event;
@@ -285,27 +288,30 @@
                 // var nombre = $( "#info3b601cc1-80d5-4ecd-8499-ae52737c6f09 > .nombre_text" ).text();
 
                 var nombre = $(elementoInfoId + " > a > .nombre_text").text();
-                console.log('nombre: ' + nombre);
 
                 var precio = $(elementoInfoId + " > .precio_text").text();
-                console.log('precio: ' + precio);
 
-                addtocart(botonId, nombre, precio);
+                var stock = $(elementoInfoId + " > .stock_text").text();
+
+                addtocart(botonId, nombre, precio, stock);
             });
 
-            function addtocart(pid, nombre, precio) {
+            function addtocart(pid, nombre, precio, stock) {
                 // var quantity = $("#quantity").val() != "" ? parseInt($("#quantity").val()) : 0;
                 var quantity = 1;
+                stock = checkRemainingStock(stock, quantity, pid);
                 var cart = localStorage.getItem("cart");
-                var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
+                var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : []; // si el cart esta vacia inicializa uin array vacio
                 //get index of the json array where the productid is there ...
                 var present_or_not = pcart.findIndex(item => item.productid == pid);
                 //if the item not presnt , is null
+                // si el producto no existe lo agregamos al cart
                 if (cart == null || present_or_not == null || present_or_not == -1) {
                     var product = {
                         productid: pid,
                         nombre: nombre,
                         precio: precio,
+                        stock: stock,
                         quantity: quantity
                     };
                     pcart.push(product);
@@ -313,11 +319,12 @@
                 } else {
                     //get the the json from index...
                     var actual_stored_product = pcart[present_or_not];
-                    pcart.splice(present_or_not, 1); //remove the json array 
+                    pcart.splice(present_or_not, 1); //remove the json object array 
                     //get the qty which was already prsnt
                     var actual_qty = actual_stored_product.quantity == null || actual_stored_product.quantity == "" ? 0 : actual_stored_product.quantity;
                     //update the value
                     actual_stored_product.quantity = parseInt(actual_qty) + quantity;
+                    actual_stored_product.stock = parseInt(stock);
                     //now..we have updated value..push obj again..
                     pcart.push(actual_stored_product);
                     //store the json in local Storage
@@ -341,10 +348,8 @@
                     pcart.forEach(producto => {
                         console.log('producto: ', producto);
                         var cant = parseInt(producto.quantity, 10);
-                        console.log('cant: ', cant);
 
                         var precio = parseInt(producto.precio, 10);
-                        console.log('precio: ', precio);
 
                         total += cant*precio;
 
@@ -369,6 +374,22 @@
                 }
             };
 
+            var checkRemainingStock = function(stock, qty, pid) {
+                console.log('stock: '+ stock)
+                stock --;
+                var elementoInfoId = '#info' + pid;
+                $(elementoInfoId + " > .stock_text").text(stock);
+                if (stock === 0) {
+                    $( "#"+pid ).remove();
+                    var buttonSinStockContador = $($.parseHTML('<button>')).text('Sin Mas Stock');
+                        buttonSinStockContador.prop('disabled', true);
+                        buttonSinStockContador.addClass(['btW', 'btn-light', 'child']);
+
+
+                        $(elementoInfoId).append(buttonSinStockContador);
+                }
+                return stock;
+            }
 
         </script>
 
