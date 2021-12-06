@@ -1,6 +1,8 @@
 package com.vivero.controladores;
 
 import com.vivero.entidades.Accesorio;
+import com.vivero.entidades.Foto;
+import com.vivero.entidades.Portada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,8 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.vivero.errores.ErrorServicio;
+import com.vivero.repositorios.FotoRepositorio;
 import com.vivero.servicios.AccesorioServicio;
+import java.util.ArrayList;
 import java.util.List;
+import javax.transaction.Transactional;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequestMapping("/accesorio")
@@ -20,6 +27,9 @@ public class AccesorioControlador {
 
     @Autowired
     private AccesorioServicio accesorioServicio;
+
+    @Autowired
+    private FotoRepositorio fotoRepositorio;
 
     @GetMapping("/accesorio")
     public String registro() {
@@ -46,63 +56,119 @@ public class AccesorioControlador {
             modelo.put("error", e.getMessage());
             return "accesorio-creacion";
         }
-
     }
-    
     //Consulta de accsesorios-------------------------------------------------------
     @GetMapping("/consultaAccesorio")
-	public String consultaAccesorio(
-			ModelMap modelo
-			){
-    	//Este metodo es para traer todas los Accesorio de la base de datos
-    	List<Accesorio> accesoriosFiltrados = accesorioServicio.listaAccesorios();
-    	modelo.put("accesoriosFiltrados", accesoriosFiltrados);
-		return"consulta-accesorio";
-	}
-    
+    public String consultaAccesorio(ModelMap modelo) {
+        //Este metodo es para traer todas los Accesorio de la base de datos
+        List<Accesorio> accesoriosFiltrados = accesorioServicio.listaAccesorios();
+        modelo.put("accesoriosFiltrados", accesoriosFiltrados);
+        return "consulta-accesorio";
+    }
+
     @GetMapping("/filtrarAccesorio")
-	public String filtrarAccesorio(
-			@RequestParam(required=false) String nombre,//ok
-			@RequestParam(required=false) Double precioMinimo,//ok
-			@RequestParam(required=false) Double precioMaximo,//ok
-			@RequestParam(required=false) Integer stock, //consultar como lo vamos a implementar
-			@RequestParam(required=false) String tamanio,//ok
-			@RequestParam(required=false) String descripcion,//No se me ocurre como implementarlo
-			@RequestParam(required=false) String categoria,
-			//@RequestParam(required=false) MultipartFile portada, -->no aplicar filtro
-			//@RequestParam(required=false) MultipartFile[] imagenes, -->no aplicar filtro
-                        @RequestParam(required=false) Integer destacadoController,//ok
-                        @RequestParam(required=false) String codigo,//ok
-			ModelMap modelo			
-			){
-            
-    	//Este metodo es para traer todas los Accesorios de la base de datos QUE COINCIDEN CON LOS FILTROS
-    	System.out.println("El destacado que llega al controlador es: "+ destacadoController);
-    	if(destacadoController==0) {
-    		List<Accesorio> accesoriosFiltrados1 = accesorioServicio.AccesoriosFiltradosSinDestacado
-    				(nombre,
-        			precioMinimo, 
-        			precioMaximo,
-        			tamanio,        			
-        			codigo,
-        			categoria);
-    		modelo.put("accesoriosFiltrados", accesoriosFiltrados1);
-    	}else if(destacadoController==1 || destacadoController==2) {
-    		Boolean destacado;
-    		if(destacadoController==1) {
-    			destacado=true;
-    		}else {
-    			destacado=false;
-    		}
-    		List<Accesorio> accesoriosFiltrados = accesorioServicio.listaAccesoriosFiltrados(nombre,
-        			precioMinimo, 
-        			precioMaximo,
-        			tamanio,
-        			destacado,
-        			codigo,
-        			categoria);
-    		modelo.put("accesoriosFiltrados", accesoriosFiltrados);
-    	}    	
-		return"consulta-accesorio";
-	}
+    public String filtrarAccesorio(
+            @RequestParam(required = false) String nombre,//ok
+            @RequestParam(required = false) Double precioMinimo,//ok
+            @RequestParam(required = false) Double precioMaximo,//ok
+            @RequestParam(required = false) Integer stock, //consultar como lo vamos a implementar
+            @RequestParam(required = false) String tamanio,//ok
+            @RequestParam(required = false) String descripcion,//No se me ocurre como implementarlo
+            @RequestParam(required = false) String categoria,
+            //@RequestParam(required=false) MultipartFile portada, -->no aplicar filtro
+            //@RequestParam(required=false) MultipartFile[] imagenes, -->no aplicar filtro
+            @RequestParam(required = false) Integer destacadoController,//ok
+            @RequestParam(required = false) String codigo,//ok
+            ModelMap modelo) {
+        
+        //Este metodo es para traer todas los Accesorios de la base de datos QUE COINCIDEN CON LOS FILTROS
+        System.out.println("El destacado que llega al controlador es: " + destacadoController);
+        if (destacadoController == 0) {
+            List<Accesorio> accesoriosFiltrados1 = accesorioServicio.AccesoriosFiltradosSinDestacado(nombre,
+                    precioMinimo,
+                    precioMaximo,
+                    tamanio,
+                    codigo,
+                    categoria);
+            modelo.put("accesoriosFiltrados", accesoriosFiltrados1);
+        } else if (destacadoController == 1 || destacadoController == 2) {
+            Boolean destacado;
+            if (destacadoController == 1) {
+                destacado = true;
+            } else {
+                destacado = false;
+            }
+            List<Accesorio> accesoriosFiltrados = accesorioServicio.listaAccesoriosFiltrados(nombre,
+                    precioMinimo,
+                    precioMaximo,
+                    tamanio,
+                    destacado,
+                    codigo,
+                    categoria);
+            modelo.put("accesoriosFiltrados", accesoriosFiltrados);
+        }
+        return "consulta-accesorio";
+    }
+
+    Accesorio accesorioMostrar;
+
+    @Transactional
+    @GetMapping("/mostrar")
+    public String mostrar(ModelMap modelo) {																						
+        return "mostrar-accesorio";
+    }
+    
+    @Transactional
+    @GetMapping("/mostrarAccesorio")
+    //Este metodo es para obtener los datos del Accesorio por medio del id
+    public String mostrarAccesorio(ModelMap modelo, @RequestParam String id) {
+        try {
+            accesorioMostrar = accesorioServicio.buscarAccesorio(id);
+            //Metodo para obtener la portada:
+            modelo.addAttribute("datosPortada", getPortadaByProducto(id));
+
+            //Metodo para obtener las imagenes:			
+            modelo.addAttribute("listaFotos", getGaleriaByProducto(id));
+            modelo.addAttribute("accesorioMostrar", accesorioMostrar);
+            return "mostrar-accesorio";
+        } catch (Exception e) {
+            modelo.addAttribute("error", e.getMessage());
+            return "mostrar-accesorio";
+        }
+    }
+    //Metodo para mostrar la portada de un producto:
+    //El siguiente metodo puede quedarse en este controlador:
+    @GetMapping("/portada/{id}")
+    public String getPortadaByProducto(@PathVariable String id) throws ErrorServicio {
+        Accesorio accesorio = accesorioServicio.buscarAccesorio(id);
+        Portada portada = accesorio.getPortada();
+        String datosPortada = Base64.encodeBase64String(portada.getContenido());
+        return datosPortada;
+
+    }
+    //Metodo para mostrar las imagenes de un producto:
+    //Listar fotos de galeria: Este metodo lo creo Juan Guardiola en "imagenControlador.java"-------
+    //Una vez que juntemos las ramas del front con las del back
+    @GetMapping("/galeria/{id}")
+    public List<String> getGaleriaByProducto(@PathVariable String id) throws ErrorServicio {
+        try {
+            List<Foto> fotos = listarFotosDeProducto(id);//El metodo "listarFotosDeProducto" debe esta en FotoServicio
+
+            List<String> datosFotos = new ArrayList();
+
+            for (Foto foto : fotos) {
+                String base64 = Base64.encodeBase64String(foto.getContenido());
+                datosFotos.add(base64);
+            }
+            return datosFotos;
+        } catch (Exception e) {
+            throw new ErrorServicio("Hubo un problema al cargar las imagenes del producto");
+        }
+    }
+    //Este metodo lo creo Juan Guardiola en el FotoServicio: 
+    //Cambio por JG para listar fotos
+    public List<Foto> listarFotosDeProducto(String id) {
+        List<Foto> listaFotos = fotoRepositorio.listaFotosDeProducto("%" + id + "%");
+        return listaFotos;
+    }
 }

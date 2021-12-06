@@ -127,8 +127,7 @@ public class MacetaServicio {
     	return listaMacetas;
     }
         
-    //los siguientes metodos son para buscar maceta
-    
+    //el siguiente metodo es para buscar maceta
     public Maceta buscarMaceta(String id) throws ErrorServicio {
         Optional<Maceta> Resp = macetaRepositorio.findById(id);
         if (Resp.isPresent()) {
