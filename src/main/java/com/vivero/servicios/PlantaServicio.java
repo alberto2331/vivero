@@ -10,6 +10,8 @@ import com.vivero.errores.ErrorServicio;
 //import com.vivero.enumeraciones.Ubicacion;
 //import com.vivero.errores.ErrorServicio;
 import com.vivero.repositorios.PlantaRepositorio;
+import com.vivero.repositorios.PortadaRepositorio;
+
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -22,6 +24,9 @@ public class PlantaServicio {
 
     @Autowired
     private PlantaRepositorio plantaRepositorio;
+    
+    @Autowired
+    private PortadaRepositorio portadaRepositorio;
 
     @Autowired
     private PortadaServicio portadaServicio;
@@ -87,17 +92,76 @@ public class PlantaServicio {
             throw new Exception("Debe indicar sí o no");
         }
     }    
+
+    private void validarSinPortada(String luz, String ubicacion, String estilo, String nombre, Double precio, Integer stock, String tamanio, String descripcion, Boolean destacado) throws Exception {
+        if (tamanio.length() == 0) {
+            throw new Exception("Debe elegir entre: Chico, Mediano o Grande");
+        }
+        if (luz.length() == 0) {
+            throw new Exception("Debe elegir entre: Poca, Media o Mucha");
+        }
+        if (estilo.length() == 0) {
+            throw new Exception("Debe elegir entre: Colgante o de tronco");
+        }
+        if (ubicacion.length() == 0) {
+            throw new Exception("Debe elegir entre: Interior o Exterior");
+        }
+        if (descripcion == null | descripcion.isEmpty() | descripcion.length() == 0) {
+            throw new Exception("Falta descripción de la planta creada");
+        }
+        if (nombre == null | nombre.isEmpty() | nombre.length() == 0) {
+            throw new Exception("Falta el nombre de la planta creada");
+        }
+        if (precio == null | precio <= 0) {
+            throw new Exception("El precio debe ser igual o mayor a cero");
+        }
+        if (stock == null | stock < 0) {
+            throw new Exception("El stock ser igual o mayor a cero");
+        }
+        if (destacado == null) {
+            throw new Exception("Debe indicar sí o no");
+        }
+    }
     
     @Transactional
-    public void editarPlanta(String id1, String luz, String ubicacion, String estilo, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada, MultipartFile[] imagenes, Boolean destacado) throws Exception {
+    public void editarPlantaModificandoPortada(Boolean activo,String id1, String luz, String ubicacion, String estilo, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada, Boolean destacado) throws Exception {
         validar(luz, ubicacion, estilo, nombre, precio, stock, tamanio, descripcion, portada, destacado);
+
+        Optional<Planta> respuesta = plantaRepositorio.findById(id1);       
+        if (respuesta.isPresent()) {
+            Planta planta = respuesta.get();
+
+            //Borramos la portada pre-cargada
+            String id_portada_Borrar = planta.getPortada().getId();
+            portadaRepositorio.deleteById(id_portada_Borrar);
+            //Fin de borrar portada pre-cargada---------------------------------
+            
+            Portada foto = portadaServicio.guardarFoto(portada);
+            planta.setActivo(activo);
+            planta.setPortada(foto);
+            planta.setNombre(nombre);
+            planta.setDescripcion(descripcion);
+            planta.setDestacado(destacado);
+            planta.setEstilo(estilo);
+            planta.setLuz(luz);
+            planta.setNombre(nombre);
+            planta.setPrecio(precio);
+            planta.setStock(stock);
+            planta.setTamanio(tamanio);
+            planta.setUbicacion(ubicacion);
+            plantaRepositorio.save(planta);
+        }
+    }
+    
+    @Transactional
+    public void editarPlantaSinModificarPortada(Boolean activo,String id1, String luz, String ubicacion, String estilo, String nombre, Double precio, Integer stock, String tamanio, String descripcion, Boolean destacado) throws Exception {
+    	validarSinPortada(luz, ubicacion, estilo, nombre, precio, stock, tamanio, descripcion, destacado);
 
         Optional<Planta> respuesta = plantaRepositorio.findById(id1);
         if (respuesta.isPresent()) {
             Planta planta = respuesta.get();
-
-            Portada foto = portadaServicio.guardarFoto(portada);
-            planta.setPortada(foto);
+           
+            planta.setActivo(activo);
             planta.setNombre(nombre);
             planta.setDescripcion(descripcion);
             planta.setDestacado(destacado);

@@ -18,18 +18,14 @@
 
             <p>To return to the main menu<a href="/"> HERE</a></p>
             <hr/>
-        </div>
-        <div th:if="${error}" class="alert alert-danger alert dismissible fade show mt-3" role="alert">
-            <span th:text="${error}"></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
-        </div>
+        </div>     
         <!-- -->
-        <form class="needs-validation" th:action="@{/planta/modificar}" th:object="${plantaModificar}" method="GET" enctype="multipart/form-data">
-            <!--<input hidden th:field="*{id}">-->
-            <div class="row g-4">
+        <form class="needs-validation" th:action="@{/planta/modificar}" th:object="${plantaModificar}" method="POST" enctype="multipart/form-data">
+            <input hidden th:field="${plantaModificar.id}">
+            <input hidden th:field="${plantaModificar.codigo}">
+            <div class="row g-4">               
                 <div class="col-sm-6">
-                    <label class="form-label" for="nombre">Nombre</label>
-                    <!--th:field="*{nombre}"   th:field="${plantaModificar.nombre}"-->
+                    <label class="form-label" for="nombre">Nombre</label>                    
                     <input type="text" class="form-control" th:field="${plantaModificar.nombre}">
                 </div>
                 <div class="col-sm-6">
@@ -55,9 +51,8 @@
                         <label class="form-label" for="descripcion">Descripción</label>
                         <input type="text" th:field="${plantaModificar.descripcion}" class="form-control" value="">
                     </div>		
-                    <div class="col-sm-6">
-                        <!--<label class="form-label" for="luz">Luz</label>
-                        <input id="luz" type="text" name="luz" class="form-control">-->                        
+
+                    <div class="col-sm-6">                        
                         <select class="form-control" type="text" id="luz" name="luz" th:field="${plantaModificar.luz}">
                             <option selected value="">Luz</option>
                             <option value="sombra">Sombra</option>
@@ -79,12 +74,27 @@
                             <option value="si">Si</option>
                             <option value="no">No</option>					
                         </select>				
+                    </div>	                
+					<div class="col-sm-6">
+                        <select class="form-control" type="text" th:field="${plantaModificar.activo}">                            
+                            <option value="1">Activo</option>
+                            <option value="0">Inactivo</option>					
+                        </select>				
+                    </div>
+                    
+                    <div class="col-sm-6">
+                        <select class="form-control" type="text" th:field="${plantaModificar.destacado}">
+                        <label class="form-label" for="descripcion">Destacado</label>                            
+                            <option selected value="">Destacado</option>
+                            <option value="1">Si</option>
+                            <option value="0">No</option>					
+                        </select>				
                     </div>	                     
 <!--Portada-->
 
 				<div class="mb-3">
                 <label class="form-label" for="portada">Portada</label>
-                <input id="archivo" type="file" name="portada" class="form-control"
+                <input id="portada" type="file" name="portada" class="form-control"
                     accept="image/png, .jpeg, .jpg, image/gif" onchange="loadFile(event)">
                 <img id="output" style="visibility: hidden" src="#" alt="your image" />
                 <script>
@@ -101,17 +111,9 @@
                     };
                 </script>
             </div>
-
-		<!--Este metodo es para mostrar la portada en la base de datos-->
-				<tr th:each="portada : ${datosPortada}">            		
-            		<td> <img  th:src="@{'data:image/jpeg;base64,'+${portada}}" /></td>
-          		</tr>		
-		<!--Este metodo es para mostrar la portada en la base de datos-->
-
-
 <!--Fin Portada-->                    
-<!--Pruebas de imagenes-->
-                            <div class="form-group">
+<!--Pruebas de imagenes: no implementaremos la modificacion de las imagenes, solo de la portada-->
+                            <!--<div class="form-group">
                 <div class="col-sm-3">
                   <label class="control-label small" for="file_img">Imagenes</label>
                   <input type="file" id="gallery-photo-add" accept="image/png, .jpeg, .jpg, image/gif" name="imagenes" multiple>
@@ -142,21 +144,31 @@
                     });
                   </script>
                 </div>
-              </div> <!-- form-group // -->
-              
-			
-			
-			<!--Este metodo es para mostrar las fotos que hay en la base de datos-->
-            	<tr th:each="foto : ${listaFotos}">            		
-            		<td> <img  th:src="@{'data:image/jpeg;base64,'+${foto}}" /></td>
-          		</tr>
-          	<!--Fin de metodo implementado para mostrar fotos-->  
+              </div> <!-- form-group // -->              		
+						 
 <!--Fin Pruebas de imagenes-->
-                    <div class="col-sm-12 pull right">
-                        <button class="btn btn-success" type="submit" style="float:right;">Next
-                    </div>					
+                    
                     <hr>			
                 </div>
-        </form>		
+        
+        
+		<!--Este metodo es para mostrar la portada en la base de datos-->			
+				
+				<label class="form-label">Portada actual:</label><br>
+				<tr th:each="portadaBaseDatos : ${datosPortada}">            		
+            		<td> <img  th:src="@{'data:image/jpeg;base64,'+${portadaBaseDatos}}" /></td>
+          		</tr><br>		
+		<!--Este metodo es para mostrar la portada en la base de datos-->
+		<!--Este metodo es para mostrar las fotos que hay en la base de datos:-->
+							
+				<!--<label class="form-label">Imagenes del producto en base de dato: no implementaremos la modificacion de las imagenes, solo de la portada</label><br>
+            	<tr th:each="fotoBaseDatos : ${listaFotos}" th:field="${plantaModificar.portada}">            		
+            		<td> <img  th:src="@{'data:image/jpeg;base64,'+${fotoBaseDatos}}" /></td>
+          		</tr>
+      	<!--Fin de metodo implementado para mostrar fotos-->
+					<div class="col-sm-12 pull right">
+                        <button class="btn btn-success" type="submit" style="float:right;">Next
+                    </div>					
+		</form>
     </body>
 </html>

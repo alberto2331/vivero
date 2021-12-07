@@ -100,7 +100,6 @@ model.addAttribute("error", e.getMessage());
 			ModelMap modelo			
 			){
     	//Este metodo es para traer todas las plantas de la base de datos QUE COINCIDEN CON LOS FILTROS
-    	System.out.println("El destacado que llega al controlador es: "+ destacadoController);
     	if(destacadoController==0) {
     		List<Planta> plantasFiltradas1=plantaServicio.plantasFiltradasSinDestacado
     				(nombre,
@@ -168,8 +167,6 @@ model.addAttribute("error", e.getMessage());
 			ModelMap modelo			
 			){
     	
-    	System.out.println("El nombre que llega es: " +nombre );
-    	System.out.println("El destacadoController que llega es: " +destacadoController );
     	if(destacadoController==0) {
     		List<Planta> plantasFiltradas1=plantaServicio.plantasFiltradasSinDestacado
     				(nombre,
@@ -206,8 +203,7 @@ model.addAttribute("error", e.getMessage());
 	@GetMapping("/botonModificar")
     //Este metodo es obtener la planta a modificar por medio del id que provee el admin
 	public String botonModificar(ModelMap modelo,
-						   @RequestParam String id){			
-		System.out.println("El id es: "+id +"------------------------");			
+						   @RequestParam String id){						
 		try {
 			plantaModificar= plantaServicio.buscarPlanta(id);
 			//Metodo para obtener la portada:
@@ -225,15 +221,74 @@ model.addAttribute("error", e.getMessage());
 	}
     
     @Transactional
-	@GetMapping("/modificar")
-	public String modificar(ModelMap modelo){				
-    		System.out.println("La planta de miercoles tiene por nombre: "+plantaModificar.getNombre());			
-	    	//modelo.addAttribute("plantaModificar", plantaModificar);
-	    	//put("plantaModificar", plantaModificar);																						
-			return "modificar-planta1";			    	    	    
-	}
-    
-    
+	@PostMapping("/modificar")
+	public String modificar(			
+			@RequestParam (required=false) String id,
+			@RequestParam (required=false) Boolean activo,
+			@RequestParam (required=false) String nombre,
+			@RequestParam (required=false) Double precio,			
+			@RequestParam (required=false) Integer stock, 
+			@RequestParam (required=false) String tamanio,
+			@RequestParam (required=false) String descripcion,
+			@RequestParam (required=false) String luz,
+			@RequestParam (required=false) String ubicacion,
+			@RequestParam (required=false) String estilo,
+			@RequestParam (required=false) MultipartFile portada, 
+			/*@RequestParam (required=false) MultipartFile[] imagenes,
+			@RequestParam (required=false) MultipartFile portadaBaseDatos, 
+			@RequestParam (required=false) MultipartFile[] fotoBaseDatos,*/
+            @RequestParam (required=false) Integer destacado,
+            @RequestParam (required=false) String codigo,
+			ModelMap modelo){				    	
+    	//System.out.println("Imagenes viene con: "+imagenes.length); //Siempre viene con al menos un elemento
+    	
+    	Boolean destacadoBooleano=true;
+    	if(destacado==1){
+    		destacadoBooleano=true;
+    	}else {
+    		destacadoBooleano=false;
+    	}    	
+    	
+    	if( !portada.isEmpty()) {
+        	try {
+    			plantaServicio.editarPlantaModificandoPortada(
+    					activo,
+    					id,
+    					luz, 
+    					ubicacion,
+    					estilo,
+    					nombre,    			
+    					precio,
+    					stock,
+    					tamanio,
+    					descripcion, 
+    					portada,  
+    					destacadoBooleano);
+    		} catch (Exception e) {
+    			 throw new Error("Hubo un problema al cargar las modificaciones del producto");
+    		}		    
+    	}    	
+    	
+    	if( portada.isEmpty()) {
+        	try {
+    			plantaServicio.editarPlantaSinModificarPortada(
+    					activo,
+    					id,
+    					luz, 
+    					ubicacion,
+    					estilo,
+    					nombre,    			
+    					precio,
+    					stock,
+    					tamanio,
+    					descripcion,     					  
+    					destacadoBooleano);
+    		} catch (Exception e) {
+    			 throw new Error("Hubo un problema al cargar las modificaciones del producto");
+    		}		    
+    	}    	
+    	return "index";			    	    	    
+	}      
     
     //Metodo para mostrar la portada de un producto:
     //El siguiente metodo puede quedarse en este controlador:
@@ -242,8 +297,7 @@ model.addAttribute("error", e.getMessage());
     	Planta planta = plantaServicio.buscarPlanta(id);
     	Portada portada = planta.getPortada();
     	String datosPortada = Base64.encodeBase64String(portada.getContenido()); 
-    	return datosPortada; 
-    	 
+    	return datosPortada;     	
     }
     
     //Metodo para mostrar las imagenes de un producto:
@@ -253,12 +307,8 @@ model.addAttribute("error", e.getMessage());
     @GetMapping("/galeria/{id}")
     public List<String> getGaleriaByProducto(@PathVariable String id) throws ErrorServicio {
         try {
-            System.out.println("Id: " + id);
-            List<Foto> fotos = listarFotosDeProducto(id);//El metodo "listarFotosDeProducto" debe esta en FotoServicio 
-            System.out.println("Fotos: " + fotos.toString());
-            
-            List<String> datosFotos = new ArrayList();
-            
+            List<Foto> fotos = listarFotosDeProducto(id);//El metodo "listarFotosDeProducto" debe esta en FotoServicio             
+            List<String> datosFotos = new ArrayList();            
             for (Foto foto : fotos) {
                 String base64 = Base64.encodeBase64String(foto.getContenido());
                 datosFotos.add(base64);
