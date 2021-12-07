@@ -18,7 +18,11 @@
 
             <p>To return to the main menu<a href="/"> HERE</a></p>
             <hr/>
-        </div>     
+        </div>
+        <div th:if="${error}" class="alert alert-danger alert dismissible fade show mt-3" role="alert">
+        <span th:text="${error}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+    </div>     
         <!-- -->
         <form class="needs-validation" th:action="@{/planta/modificar}" th:object="${plantaModificar}" method="POST" enctype="multipart/form-data">
             <input hidden th:field="${plantaModificar.id}">
