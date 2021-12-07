@@ -6,6 +6,7 @@ import com.vivero.entidades.Portada;
 import com.vivero.errores.ErrorServicio;
 import com.vivero.repositorios.MacetaRepositorio;
 import java.util.List;
+import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -126,7 +127,16 @@ public class MacetaServicio {
     	return listaMacetas;
     }
         
-        
+    //el siguiente metodo es para buscar maceta
+    public Maceta buscarMaceta(String id) throws ErrorServicio {
+        Optional<Maceta> Resp = macetaRepositorio.findById(id);
+        if (Resp.isPresent()) {
+            Maceta maceta = Resp.get();
+            return maceta;
+        } else {
+            throw new ErrorServicio("Maceta no encontrada");
+        }
+    }
         
         
 }

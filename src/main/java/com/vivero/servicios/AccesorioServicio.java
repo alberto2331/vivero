@@ -10,8 +10,10 @@ import com.vivero.entidades.Accesorio;
 import com.vivero.entidades.Foto;
 import com.vivero.entidades.Planta;
 import com.vivero.entidades.Portada;
+import com.vivero.errores.ErrorServicio;
 import com.vivero.repositorios.AccesorioRepositorio;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccesorioServicio {
@@ -124,5 +126,16 @@ public class AccesorioServicio {
     	
     	List<Accesorio> listaAccesorios = accesorioRepositorio.listarAccesoriosSinDestacado("%"+nombre+"%",precioMinimo, precioMaximo, "%"+tamanio+"%", "%"+codigo+"%", "%"+categoria+"%");
     	return listaAccesorios;
+    }
+    
+    //el siguiente metodo es para buscar accesorio
+    public Accesorio buscarAccesorio(String id) throws ErrorServicio {
+        Optional<Accesorio> Resp = accesorioRepositorio.findById(id);
+        if (Resp.isPresent()) {
+            Accesorio accesorio = Resp.get();
+            return accesorio;
+        } else {
+            throw new ErrorServicio("Maceta no encontrada");
+        }
     }
 }
