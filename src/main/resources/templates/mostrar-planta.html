@@ -160,10 +160,7 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
+                
                 <!--------------------------------------------IMAGEN PRODUCTO---------------------------------------------------------------------------------------->
                 <div class="col ">
 
@@ -241,13 +238,15 @@
 
                     var nombre = $(" #nombre").text(); var precio = $("#precio").text(); var stock = $("#stock").text();
                     addtocart(botonId, nombre, precio, stock);
-                }); function addtocart(pid, nombre, precio,
+                });
+                
+                function addtocart(pid, nombre, precio,
                     stock) { // var quantity=$("#quantity").val() !="" ? parseInt($("#quantity").val()) : 0; var
                     quantity = $("#contador").val() != "" ? parseInt($("#cintador").val()) : 1;
-                    stock = checkRemainingStock(stock, quantity, pid); var cart = localStorage.getItem("cart"); var
-                        pcart = JSON.parse(cart) != null ? JSON.parse(cart) : []; // si el cart esta vacia inicializa
-                            uin array vacio //get index of the json array where the productid is there ... var
-                    present_or_not = pcart.findIndex(item => item.productid == pid);
+                    stock = checkRemainingStock(stock, quantity, pid); var cart = localStorage.getItem("cart"); 
+                    var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : []; 
+                     // si el cart esta vacia inicializa uin array vacio //get index of the json array where the productid is there ...
+                    var present_or_not = pcart.findIndex(item => item.productid == pid);
                     //if the item not presnt , is null
                     // si el producto no existe lo agregamos al cart
                     if (cart == null || present_or_not == null || present_or_not == -1) {
@@ -265,8 +264,7 @@
                         var actual_stored_product = pcart[present_or_not];
                         pcart.splice(present_or_not, 1); //remove the json object array
                         //get the qty which was already prsnt
-                        var actual_qty = actual_stored_product.quantity == null || actual_stored_product.quantity ==
-                            "" ? 0 : actual_stored_product.quantity;
+                        var actual_qty = actual_stored_product.quantity == null || actual_stored_product.quantity == "" ? 0 : actual_stored_product.quantity;
                         //update the value
                         actual_stored_product.quantity = parseInt(actual_qty) + quantity;
                         actual_stored_product.stock = parseInt(stock);

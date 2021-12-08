@@ -5,10 +5,14 @@
  */
 package com.vivero.controladores;
 
+import com.vivero.entidades.Accesorio;
 import com.vivero.entidades.Foto;
+import com.vivero.entidades.Maceta;
 import com.vivero.entidades.Planta;
 import com.vivero.errores.ErrorServicio;
+import com.vivero.repositorios.AccesorioRepositorio;
 import com.vivero.repositorios.FotoRepositorio;
+import com.vivero.repositorios.MacetaRepositorio;
 import com.vivero.repositorios.PlantaRepositorio;
 import com.vivero.servicios.FotoServicio;
 import com.vivero.servicios.PlantaServicio;
@@ -33,6 +37,12 @@ public class ImagenControlador {
     @Autowired
     private PlantaRepositorio plantaRepositorio;
 
+        @Autowired
+    private AccesorioRepositorio accesorioRepositorio;
+        
+    @Autowired
+    private MacetaRepositorio macetaRepositorio;
+
     @Autowired
     private FotoServicio fotoServicio;
 
@@ -55,7 +65,48 @@ public class ImagenControlador {
             throw new ErrorServicio("Hubo un problema al cargar la imagen del producto");
         }
     }
-//Listar fotos de galeria
+    
+    @GetMapping("/accesorio/{id}")
+    public ResponseEntity<byte[]> getByAccesorio(@PathVariable String id) throws ErrorServicio {
+        try {
+            Accesorio accesorio = accesorioRepositorio.getById(id);
+
+            if (accesorio.getPortada() == null) {
+                throw new ErrorServicio("El producto no tiene una imagen.");
+            }
+            byte[] imagen = accesorio.getPortada().getContenido();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.setContentType(MediaType.IMAGE_JPEG);
+
+            return new ResponseEntity(imagen, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new ErrorServicio("Hubo un problema al cargar la imagen del producto");
+        }
+    }
+    
+    @GetMapping("/maceta/{id}")
+    public ResponseEntity<byte[]> getByMaceta(@PathVariable String id) throws ErrorServicio {
+        try {
+            Maceta maceta = macetaRepositorio.getById(id);
+
+            if (maceta.getPortada() == null) {
+                throw new ErrorServicio("El producto no tiene una imagen.");
+            }
+            byte[] imagen = maceta.getPortada().getContenido();
+
+            HttpHeaders headers = new HttpHeaders();
+
+            headers.setContentType(MediaType.IMAGE_JPEG);
+
+            return new ResponseEntity(imagen, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new ErrorServicio("Hubo un problema al cargar la imagen del producto");
+        }
+    }
+    
+    //Listar fotos de galeria
     @GetMapping("/galeria/{id}")
     public String getGaleriaByProducto(@PathVariable String id, Model model) throws ErrorServicio {
         try {
