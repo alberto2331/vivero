@@ -78,18 +78,18 @@
         </div>
     </nav>
     <main>
-        <div class="container mt-100 pt-50 vh-100 " th:object="${plantaMostrar}">
+        <div class="container mt-100 pt-50 vh-100 " th:object="${macetaMostrar}">
             <div class="row " style="height:100px; "></div>
             <div class="row ">
                 <div class="col ">
                     <div class="row mb-1 ">
-                        <h1 class="animacion " th:text=${plantaMostrar.nombre}>Alocasia </h1>
+                        <h1 class="animacion " th:text=${macetaMostrar.nombre}>Alocasia </h1>
                     </div>
                     <div class="row mb-2 ">
-                        <h2 th:text=${plantaMostrar.precio}>$1400</h2>
+                        <h2 th:text=${macetaMostrar.precio}>$1400</h2>
                     </div>
                     <div class="row mb-2 ">
-                        <p th:text=${plantaMostrar.descripcion}>La petunia es una planta de exterior cuya flor en forma
+                        <p th:text=${macetaMostrar.descripcion}>La petunia es una planta de exterior cuya flor en forma
                             de trompeta (o más bien de tuba o trompa) suele llenar de color los balcones, terrazas o
                             jardines . Son originarias de Suramérica, concretamente de Argentina y Brasil, y le
                             encantan los climas cálidos con temperaturas que oscilen entre los 16 y 25º C</p>
@@ -97,29 +97,25 @@
                     <div class="row mb-2">
                         <div class="col-auto">
                             <p>Stock:</p>
-                            <p th:text=${plantaMostrar.stock}></p>
+                            <p th:text=${macetaMostrar.stock}></p>
 
                         </div>
                         <div class="col-auto">
                             <p>Tamaño:</p>
-                            <p th:text=${plantaMostrar.tamanio}></p>
+                            <p th:text=${macetaMostrar.tamanio}></p>
 
                         </div>
                         <div class="col-auto">
-                            <p>Estilo:</p>
-                            <p th:text=${plantaMostrar.estilo}></p>
+                            <p>Color:</p>
+                            <p th:text=${macetaMostrar.color}></p>
 
                         </div>
                         <div class="col-auto">
-                            <p>Ubicación:</p>
-                            <p th:text=${plantaMostrar.ubicacion}></p>
+                            <p>Material:</p>
+                            <p th:text=${macetaMostrar.material}></p>
 
                         </div>
-                        <div class="col-auto">
-                            <p>Luz:</p>
-                            <p th:text=${plantaMostrar.luz}></p>
 
-                        </div>
 
 
                     </div>
@@ -148,7 +144,7 @@
                                 style="border-radius: 1rem; line-height: 1.1; " id='contador' value="">1</button>
                             <button type="button " class="btn btn-outline "
                                 style="border-radius: 1rem; line-height: 1.1; border-color:transparent; padding: 0.375rem 0.2rem; "
-                                id='aumentar' onclick="carrito(this)" th:max="${plantaMostrar.stock}"
+                                id='aumentar' onclick="carrito(this)" th:max="${macetaMostrar.stock}"
                                 value="aumentar">+</button>
                         </div>
 
@@ -156,7 +152,7 @@
 
                         <div class="col align-items-left " id="contenedorCompraBoton">
                             <button type="button " id="compraBoton" class="btn btn-outline-success "
-                                th:id="*{plantaMostrar.id}">Agregar al carrito</button>
+                                th:id="${macetaMostrar.id}">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
@@ -300,11 +296,11 @@
 
                             var tr = $($.parseHTML('<tr>')).attr('id', 'prod' + producto.productid);
                             var tdContador = $($.parseHTML('<td>')).text(contador);
-                            var tdNombre = $($.parseHTML(' < td > ')).text(producto.nombre);
+                            var tdNombre = $($.parseHTML('< td > ')).text(producto.nombre);
                             var tdPrecio = $($.parseHTML(' < td > ')).text(producto.precio);
-                            var tdCant = $($.parseHTML(' < td > ')).text(producto.quantity);
-                            var tdSubtotal = $($.parseHTML(' < td > ')).text(cant*precio);
-                            var quitarProducto = $($.parseHTML(' < td > ')).append(' < button id = "delete' + producto.productid + '"class= " btn bi bi-trash borrarBoton" ></i ></button > ');
+                            var tdCant = $($.parseHTML('< td > ')).text(producto.quantity);
+                            var tdSubtotal = $($.parseHTML('< td > ')).text(cant*precio);
+                            var quitarProducto = $($.parseHTML('  < td > ')).append(' < button id = "delete' + producto.productid + '"class= " btn bi bi-trash borrarBoton" ></i ></button > ');
 
                             tr.append(tdContador);
                             tr.append(tdNombre);
@@ -322,7 +318,7 @@
                     $('.borrarBoton').click(function () {
                         console.log('delete');
                         var productId = $(this).attr('id').slice(6);;
-                        console.log('elementoInfoId: ' + productId);
+                       
                         $('#prod' + productId).remove();
 
                         var cart = localStorage.getItem("cart");

@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Links CSS bootsrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Links iconos bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../static/css/estilos.css" th:href="@{/css/estilos.css}">
+
+    <!-- Links fuentes-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">OREVIV</a>
+            <div style="display:flex">
+                <form class="d-flex mx-1 d-lg-none">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i>
+                    </button>
+                </form>
+                <button class="btn btn-outline-success mx-1 d-lg-none" type="submit"><i class="bi bi-cart-fill"></i>
+                </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Plantas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Macetas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Accesorios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tendencias</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Nosotros</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+                </ul>
+                <div class="p-2 bd-highlight d-none d-lg-flex">
+                    <form class="d-flex mx-1">
+                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i>
+                        </button>
+                    </form>
+                    <button class="btn btn-outline-success mx-1" id="cartButton" type="submit" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal"><i class="bi bi-cart-fill"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!--------------------------------------------------------------------------------------------------------->
+
+    <!--------------------------------------------FILTROS------------------------------------------------------------->
+
+    </div>
+
+    <div class="divisor d-flex">
+        <button class="btn btn-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight" style="position: absolute; top: 78px; left:5px">
+            <i class="bi bi-filter" style="font-size: 20px;"></i>
+        </button>
+    </div>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Filtros</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form class="needs-validation" action="/maceta/filtrarMaceta" method="GET">
+                <div class="form-group">
+                    <label class=" control-label">El nombre de la Maceta contiene:</label>
+                    <input id="nombre" type="text" name="nombre" class="form-control" value="">
+                </div> <!-- form-group // -->
+                <div class="form-group">
+                    <label class=" control-label">Precio</label>
+                    <div class="row">
+                        <div class="col-6">
+                            <input id="nombre" type="number" name="precioMinimo" class="form-control  mb-1" value=""
+                                placeholder="precio minimo">
+                        </div>
+                        <div class="col-6">
+                            <input id="nombre" type="number" name="precioMaximo" class="form-control col-6" value=""
+                                placeholder="precio maximo">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class=" control-label">Tamaño</label>
+                    <select class="form-select" aria-label="Default select example" name="tamanio">
+                        <option selected value="">-</option>
+                        <option value="no definido">No definido</option>
+                        <option value="chico">Chico</option>
+                        <option value="mediano">Mediano</option>
+                        <option value="grande">Grande</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class=" control-label">Destacado</label>
+                    <select class="form-select" aria-label="Default select example" name="destacadoController"
+                        type="number">
+                        <option selected value="0">-</option>
+                        <option value="1">Si</option>
+                        <option value="2">No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class=" control-label">Codigo</label>
+                    <input id="nombre" type="text" name="codigo" class="form-control" value=""
+                        placeholder="ingrese el codigo del producto">
+                </div>
+                <div class="form-group">
+                    <label class=" control-label">Color</label>
+                    <select class="form-select" aria-label="Default select example" name="color">
+                        <option selected value="">-</option>
+                        <option value="negro">Negro</option>
+                        <option value="blanco">Blanco</option>
+                        <option value="azul">Azul</option>
+                        <option value="rojo">Rojo</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class=" control-label">Material</label>
+                    <select class="form-select" aria-label="Default select example" name="material">
+                        <option selected value="">-</option>
+                        <option selected value="">-</option>
+                        <option value="plastico">Plastico</option>
+                        <option value="ceramica">Ceramica</option>
+                    </select>
+                </div>
+                
+                <!-- form-group // -->
+                <button type="submit" class="btn btn-dark mt-2">Filtrar</button>
+            </form>
+        </div>
+    </div>
+
+    <!--------------------------------------------------------------------------------------------------------->
+
+
+    <!--------------------------------------------------------TARJETA PRODUCTO------------------------------------------------->
+
+    <div>
+
+        <div class="row">
+            <div class="col-3 m-0 p-0 imgWrap" th:each="maceta : ${macetasFiltradas} " style="height:45vh;">
+                <img class=" w-100  img-fluid" th:src="'/imagen/maceta/'+*{maceta.id}" alt="" style="height:45vh;" />
+                <div class="info" th:id="'info'+*{maceta.id}">
+                    
+                    <a href="#" class="text-decoration-none parent">
+                        <p class="nombre_text text-decoration-none text-white px-5 py-10  lh-1" th:text=${maceta.nombre}
+                            style="">PETUNIA</p>
+                    </a>
+                    <p class="precio_text" th:text=${maceta.precio}>$800</p>
+                    <p class="stock_text invisible" th:text=${maceta.stock}>2</p>
+                    <button type="button" id="compraBoton" th:id="*{planta.id}" class="btW btn-light child compraBoton">
+                        COMPRAR
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tu Compra</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <!-- <th scope="col">CÓDIGO</th> -->
+                                    <!-- <th scope="col">TIPO</th> -->
+                                    <th scope="col">NOMBRE</th>
+                                    <th scope="col">CANT</th>
+                                    <th scope="col">PRECIO</th>
+                                    <th scope="col">SUBTOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cartTableBody">
+                                <!-- <tr>
+                                    <th scope="row">1</th>
+                                    <td>P001</td>
+                                    <td>Planta</td>
+                                    <td>Petunia</td>
+                                    <td>5</td>
+                                    <td>$500</td>
+                                    <td>$2500</td>
+                                    <td> <a href="#" style="color: black"><i class="bi bi-trash"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>P002</td>
+                                    <td>Planta</td>
+                                    <td>Monstera</td>
+                                    <td style="width:10%">3</td>
+                                    <td>$1500</td>
+                                    <td>$4500</td>
+                                    <td> <a href="#" style="color: black"><i class="bi bi-trash"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>A001</td>
+                                    <td>Accesorio</td>
+                                    <td>Nombre del acc.</td>
+                                    <td>1</td>
+                                    <td>$800</td>
+                                    <td>$800</td>
+                                    <td> <a href="#" style="color: black"><i class="bi bi-trash"></i></a></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-8">
+
+                                </div>
+                                <div class="col-3 text-end">
+                                    <h5>TOTAL:</h5>
+                                </div>
+                                <div class="col-1" >
+                                    <h5 id="cartTotal">$0</h5>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success">COMPRAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $('.child').click(function (e) {
+                if (!e) var e = window.event;
+                e.cancelBubble = true;
+                if (e.stopPropagation) e.stopPropagation();
+            });
+            $('.parent').click(function (e) {
+            });
+
+            $('.compraBoton').click(function () {
+                var botonId = $(this).attr('id');
+                var elementoInfoId = '#info' + botonId;
+                console.log('elementoInfoId: ' + elementoInfoId);
+
+                // var nombre = $( "#info3b601cc1-80d5-4ecd-8499-ae52737c6f09 > .nombre_text" ).text();
+
+                var nombre = $(elementoInfoId + " > a > .nombre_text").text();
+
+                var precio = $(elementoInfoId + " > .precio_text").text();
+
+                var stock = $(elementoInfoId + " > .stock_text").text();
+
+                addtocart(botonId, nombre, precio, stock);
+            });
+
+            function addtocart(pid, nombre, precio, stock) {
+                // var quantity = $("#quantity").val() != "" ? parseInt($("#quantity").val()) : 0;
+                var quantity = 1;
+                stock = checkRemainingStock(stock, quantity, pid);
+                var cart = localStorage.getItem("cart");
+                var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : []; // si el cart esta vacia inicializa uin array vacio
+                //get index of the json array where the productid is there ...
+                var present_or_not = pcart.findIndex(item => item.productid == pid);
+                //if the item not presnt , is null
+                // si el producto no existe lo agregamos al cart
+                if (cart == null || present_or_not == null || present_or_not == -1) {
+                    var product = {
+                        productid: pid,
+                        nombre: nombre,
+                        precio: precio,
+                        stock: stock,
+                        quantity: quantity
+                    };
+                    pcart.push(product);
+                    localStorage.setItem("cart", JSON.stringify(pcart));
+                } else {
+                    //get the the json from index...
+                    var actual_stored_product = pcart[present_or_not];
+                    pcart.splice(present_or_not, 1); //remove the json object array 
+                    //get the qty which was already prsnt
+                    var actual_qty = actual_stored_product.quantity == null || actual_stored_product.quantity == "" ? 0 : actual_stored_product.quantity;
+                    //update the value
+                    actual_stored_product.quantity = parseInt(actual_qty) + quantity;
+                    actual_stored_product.stock = parseInt(stock);
+                    //now..we have updated value..push obj again..
+                    pcart.push(actual_stored_product);
+                    //store the json in local Storage
+                    localStorage.setItem("cart", JSON.stringify(pcart));
+                }
+                console.log(JSON.stringify(pcart));
+                // updatecart();
+            }
+
+            $('#cartButton').click(function () {
+                cartPreview();
+            })
+
+            var cartPreview = function () {
+                var cart = localStorage.getItem("cart");
+                var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
+                $('#cartTableBody').empty();
+                if (cart) {
+                    var contador = 1;
+                    var total = 0;
+                    pcart.forEach(producto => {
+                        console.log('producto: ', producto);
+                        var cant = parseInt(producto.quantity, 10);
+
+                        var precio = parseInt(producto.precio, 10);
+
+                        total += cant*precio;
+
+                        var tr = $($.parseHTML('<tr>'));
+                        var tdContador = $($.parseHTML('<td>')).text(contador);
+                        var tdNombre = $($.parseHTML('<td>')).text(producto.nombre);
+                        var tdPrecio = $($.parseHTML('<td>')).text(producto.precio);
+                        var tdCant = $($.parseHTML('<td>')).text(producto.quantity);
+                        var tdSubtotal = $($.parseHTML('<td>')).text(cant*precio);
+
+                        tr.append(tdContador);
+                        tr.append(tdNombre);
+                        tr.append(tdCant);
+                        tr.append(tdPrecio);
+                        tr.append(tdSubtotal);
+
+                        $('#cartTableBody').append(tr);
+
+                        contador++;
+                    });
+                    $('#cartTotal').text('$'+total);
+                }
+            };
+
+            var checkRemainingStock = function(stock, qty, pid) {
+                console.log('stock: '+ stock)
+                stock --;
+                var elementoInfoId = '#info' + pid;
+                $(elementoInfoId + " > .stock_text").text(stock);
+                if (stock === 0) {
+                    $( "#"+pid ).remove();
+                    var buttonSinStockContador = $($.parseHTML('<button>')).text('Sin Mas Stock');
+                        buttonSinStockContador.prop('disabled', true);
+                        buttonSinStockContador.addClass(['btW', 'btn-light', 'child']);
+
+
+                        $(elementoInfoId).append(buttonSinStockContador);
+                }
+                return stock;
+            }
+
+        </script>
+
+</body>
+
+</html>
