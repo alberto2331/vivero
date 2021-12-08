@@ -181,4 +181,133 @@ public class MacetaControlador {
         List<Foto> listaFotos = fotoRepositorio.listaFotosDeProducto("%" + id + "%");
         return listaFotos;
     }
+    /////////////////////////// MODIFICAR MACETA //////////////////////////////////
+    Maceta macetaModificar;
+   
+    
+       @GetMapping("/modMaceta")
+    public String modMaceta(
+            ModelMap modelo
+    ) {
+        //Este metodo es para traer todas las plantas de la base de datos
+        List<Maceta> macetasFiltradas = macetaServicio.listaMaceta();
+        modelo.put("macetasFiltradas", macetasFiltradas);
+        return "modificar-maceta";
+    }
+
+    @GetMapping("/modificarMaceta")
+	public String modificarMaceta(
+			@RequestParam(required=false) String nombre,//ok
+			@RequestParam(required=false) Double precioMinimo,//ok
+			@RequestParam(required=false) Double precioMaximo,//ok
+			@RequestParam(required=false) Integer stock, //consultar como lo vamos a implementar
+			@RequestParam(required=false) String tamanio,//ok
+			@RequestParam(required=false) String descripcion,//No se me ocurre como implementarlo
+			@RequestParam(required=false) String color,
+			@RequestParam(required=false) String material,//ok
+			//@RequestParam(required=false) MultipartFile portada, -->no aplicar filtro
+			//@RequestParam(required=false) MultipartFile[] imagenes, -->no aplicar filtro
+            @RequestParam(required=false) Integer destacadoController,//ok
+            @RequestParam(required=false) String codigo,//ok
+			ModelMap modelo			
+			){
+    	
+    	if(destacadoController==0) {
+    		List<Maceta> macetasFiltradas1=macetaServicio.macetasFiltradasSinDestacado
+    				(nombre,
+        			precioMinimo, 
+        			precioMaximo,
+        			tamanio,        			
+        			codigo,
+        			color,
+        			material);
+    		modelo.put("macetasFiltradas", macetasFiltradas1);
+    	}else if(destacadoController==1 || destacadoController==2) {
+    		Boolean destacado;
+    		if(destacadoController==1) {
+    			destacado=true;
+    		}else {
+    			destacado=false;
+    		}
+    		List<Maceta> macetasFiltradas=macetaServicio.listaMacetasFiltradas(nombre,
+        			precioMinimo, 
+        			precioMaximo,
+        			tamanio,
+        			destacado,
+        			codigo,
+        			color,
+        			material);
+    		modelo.put("macetasFiltradas", macetasFiltradas);
+    	}    	
+    	return"modificar-maceta";
+    }
+
+    @Transactional
+    @GetMapping("/botonModificar")
+    //Este metodo es obtener la planta a modificar por medio del id que provee el admin
+	public String botonModificar(ModelMap modelo,
+						   @RequestParam String id){						
+		try {
+			macetaModificar= macetaServicio.buscarMaceta(id);
+			//Metodo para obtener la portada:
+			modelo.addAttribute("datosPortada",getPortadaByProducto(id));
+			
+			//Metodo para obtener las imagenes:			
+			
+			modelo.addAttribute("listaFotos",getGaleriaByProducto(id));			
+			modelo.addAttribute("macetaModificar", macetaModificar);
+			return "modificar-maceta1";
+		}catch (Exception e) {
+			modelo.addAttribute("error", e.getMessage());								
+			return "modificar-maceta1";
+		}
+	}
+    
+    @Transactional
+	@PostMapping("/modificar")
+	public String modificar(			
+			@RequestParam (required=false) String id,
+			@RequestParam (required=false) Boolean activo,
+			@RequestParam (required=false) String nombre,
+			@RequestParam (required=false) Double precio,			
+			@RequestParam (required=false) Integer stock, 
+			@RequestParam (required=false) String tamanio,
+			@RequestParam (required=false) String descripcion,
+			@RequestParam (required=false) String color,
+			@RequestParam (required=false) String material,
+			@RequestParam (required=false) MultipartFile portada, 
+			/*@RequestParam (required=false) MultipartFile[] imagenes,
+			@RequestParam (required=false) MultipartFile portadaBaseDatos, 
+			@RequestParam (required=false) MultipartFile[] fotoBaseDatos,*/
+            @RequestParam (required=false) Integer destacado,
+            @RequestParam (required=false) String codigo,
+			ModelMap modelo){				    	
+    	//System.out.println("Imagenes viene con: "+imagenes.length); //Siempre viene con al menos un elemento
+    	
+    	Boolean destacadoBooleano=true;
+    	if(destacado==1){
+    		destacadoBooleano=true;
+    	}else {
+    		destacadoBooleano=false;
+    	}    	
+    	
+    	if( !portada.isEmpty()) {
+        	try {
+    			macetaServicio.editarMacetaModificandoPortada(activo, id, nombre, precio, stock, tamanio, descripcion, portada, codigo, color, activo);
+    		
+    		} catch (Exception e) {
+    			 throw new Error("Hubo un problema al cargar las modificaciones del producto");
+    		}		    
+    	}    	
+    	
+    	if( portada.isEmpty()) {
+        	try {
+    			macetaServicio.editarMacetaSinModificarPortada(activo, id, nombre, precio, stock, tamanio, descripcion, codigo, color, activo);
+    		} catch (Exception e) {
+    			 throw new Error("Hubo un problema al cargar las modificaciones del producto");
+    		}		    
+    	}    	
+    	return "index";			    	    	    
+	}      
+    
 }
