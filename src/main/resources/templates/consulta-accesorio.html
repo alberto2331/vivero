@@ -98,21 +98,20 @@
         <div class="offcanvas-body">
             <form class="needs-validation" action="/planta/filtrarPlanta" method="GET">
                 <div class="form-group">
+                    <label class=" control-label">Codigo</label>
+                    <input id="nombre" type="text" name="codigo" class="form-control" value=""
+                        placeholder="ingrese el codigo del producto">
+                </div>
+                <div class="form-group">
                     <label class=" control-label">El nombre de la planta contiene:</label>
                     <input id="nombre" type="text" name="nombre" class="form-control" value="">
                 </div> <!-- form-group // -->
                 <div class="form-group">
                     <label class=" control-label">Precio</label>
-                    <div class="row">
-                        <div class="col-6">
-                            <input id="nombre" type="number" name="precioMinimo" class="form-control  mb-1" value=""
-                                placeholder="precio minimo">
-                        </div>
-                        <div class="col-6">
-                            <input id="nombre" type="number" name="precioMaximo" class="form-control col-6" value=""
-                                placeholder="precio maximo">
-                        </div>
-                    </div>
+                    <input id="nombre" type="number" name="precioMinimo" class="form-control" value=""
+                        placeholder="precio minimo">
+                    <input id="nombre" type="number" name="precioMaximo" class="form-control" value=""
+                        placeholder="precio maximo">
                 </div>
                 <div class="form-group">
                     <label class=" control-label">Tamaño</label>
@@ -134,34 +133,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class=" control-label">Codigo</label>
-                    <input id="nombre" type="text" name="codigo" class="form-control" value=""
-                        placeholder="ingrese el codigo del producto">
-                </div>
-                <div class="form-group">
-                    <label class=" control-label">Estilo</label>
-                    <select class="form-select" aria-label="Default select example" name="estilo">
+                    <label class=" control-label">Categoria</label>
+                    <select class="form-select" aria-label="Default select example" name="categoria">
                         <option selected value="">-</option>
-                        <option value="si">Con Flor</option>
-                        <option value="no">Sin Flor</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class=" control-label">Ubicacion</label>
-                    <select class="form-select" aria-label="Default select example" name="ubicacion">
-                        <option selected value="">-</option>
-                        <option value="interior">Interior</option>
-                        <option value="exterior">Exterior</option>
-                        <option value="interior/exterior">Interior y Exterior</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class=" control-label">Luz</label>
-                    <select class="form-select" aria-label="Default select example" name="luz">
-                        <option selected value="">-</option>
-                        <option value="sol">Sol</option>
-                        <option value="med-som">Media Sombra</option>
-                        <option value="sombra">Sombra</option>
+                        <option value="herramientas">Herramientas</option>
+                        <option value="decoracion">Decoracion</option>
+                        <option value="fertilizantes">Fertilizantes</option>
                     </select>
                 </div>
                 <!-- form-group // -->
@@ -178,16 +155,19 @@
     <div>
 
         <div class="row">
-            <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas} " style="height:45vh;">
-                <img class=" w-100  img-fluid" th:src="'/imagen/planta/'+*{planta.id}" alt="" style="height:45vh;" />
-                <div class="info" th:id="'info'+*{planta.id}">
+            <div class="col-3 m-0 p-0 imgWrap" th:each="accesorio : ${accesoriosFiltrados}" style="height:45vh;">
+                <img class=" w-100  img-fluid" th:src="'/imagen/accesorio/'+*{accesorio.id}" alt=""
+                    style="height:45vh;" />
+                <div class="info" th:id="'info'+*{accesorio.id}">
                     <a href="#" class="text-decoration-none parent">
-                        <p class="nombre_text text-decoration-none text-white px-5 py-10  lh-1" th:text=${planta.nombre}
-                            style="">PETUNIA</p>
+                        <p class="nombre_text text-decoration-none text-white px-5 py-10  lh-1"
+                            th:text=${accesorio.nombre} style="">PETUNIA
+                        </p>
                     </a>
-                    <p class="precio_text" th:text=${planta.precio}>$800</p>
-                    <p class="stock_text invisible" th:text=${planta.stock}>2</p>
-                    <button type="button" id="compraBoton" th:id="*{planta.id}" class="btW btn-light child compraBoton">
+                    <p class="precio_text" th:text=$    {accesorio.precio}>$800</p>
+                    <p class="stock_text invisible" th:text=${accesorio.stock}>2</p>
+                    <button type="button" id="compraBoton" th:id="*{accesorio.id}"
+                        class="btW btn-light child compraBoton">
                         COMPRAR
                     </button>
                 </div>
