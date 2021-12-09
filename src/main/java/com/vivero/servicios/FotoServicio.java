@@ -36,4 +36,11 @@ public class FotoServicio {
         }
         return null;
     }   
+    
+    
+    //Cambio por JG para listar fotos
+       public List<Foto> listarFotosDeProducto(String id) {
+    	List<Foto> listaFotos = fotoRepositorio.listaFotosDeProducto("%"+id+"%");
+    	return listaFotos;
+    }
 }

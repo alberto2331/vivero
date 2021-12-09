@@ -1,128 +1,346 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="utf-8">
-        <title>Book register</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>	
-    </head>
-    <body class="bg-light" cz shortcut-list="true">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <div class="py-5 text center">
-            <h1>Macetas</h1>
-            <br />
+    <!-- Links CSS bootsrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-            <p>To return to the main menu<a href="/"> HERE</a></p>
-            <hr/>
-        </div>
-        <div th:if="${error}" class="alert alert-danger alert dismissible fade show mt-3" role="alert">
-            <span th:text="${error}"></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
-        </div>
-        <!-- -->
-        <form class="needs-validation" th:action="@{/maceta/mostrar}" th:object="${macetaMostrar}" method="GET" enctype="multipart/form-data">
-            <!--<input hidden th:field="*{id}">-->
-            <div class="row g-4">
-                <div class="col-sm-6">
-                    <label class="form-label" for="nombre">Nombre</label>
-                    <!--th:field="*{nombre}"   th:field="${plantaModificar.nombre}"-->
-                    <input type="text" class="form-control" th:field="${macetaMostrar.nombre}">
-                </div>
-                <div class="col-sm-6">
-                    <label class="form-label" for="precio">Precio</label>
-                    <input type="number" th:field="${macetaMostrar.precio}" step="any" class="form-control" value=0>
-                </div>
-                <div class="col-sm-6">
-                    <label class="form-label" for="stock">Stock</label>
-                    <input type="number" th:field="${macetaMostrar.stock}" class="form-control" value=0>
-                </div>
-                <div class="col-sm-6">
-                    <label class="form-label" for="tamaño">Tamaño</label>                    
-                    <input type="text" class="form-control" th:field="${macetaMostrar.tamanio}">				
-                </div>
+    <!-- Links iconos bootstrap -->
+    <link rel=" stylesheet " href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css ">
+    <link rel="stylesheet" href="../static/css/estilos2.css" th:href="@{/css/estilos2.css}">
 
-                <div class="col-sm-6">
-                    <label class="form-label" for="descripcion">Descripción</label>
-                    <input type="text" th:field="${macetaMostrar.descripcion}" class="form-control" value="">
-                </div>
-                    <label class="form-label" for="color">Color</label>
-                    <input type="text" th:field="${macetaMostrar.color}" class="form-control" value="">
-                <div class="col-sm-6">
-                </div>
-                    <label class="form-label" for="material">Material</label>
-                    <input type="text" th:field="${macetaMostrar.material}" class="form-control" value="">                     
-                
-                <!--Portada-->
-                <div class="mb-3">
-                    <label class="form-label" for="portada">Portada</label>
-                    <script>
-                        var loadFile = function (event) {
-                        var output = document.getElementById('output');
-                        output.src = URL.createObjectURL(event.target.files[0]);
-                        output.style.width = '200px';
-                        output.style.visibility = 'visible';
-                        output.style.heigth = 'auto';
-                        output.classList.add('my-2');
-                        output.onload = function () {
-                        URL.revokeObjectURL(output.src) // free memory
-                        }
-                        };
-                    </script>
-                </div>
+    <!-- Links fuentes-->
+    <link rel="preconnect " href="https://fonts.googleapis.com ">
+    <link rel="preconnect " href="https://fonts.gstatic.com " crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap " rel="stylesheet ">
 
-                <!--Este metodo es para mostrar la portada en la base de datos-->
-                <tr th:each="portada : ${datosPortada}">            		
-                    <td> <img  th:src="@{'data:image/jpeg;base64,'+${portada}}" /></td>
-                </tr>		
-                <!--Este metodo es para mostrar la portada en la base de datos-->
-                
-                <!--Fin Portada-->  
-                
-                <!--Pruebas de imagenes-->
-                <div class="form-group">
-                    <div class="col-sm-3">
-                        <label class="control-label small" for="file_img">Imagenes</label>
-                        <div class="gallery d-flex mt-1 " style="max-width: 200px;"></div>
-                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-                        <script>
-                            $(function () {
-                            // Multiple images preview in browser
-                            var imagesPreview = function (input, placeToInsertImagePreview) {
-                            $(placeToInsertImagePreview).empty();
-                            if (input.files) {
-                            var filesAmount = input.files.length;
-                            for (i = 0; i < filesAmount; i++) {
-                            var reader = new FileReader();
-                            reader.onload = function (event) {
-                            var img = $($.parseHTML('<img>')).attr('src', event.target.result);
-                            img.attr('width', "200px");
-                            img.addClass("mx-2");
-                            img.appendTo(placeToInsertImagePreview);
-                            }
-                            reader.readAsDataURL(input.files[i]);
-                            }
-                            }
-                            };
-                            $('#gallery-photo-add').on('change', function () {
-                            imagesPreview(this, 'div.gallery');
-                            });
-                            });
-                        </script>
-                    </div>
-                </div> <!-- form-group // -->
 
-                <!--Este metodo es para mostrar las fotos que hay en la base de datos-->
-                <tr th:each="foto : ${listaFotos}">            		
-                    <td> <img  th:src="@{'data:image/jpeg;base64,'+${foto}}" /></td>
-                </tr>
-                <!--Fin de metodo implementado para mostrar fotos-->  
-                <!--Fin Pruebas de imagenes-->				
-                <hr>			
+    <title>Document</title>
+</head>
+
+<!-- style="background-color: tomato; " -->
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top ">
+        <div class="container-fluid " style=" background-color: rgb(255, 248, 239); ">
+            <a class="navbar-brand " href="/">OREVIV</a>
+            <div style="display:flex ">
+                <form class="d-flex mx-1 d-lg-none ">
+                    <input class="form-control me-2 " type="search " placeholder="Buscar " aria-label="Search ">
+                    <button class="btn btn-outline-success " type="submit "><i class="bi bi-search "></i>
+                    </button>
+                </form>
+                <button class="btn btn-outline-success mx-1 d-lg-none " type="submit "><i class="bi bi-cart-fill "></i>
+                </button>
+                <button class="navbar-toggler " type="button " data-bs-toggle="collapse "
+                    data-bs-target="#navbarSupportedContent " aria-controls="navbarSupportedContent "
+                    aria-expanded="false " aria-label="Toggle navigation ">
+                    <span class="navbar-toggler-icon "></span>
+                </button>
             </div>
-        </form>		
-    </body>
+
+            <div class="collapse navbar-collapse " id="navbarSupportedContent ">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item ">
+                        <a class="nav-link active " aria-current="page " href="# " id="active ">Plantas</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Macetas</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Accesorios</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Tendencias</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Nosotros</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Contacto</a>
+                    </li>
+                </ul>
+                <div class="p-2 bd-highlight d-none d-lg-flex ">
+                    <form class="d-flex mx-1 ">
+                        <input class="form-control me-2 " type="search " placeholder="Buscar " aria-label="Search ">
+                        <button class="btn btn-outline-success " type="submit "><i class="bi bi-search "></i>
+                        </button>
+                    </form>
+                    <button class="btn btn-outline-success mx-1 " type="submit "><i class="bi bi-cart-fill "></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container mt-100 pt-50 vh-100 " th:object="${macetaMostrar}">
+            <div class="row " style="height:100px; "></div>
+            <div class="row ">
+                <div class="col ">
+                    <div class="row mb-1 ">
+                        <h1 class="animacion " th:text=${macetaMostrar.nombre}>Alocasia </h1>
+                    </div>
+                    <div class="row mb-2 ">
+                        <h2 th:text=${macetaMostrar.precio}>$1400</h2>
+                    </div>
+                    <div class="row mb-2 ">
+                        <p th:text=${macetaMostrar.descripcion}>La petunia es una planta de exterior cuya flor en forma
+                            de trompeta (o más bien de tuba o trompa) suele llenar de color los balcones, terrazas o
+                            jardines . Son originarias de Suramérica, concretamente de Argentina y Brasil, y le
+                            encantan los climas cálidos con temperaturas que oscilen entre los 16 y 25º C</p>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-auto">
+                            <p>Stock:</p>
+                            <p th:text=${macetaMostrar.stock}></p>
+
+                        </div>
+                        <div class="col-auto">
+                            <p>Tamaño:</p>
+                            <p th:text=${macetaMostrar.tamanio}></p>
+
+                        </div>
+                        <div class="col-auto">
+                            <p>Color:</p>
+                            <p th:text=${macetaMostrar.color}></p>
+
+                        </div>
+                        <div class="col-auto">
+                            <p>Material:</p>
+                            <p th:text=${macetaMostrar.material}></p>
+
+                        </div>
+
+
+
+                    </div>
+                    <div class="row mb-2 ">
+                        <div class="col-auto ">
+                            <script type="text/javascript">
+                                var valor = 1;
+
+                                function carrito(boton) {
+                                    var contador = document.getElementById("contador").value;
+                                    var stockMax = boton.getAttribute("max");
+
+                                    if (boton.value == 'aumentar' && valor < stockMax) {
+                                        valor++
+                                    } else if (valor > 1 && valor != stockMax) {
+                                        valor--
+                                    }
+                                    document.getElementById("contador").textContent = valor;
+                                }
+                            </script>
+
+                            <button type="button " class="btn btn-outline "
+                                style="border-radius: 1rem; line-height: 1.3; border-color:transparent; padding: 0.375rem 0.2rem; "
+                                id='disminuir' onclick="carrito(this)" value="disminuir">-</button>
+                            <button class="btn btn-outline-success " disabled
+                                style="border-radius: 1rem; line-height: 1.1; " id='contador' value="">1</button>
+                            <button type="button " class="btn btn-outline "
+                                style="border-radius: 1rem; line-height: 1.1; border-color:transparent; padding: 0.375rem 0.2rem; "
+                                id='aumentar' onclick="carrito(this)" th:max="${macetaMostrar.stock}"
+                                value="aumentar">+</button>
+                        </div>
+
+
+
+                        <div class="col align-items-left " id="contenedorCompraBoton">
+                            <button type="button " id="compraBoton" class="btn btn-outline-success "
+                                th:id="${macetaMostrar.id}">Agregar al carrito</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--------------------------------------------IMAGEN PRODUCTO---------------------------------------------------------------------------------------->
+                <div class="col ">
+
+                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
+                                class="active" aria-current="true" aria-label="Slide 1"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                                aria-label="Slide 2"></button>
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                                aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" th:each="portada : ${datosPortada}">
+                                <img class="d-block w-100 img-fluid " th:src="@{'data:image/jpeg;base64,'+${portada}}"
+                                    alt="... ">
+                            </div>
+                            <div class="carousel-item" th:each="foto : ${listaFotos}">
+                                <img th:src="@{'data:image/jpeg;base64,'+${foto}}" class="d-block w-100 img-fluid "
+                                    alt="... ">
+                            </div>
+
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="b ia-hidden=" true "></span>
+                          <span class=" visually-hidden ">Next</span>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-----------------------------------------GALERIA------------------------------------------------------------------------------------------->
+
+                <div class=" col-1 ">
+                    <a href=" # " data-bs-target=" #carouselExampleCaptions "  th:each=" foto :
+                            ${listaFotos} " th:attr=" data-bs-slide-to=${element.index} "
+                        class=" active " aria-current=" true " aria-label=" Slide 1 ">
+                        <img  src=" # " th:src=" @{ 'data:image/jpeg;base64,' +${foto}} " class=" img-fluid
+                            mb-3 " alt=" "/>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div class=" divisor ">
+
+        </div>
+
+    </main>
+
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js "
+            integrity=" sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p "
+            crossorigin=" anonymous "></script>
+            <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+            <script>
+                $('.child').click(function (e) {
+                    if (!e) var e = window.event;
+                    e.cancelBubble = true;
+                    if (e.stopPropagation) e.stopPropagation();
+                });
+                $('.parent').click(function (e) {
+                });
+
+                $('.compraBoton').click(function () {
+                    var botonId = $(this).attr('id');
+
+                    var nombre = $(" #nombre").text(); var precio = $("#precio").text(); var stock = $("#stock").text();
+                    addtocart(botonId, nombre, precio, stock);
+                }); function addtocart(pid, nombre, precio,
+                    stock) { // var quantity=$("#quantity").val() !="" ? parseInt($("#quantity").val()) : 0; var
+                    quantity = $("#contador").val() != "" ? parseInt($("#cintador").val()) : 1;
+                    stock = checkRemainingStock(stock, quantity, pid); var cart = localStorage.getItem("cart"); var
+                        pcart = JSON.parse(cart) != null ? JSON.parse(cart) : []; // si el cart esta vacia inicializa
+                            uin array vacio //get index of the json array where the productid is there ... var
+                    present_or_not = pcart.findIndex(item => item.productid == pid);
+                    //if the item not presnt , is null
+                    // si el producto no existe lo agregamos al cart
+                    if (cart == null || present_or_not == null || present_or_not == -1) {
+                        var product = {
+                            productid: pid,
+                            nombre: nombre,
+                            precio: precio,
+                            stock: stock,
+                            quantity: quantity
+                        };
+                        pcart.push(product);
+                        localStorage.setItem("cart", JSON.stringify(pcart));
+                    } else {
+                        //get the the json from index...
+                        var actual_stored_product = pcart[present_or_not];
+                        pcart.splice(present_or_not, 1); //remove the json object array
+                        //get the qty which was already prsnt
+                        var actual_qty = actual_stored_product.quantity == null || actual_stored_product.quantity ==
+                            "" ? 0 : actual_stored_product.quantity;
+                        //update the value
+                        actual_stored_product.quantity = parseInt(actual_qty) + quantity;
+                        actual_stored_product.stock = parseInt(stock);
+                        //now..we have updated value..push obj again..
+                        pcart.push(actual_stored_product);
+                        //store the json in local Storage
+                        localStorage.setItem("cart", JSON.stringify(pcart));
+                    }
+                    console.log(JSON.stringify(pcart));
+                    // updatecart();
+                }
+
+                $('#cartButton').click(function () {
+                    cartPreview();
+                })
+
+                var cartPreview = function () {
+                    var cart = localStorage.getItem("cart");
+                    var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
+                    $('#cartTableBody').empty();
+                    if (cart) {
+                        var contador = 1;
+                        var total = 0;
+                        pcart.forEach(producto => {
+                            console.log('producto: ', producto);
+                            var cant = parseInt(producto.quantity, 10);
+
+                            var precio = parseInt(producto.precio, 10);
+
+                            total += cant * precio;
+
+                            var tr = $($.parseHTML('<tr>')).attr('id', 'prod' + producto.productid);
+                            var tdContador = $($.parseHTML('<td>')).text(contador);
+                            var tdNombre = $($.parseHTML('< td > ')).text(producto.nombre);
+                            var tdPrecio = $($.parseHTML(' < td > ')).text(producto.precio);
+                            var tdCant = $($.parseHTML('< td > ')).text(producto.quantity);
+                            var tdSubtotal = $($.parseHTML('< td > ')).text(cant*precio);
+                            var quitarProducto = $($.parseHTML('  < td > ')).append(' < button id = "delete' + producto.productid + '"class= " btn bi bi-trash borrarBoton" ></i ></button > ');
+
+                            tr.append(tdContador);
+                            tr.append(tdNombre);
+                            tr.append(tdCant);
+                            tr.append(tdPrecio);
+                            tr.append(tdSubtotal);
+                            tr.append(quitarProducto);
+
+                            $('#cartTableBody').append(tr);
+
+                            contador++;
+                        });
+                        $('#cartTotal').text('$' + total);
+                    }
+                    $('.borrarBoton').click(function () {
+                        console.log('delete');
+                        var productId = $(this).attr('id').slice(6);;
+                       
+                        $('#prod' + productId).remove();
+
+                        var cart = localStorage.getItem("cart");
+                        var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
+                        var index = pcart.findIndex(item => item.productid == productId);
+                        pcart.splice(index, 1);
+                        localStorage.setItem("cart", JSON.stringify(pcart));
+                    });
+                };
+
+                var checkRemainingStock = function (stock, qty, pid) {
+                    console.log('stock: ' + stock)
+                    stock--;
+                    $("#stock").text(stock);
+                    if (stock === 0) {
+                        $("#compraBoton").remove();
+                        var buttonSinStockContador = $($.parseHTML('<button>')).text('Sin Mas Stock');
+                        buttonSinStockContador.prop('disabled', true);
+
+                        buttonSinStockContador.addClass(['btn', 'btn-outline-success']);
+                        $("#contenedorCompraBoton").append(buttonSinStockContador);
+                    }
+                    return stock;
+                }
+
+            </script>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js "
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p "
+    crossorigin="anonymous "></script>
+
+<script src="../static/js/app.js " th:src="@{/js/app.js} "></script>
+
 </html>
