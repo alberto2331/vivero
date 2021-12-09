@@ -20,36 +20,32 @@
 <div class="container mt-5">
 <p>To return to the main menu<a href="/"> HERE</a></p>
 <br>
-  <h2>Lista de plantas</h2>            
-  <form class="needs-validation" action="/planta/modPlanta" method="GET"></form>
+  <h2>Lista de accesorios</h2>            
+  <form class="needs-validation" action="/accesorio/modAccesorio" method="GET"></form>
 	
   <table class="table table-dark table-hover mt-4">
     <thead>
       <tr>
         <th scope="col">Codigo</th>        
         <th scope="col">Nombre</th>
-        <th scope="col">Ubicacion</th>
-        <th scope="col">Luz</th>
         <th scope="col">Precio</th>
         <th scope="col">Tamaño</th>
         <th scope="col">Destacado</th>
-        <th scope="col">Tiene Flor</th>
+        <th scope="col">Categoria</th>
         <th scope="col">Modificar</th>
       </tr>
     </thead>
     <tbody>
-      <tr th:each="planta : ${plantasFiltradas}">
-        <td th:text=${planta.codigo}></td>
-        <td th:text=${planta.nombre}></td>
-        <td th:text=${planta.ubicacion}></td>
-        <td th:text=${planta.luz}></td>
-        <td th:text=${planta.precio}></td>
-        <td th:text=${planta.tamanio}></td>
-        <td th:text=${planta.destacado}></td>
-        <td th:text=${planta.estilo}></td>        
+      <tr th:each="accesorio : ${accesoriosFiltrados}">
+        <td th:text=${accesorio.codigo}></td>
+        <td th:text=${accesorio.nombre}></td>
+        <td th:text=${accesorio.precio}></td>
+        <td th:text=${accesorio.tamanio}></td>
+        <td th:text=${accesorio.destacado}></td>
+        <td th:text=${accesorio.categoria}></td>        
 		<td>
 			<button class="btn btn-warning">
-        			<a th:href="@{/planta/botonModificar}+'?id='+${planta.id}">Si</a></button>
+        			<a th:href="@{/accesorio/botonModificar}+'?id='+${accesorio.id}">Si</a></button>
 		</td>
       </tr>     
 	</tbody>
@@ -62,9 +58,9 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form class="needs-validation" action="/planta/modificarPlanta" method="GET">
+            <form class="needs-validation" action="/accesorio/modificarAccesorio" method="GET">
                 <div class="form-group">
-                    <label class=" control-label">El nombre de la planta contiene:</label>
+                    <label class=" control-label">El nombre del accesorio contiene:</label>
 					<input id="nombre" type="text" name="nombre" class="form-control" value="">                    
                 </div> <!-- form-group // -->
                 <div class="form-group">
@@ -93,31 +89,14 @@
                 <div class="form-group">
                     <label class=" control-label">Codigo</label>
                     <input id="nombre" type="text" name="codigo" class="form-control" value="" placeholder="ingrese el codigo del producto">
-                </div>
-                <div class="form-group">
-                    <label class=" control-label">Estilo</label>
-                    <select class="form-select" aria-label="Default select example" name="estilo">
-                        <option selected value="">-</option>
-                        <option value="si">Con Flor</option>
-                        <option value="no">Sin Flor</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class=" control-label">Ubicacion</label>
-                    <select class="form-select" aria-label="Default select example" name="ubicacion">
-                        <option selected value="">-</option>
-                        <option value="interior">Interior</option>
-                        <option value="exterior">Exterior</option>
-                        <option value="interior/exterior">Interior y Exterior</option>
-                    </select>
                 </div>                 
                 <div class="form-group">
-                    <label class=" control-label">Luz</label>
+                    <label class=" control-label">Categoria</label>
                     <select class="form-select" aria-label="Default select example" name="luz">
                         <option selected value="">-</option>
-                        <option value="sol">Sol</option>
-                        <option value="med-som">Media Sombra</option>
-                        <option value="sombra">Sombra</option>
+                        <option value="herramientas">Herramientas</option>
+                        <option value="decoracion">Decoración</option>
+			<option value="fertilizantes">Fertilizantes</option>
                     </select>
                 </div> <!-- form-group // 
                  <!-- form-group // 
