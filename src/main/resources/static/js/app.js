@@ -11,6 +11,7 @@
  let timer = setInterval(onTick, 50);
 
  function onTick() {
+     try {
      /*  const span = text.querySelectorAll('span')[char]; */
      const span = text.getElementsByClassName('carla')[char];
      span.classList.add('fade');
@@ -18,7 +19,10 @@
      if (char === splitText.lengh) {
          complete();
          return;
-     }
+     } 
+     } catch ( e) {
+
+    }
  }
 
  function complete() {

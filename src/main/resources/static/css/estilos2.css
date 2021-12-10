@@ -5,7 +5,6 @@
 }
 
 body {
-    background-image: url("../static/img/fondo01.jpg");
     background-size: auto;
 }
 
@@ -29,7 +28,8 @@ h1 {
     color: black;
     font-size: 4rem;
     font-family: NewYork;
-    src: url('fonts/NewYork.otf') text-align: left;
+    src: url('fonts/NewYork.otf');
+    text-align: left;
 }
 
 span.carla {
