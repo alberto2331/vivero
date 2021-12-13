@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +25,7 @@
 
 <!-- style="background-color: tomato; " -->
 
-<body>
+<body style="background-image:url(../img/fondo01.jpg);" >
     <nav class="navbar navbar-expand-lg navbar-light fixed-top ">
         <div class="container-fluid " style=" background-color: rgb(255, 248, 239); ">
             <a class="navbar-brand " href="/">OREVIV</a>
@@ -85,7 +86,7 @@
                         <h1 class="animacion " th:text=${macetaMostrar.nombre}>Alocasia </h1>
                     </div>
                     <div class="row mb-2 ">
-                        <h2 th:text=${macetaMostrar.precio}>$1400</h2>
+                        <h2 id="precio" th:text=${macetaMostrar.precio}>$1400</h2>
                     </div>
                     <div class="row mb-2 ">
                         <p th:text=${macetaMostrar.descripcion}>La petunia es una planta de exterior cuya flor en forma
@@ -96,8 +97,7 @@
                     <div class="row mb-2">
                         <div class="col-auto">
                             <p>Stock:</p>
-                            <p th:text=${macetaMostrar.stock}></p>
-
+                            <p id="stock" th:text=${macetaMostrar.stock}></p>
                         </div>
                         <div class="col-auto">
                             <p>Tamaño:</p>
@@ -113,16 +113,12 @@
                             <p>Material:</p>
                             <p th:text=${macetaMostrar.material}></p>
 
-                        </div>
-
-
 
                     </div>
                     <div class="row mb-2 ">
                         <div class="col-auto ">
                             <script type="text/javascript">
                                 var valor = 1;
-
                                 function carrito(boton) {
                                     var contador = document.getElementById("contador").value;
                                     var stockMax = boton.getAttribute("max");
@@ -150,12 +146,12 @@
 
 
                         <div class="col align-items-left " id="contenedorCompraBoton">
-                            <button type="button " id="compraBoton" class="btn btn-outline-success "
+                            <button type="button " id="compraBoton" class="btn btn-outline-success compraBoton"
                                 th:id="${macetaMostrar.id}">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
-
+                
                 <!--------------------------------------------IMAGEN PRODUCTO---------------------------------------------------------------------------------------->
                 <div class="col ">
 
@@ -177,32 +173,35 @@
                                 <img th:src="@{'data:image/jpeg;base64,'+${foto}}" class="d-block w-100 img-fluid "
                                     alt="... ">
                             </div>
-
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="b ia-hidden=" true "></span>
+                        <button class="carousel-control-next" type="b ia-hidden=" true></span>
                           <span class=" visually-hidden ">Next</span>
                         </button>
                     </div>
 
                 </div>
 
+
+
                 <!-----------------------------------------GALERIA------------------------------------------------------------------------------------------->
 
+
                 <div class=" col-1 ">
-                    <a href=" # " data-bs-target=" #carouselExampleCaptions "  th:each=" foto :
-                            ${listaFotos} " th:attr=" data-bs-slide-to=${element.index} "
+                    <a href=" # " data-bs-target=" #carouselExampleCaptions "  th:each=" foto, iterador : ${listaFotos} "
+                     th:attr="data-bs-slide-to=${iterador.index+1}"
                         class=" active " aria-current=" true " aria-label=" Slide 1 ">
                         <img  src=" # " th:src=" @{ 'data:image/jpeg;base64,' +${foto}} " class=" img-fluid
                             mb-3 " alt=" "/>
                     </a>
                 </div>
-
             </div>
+
+
         </div>
         <div class=" divisor ">
 
@@ -225,16 +224,20 @@
 
                 $('.compraBoton').click(function () {
                     var botonId = $(this).attr('id');
-
-                    var nombre = $(" #nombre").text(); var precio = $("#precio").text(); var stock = $("#stock").text();
+                    var nombre = $(" #nombre").text(); 
+                    var precio = $("#precio").text(); 
+                    var stock = $("#stock").text();
                     addtocart(botonId, nombre, precio, stock);
-                }); function addtocart(pid, nombre, precio,
+                });
+                
+                function addtocart(pid, nombre, precio,
                     stock) { // var quantity=$("#quantity").val() !="" ? parseInt($("#quantity").val()) : 0; var
-                    quantity = $("#contador").val() != "" ? parseInt($("#cintador").val()) : 1;
-                    stock = checkRemainingStock(stock, quantity, pid); var cart = localStorage.getItem("cart"); var
-                        pcart = JSON.parse(cart) != null ? JSON.parse(cart) : []; // si el cart esta vacia inicializa
-                            uin array vacio //get index of the json array where the productid is there ... var
-                    present_or_not = pcart.findIndex(item => item.productid == pid);
+                    quantity = $("#contador").text() != "" ? parseInt($("#contador").text()) : 1;
+                    stock = checkRemainingStock(stock, quantity, pid); 
+                    var cart = localStorage.getItem("cart"); 
+                    var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : []; 
+                     // si el cart esta vacia inicializa uin array vacio //get index of the json array where the productid is there ...
+                    var present_or_not = pcart.findIndex(item => item.productid == pid);
                     //if the item not presnt , is null
                     // si el producto no existe lo agregamos al cart
                     if (cart == null || present_or_not == null || present_or_not == -1) {
@@ -252,8 +255,7 @@
                         var actual_stored_product = pcart[present_or_not];
                         pcart.splice(present_or_not, 1); //remove the json object array
                         //get the qty which was already prsnt
-                        var actual_qty = actual_stored_product.quantity == null || actual_stored_product.quantity ==
-                            "" ? 0 : actual_stored_product.quantity;
+                        var actual_qty = actual_stored_product.quantity == null || actual_stored_product.quantity == "" ? 0 : actual_stored_product.quantity;
                         //update the value
                         actual_stored_product.quantity = parseInt(actual_qty) + quantity;
                         actual_stored_product.stock = parseInt(stock);
@@ -287,11 +289,11 @@
 
                             var tr = $($.parseHTML('<tr>')).attr('id', 'prod' + producto.productid);
                             var tdContador = $($.parseHTML('<td>')).text(contador);
-                            var tdNombre = $($.parseHTML('< td > ')).text(producto.nombre);
+                            var tdNombre = $($.parseHTML(' < td > ')).text(producto.nombre);
                             var tdPrecio = $($.parseHTML(' < td > ')).text(producto.precio);
-                            var tdCant = $($.parseHTML('< td > ')).text(producto.quantity);
-                            var tdSubtotal = $($.parseHTML('< td > ')).text(cant*precio);
-                            var quitarProducto = $($.parseHTML('  < td > ')).append(' < button id = "delete' + producto.productid + '"class= " btn bi bi-trash borrarBoton" ></i ></button > ');
+                            var tdCant = $($.parseHTML(' < td > ')).text(producto.quantity);
+                            var tdSubtotal = $($.parseHTML(' < td > ')).text(cant*precio);
+                            var quitarProducto = $($.parseHTML(' < td > ')).append(' < button id = "delete' + producto.productid + '"class= " btn bi bi-trash borrarBoton" ></i ></button > ');
 
                             tr.append(tdContador);
                             tr.append(tdNombre);
@@ -309,7 +311,7 @@
                     $('.borrarBoton').click(function () {
                         console.log('delete');
                         var productId = $(this).attr('id').slice(6);;
-                       
+                        console.log('elementoInfoId: ' + productId);
                         $('#prod' + productId).remove();
 
                         var cart = localStorage.getItem("cart");
@@ -321,11 +323,14 @@
                 };
 
                 var checkRemainingStock = function (stock, qty, pid) {
-                    console.log('stock: ' + stock)
-                    stock--;
+                    console.log('stock: ' + stock);
+                    console.log('qty: ' + qty);
+
+                    stock -= qty;
                     $("#stock").text(stock);
-                    if (stock === 0) {
-                        $("#compraBoton").remove();
+                    $("#aumentar").attr('max',stock);
+                    if (stock <= 0 ) {
+                        $(".compraBoton").remove();
                         var buttonSinStockContador = $($.parseHTML('<button>')).text('Sin Mas Stock');
                         buttonSinStockContador.prop('disabled', true);
 
@@ -336,11 +341,11 @@
                 }
 
             </script>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js "
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p "
     crossorigin="anonymous "></script>
 
 <script src="../static/js/app.js " th:src="@{/js/app.js} "></script>
-
 </html>

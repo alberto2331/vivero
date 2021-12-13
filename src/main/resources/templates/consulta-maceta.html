@@ -96,22 +96,9 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form class="needs-validation" action="/maceta/filtrarMaceta" method="GET">
+            <form class="needs-validation" action="/planta/filtrarPlanta" method="GET">
                 <div class="form-group">
-<<<<<<< HEAD
-                    <label class=" control-label">El nombre de la maceta contiene:</label>
-					<input id="nombre" type="text" name="nombre" class="form-control" value="">                    
-                </div> <!-- form-group // -->
-                <div class="form-group">
-                    <label class=" control-label">Precio</label>
-                    <input id="nombre" type="number" name="precioMinimo" class="form-control" value="" placeholder="precio minimo">
-                    <input id="nombre" type="number" name="precioMaximo" class="form-control" value="" placeholder="precio maximo">
-                </div>                
-				<div class="form-group">
-                    <label class=" control-label">Tamaño</label>
-                    <select class="form-select" aria-label="Default select example" name="tamanio">                        
-=======
-                    <label class=" control-label">El nombre de la Maceta contiene:</label>
+                    <label class=" control-label">El nombre de la planta contiene:</label>
                     <input id="nombre" type="text" name="nombre" class="form-control" value="">
                 </div> <!-- form-group // -->
                 <div class="form-group">
@@ -130,7 +117,6 @@
                 <div class="form-group">
                     <label class=" control-label">Tamaño</label>
                     <select class="form-select" aria-label="Default select example" name="tamanio">
->>>>>>> frontend
                         <option selected value="">-</option>
                         <option value="no definido">No definido</option>
                         <option value="chico">Chico</option>
@@ -138,14 +124,10 @@
                         <option value="grande">Grande</option>
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="display:none;">
                     <label class=" control-label">Destacado</label>
-<<<<<<< HEAD
-                    <select class="form-select" aria-label="Default select example" name="destacadoController" type="number">                                                
-=======
                     <select class="form-select" aria-label="Default select example" name="destacadoController"
                         type="number">
->>>>>>> frontend
                         <option selected value="0">-</option>
                         <option value="1">Si</option>
                         <option value="2">No</option>
@@ -153,58 +135,35 @@
                 </div>
                 <div class="form-group">
                     <label class=" control-label">Codigo</label>
-<<<<<<< HEAD
-                    <input id="nombre" type="text" name="codigo" class="form-control" value="" placeholder="ingrese el codigo del producto">
-                </div>
-
-=======
                     <input id="nombre" type="text" name="codigo" class="form-control" value=""
                         placeholder="ingrese el codigo del producto">
                 </div>
->>>>>>> frontend
                 <div class="form-group">
                     <label class=" control-label">Color</label>
                     <select class="form-select" aria-label="Default select example" name="color">
-                        <option selected value="">-</option>
-                        <option value="negro">Negro</option>
-                        <option value="blanco">Blanco</option>
-                        <option value="azul">Azul</option>
+                        <option selected value="">Color</option>
+                        <option value="amarillo">Amarillo</option>
                         <option value="rojo">Rojo</option>
+                        <option value="azul">Azul</option>
+                        <option value="negro">Negro</option>
+                        <option value="arena">Arena</option>
                     </select>
-<<<<<<< HEAD
-                </div>                 
-=======
                 </div>
->>>>>>> frontend
                 <div class="form-group">
                     <label class=" control-label">Material</label>
                     <select class="form-select" aria-label="Default select example" name="material">
-                        <option selected value="">-</option>
-<<<<<<< HEAD
-                        <option value="plastico">Plastico</option>
-                        <option value="ceramica">Ceramica</option>
-                    </select>
-                </div> <!-- form-group // 
-                 <!-- form-group // 
-               -->
-=======
-                        <option selected value="">-</option>
-                        <option value="plastico">Plastico</option>
-                        <option value="ceramica">Ceramica</option>
+                        <option selected value="">Material</option>
+                        <option value="plastico">Plástico</option>
+                        <option value="ceramica">Cerámica</option>
+                        <option value="madera">Madera</option>
+                        <option value="hormigon">Hormigón</option>
                     </select>
                 </div>
-                
                 <!-- form-group // -->
->>>>>>> frontend
                 <button type="submit" class="btn btn-dark mt-2">Filtrar</button>
             </form>
         </div>
     </div>
-<<<<<<< HEAD
-  <!-- Fin Form de consultas:-->
-
-</body>
-=======
 
     <!--------------------------------------------------------------------------------------------------------->
 
@@ -217,14 +176,13 @@
             <div class="col-3 m-0 p-0 imgWrap" th:each="maceta : ${macetasFiltradas} " style="height:45vh;">
                 <img class=" w-100  img-fluid" th:src="'/imagen/maceta/'+*{maceta.id}" alt="" style="height:45vh;" />
                 <div class="info" th:id="'info'+*{maceta.id}">
-                    
                     <a href="#" class="text-decoration-none parent">
                         <p class="nombre_text text-decoration-none text-white px-5 py-10  lh-1" th:text=${maceta.nombre}
                             style="">PETUNIA</p>
                     </a>
                     <p class="precio_text" th:text=${maceta.precio}>$800</p>
                     <p class="stock_text invisible" th:text=${maceta.stock}>2</p>
-                    <button type="button" id="compraBoton" th:id="*{planta.id}" class="btW btn-light child compraBoton">
+                    <button type="button" id="compraBoton" th:id="*{maceta.id}" class="btW btn-light child compraBoton">
                         COMPRAR
                     </button>
                 </div>
@@ -294,7 +252,7 @@
                                 <div class="col-3 text-end">
                                     <h5>TOTAL:</h5>
                                 </div>
-                                <div class="col-1" >
+                                <div class="col-1">
                                     <h5 id="cartTotal">$0</h5>
                                 </div>
 
@@ -312,16 +270,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
             crossorigin="anonymous"></script>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-            $('.child').click(function (e) {
-                if (!e) var e = window.event;
-                e.cancelBubble = true;
-                if (e.stopPropagation) e.stopPropagation();
-            });
-            $('.parent').click(function (e) {
-            });
-
             $('.compraBoton').click(function () {
                 var botonId = $(this).attr('id');
                 var elementoInfoId = '#info' + botonId;
@@ -393,42 +343,54 @@
 
                         var precio = parseInt(producto.precio, 10);
 
-                        total += cant*precio;
+                        total += cant * precio;
 
-                        var tr = $($.parseHTML('<tr>'));
+                        var tr = $($.parseHTML('<tr>')).attr('id', 'prod' + producto.productid);
                         var tdContador = $($.parseHTML('<td>')).text(contador);
                         var tdNombre = $($.parseHTML('<td>')).text(producto.nombre);
                         var tdPrecio = $($.parseHTML('<td>')).text(producto.precio);
                         var tdCant = $($.parseHTML('<td>')).text(producto.quantity);
-                        var tdSubtotal = $($.parseHTML('<td>')).text(cant*precio);
+                        var tdSubtotal = $($.parseHTML('<td>')).text(cant * precio);
+                        var quitarProducto = $($.parseHTML('<td>')).append('<button id="delete' + producto.productid + '" class=" btn bi bi-trash borrarBoton"></i></button>');
 
                         tr.append(tdContador);
                         tr.append(tdNombre);
                         tr.append(tdCant);
                         tr.append(tdPrecio);
                         tr.append(tdSubtotal);
+                        tr.append(quitarProducto);
 
                         $('#cartTableBody').append(tr);
 
                         contador++;
                     });
-                    $('#cartTotal').text('$'+total);
+                    $('#cartTotal').text('$' + total);
                 }
+                $('.borrarBoton').click(function () {
+                    console.log('delete');
+                    var productId = $(this).attr('id').slice(6);;
+                    console.log('elementoInfoId: ' + productId);
+                    $('#prod' + productId).remove();
+
+                    var cart = localStorage.getItem("cart");
+                    var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
+                    var index = pcart.findIndex(item => item.productid == productId);
+                    pcart.splice(index, 1);
+                    localStorage.setItem("cart", JSON.stringify(pcart));
+                });
             };
 
-            var checkRemainingStock = function(stock, qty, pid) {
-                console.log('stock: '+ stock)
-                stock --;
+            var checkRemainingStock = function (stock, qty, pid) {
+                console.log('stock: ' + stock)
+                stock--;
                 var elementoInfoId = '#info' + pid;
                 $(elementoInfoId + " > .stock_text").text(stock);
                 if (stock === 0) {
-                    $( "#"+pid ).remove();
+                    $("#" + pid).remove();
                     var buttonSinStockContador = $($.parseHTML('<button>')).text('Sin Mas Stock');
-                        buttonSinStockContador.prop('disabled', true);
-                        buttonSinStockContador.addClass(['btW', 'btn-light', 'child']);
-
-
-                        $(elementoInfoId).append(buttonSinStockContador);
+                    buttonSinStockContador.prop('disabled', true);
+                    buttonSinStockContador.addClass(['btW', 'btn-light', 'child']);
+                    $(elementoInfoId).append(buttonSinStockContador);
                 }
                 return stock;
             }
@@ -437,5 +399,4 @@
 
 </body>
 
->>>>>>> frontend
 </html>
