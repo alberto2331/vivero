@@ -265,7 +265,11 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success">COMPRAR</button>
+                    <!--La siguiente linea la agrego para enviar la info al controlador de compras-->
+                    <!--<form class="needs-validation" action="/compra/guardar" method="POST">
+                        <input hidden th:field="${producto.productid}" name="producto.productid">-->
+                        <button type="submit" class="btn btn-success">COMPRAR</button>
+                    <!--</form>-->
                     </div>
                 </div>
             </div>
