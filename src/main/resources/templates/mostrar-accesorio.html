@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -10,10 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-
     <!-- Links iconos bootstrap -->
     <link rel=" stylesheet " href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css ">
-
     <link rel="stylesheet" href="../static/css/estilos2.css" th:href="@{/css/estilos2.css}">
 
     <!-- Links fuentes-->
@@ -27,54 +25,53 @@
 
 <!-- style="background-color: tomato; " -->
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">OREVIV</a>
-            <div style="display:flex">
-                <form class="d-flex mx-1 d-lg-none">
-                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i>
+<body style="background-image:url(../img/fondo01.jpg);" >
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top ">
+        <div class="container-fluid " style=" background-color: rgb(255, 248, 239); ">
+            <a class="navbar-brand " href="/">OREVIV</a>
+            <div style="display:flex ">
+                <form class="d-flex mx-1 d-lg-none ">
+                    <input class="form-control me-2 " type="search " placeholder="Buscar " aria-label="Search ">
+                    <button class="btn btn-outline-success " type="submit "><i class="bi bi-search "></i>
                     </button>
                 </form>
-                <button class="btn btn-outline-success mx-1 d-lg-none" type="submit"><i class="bi bi-cart-fill"></i>
+                <button class="btn btn-outline-success mx-1 d-lg-none " type="submit "><i class="bi bi-cart-fill "></i>
                 </button>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="navbar-toggler " type="button " data-bs-toggle="collapse "
+                    data-bs-target="#navbarSupportedContent " aria-controls="navbarSupportedContent "
+                    aria-expanded="false " aria-label="Toggle navigation ">
+                    <span class="navbar-toggler-icon "></span>
                 </button>
             </div>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Plantas</a>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent ">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item ">
+                        <a class="nav-link active " aria-current="page " href="# " id="active ">Plantas</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Macetas</a>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Macetas</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Accesorios</a>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Accesorios</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tendencias</a>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Tendencias</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Nosotros</a>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Nosotros</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Contacto</a>
                     </li>
                 </ul>
-                <div class="p-2 bd-highlight d-none d-lg-flex">
-                    <form class="d-flex mx-1">
-                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i>
+                <div class="p-2 bd-highlight d-none d-lg-flex ">
+                    <form class="d-flex mx-1 ">
+                        <input class="form-control me-2 " type="search " placeholder="Buscar " aria-label="Search ">
+                        <button class="btn btn-outline-success " type="submit "><i class="bi bi-search "></i>
                         </button>
                     </form>
-                    <button class="btn btn-outline-success mx-1" id="cartButton" type="submit" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal"><i class="bi bi-cart-fill"></i>
+                    <button class="btn btn-outline-success mx-1 " type="submit "><i class="bi bi-cart-fill "></i>
                     </button>
                 </div>
             </div>
@@ -86,23 +83,13 @@
             <div class="row ">
                 <div class="col ">
                     <div class="row mb-1 ">
-                        <h1 class="animacion " id="nombre" th:text="${accesorioMostrar.nombre}">Alocasia
-                        </h1>
+                        <h1 class="animacion " th:text=${accesorioMostrar.nombre}></h1>
                     </div>
                     <div class="row mb-2 ">
-                        <h2 style="display: inline;">$</h2>
-                        <h2 style="display: inline;" th:text="${accesorioMostrar.precio}" id="precio">1400
-                        </h2>
+                        <h2 id="precio" th:text=${accesorioMostrar.precio}></h2>
                     </div>
                     <div class="row mb-2 ">
-                        <p id="descripcion" th:text="${accesorioMostrar.descripcion}">
-                            La petunia es una planta de exterior cuya flor en forma de trompeta (o más bien
-                            de tuba o
-                            trompa) suele llenar de color los balcones, terrazas o jardines . Son
-                            originarias de
-                            Suramérica, concretamente de Argentina y Brasil, y le
-                            encantan los climas cálidos con temperaturas que oscilen entre los 16 y 25º C
-                        </p>
+                        <p th:text=${accesorioMostrar.descripcion}></p>
                     </div>
                     <div class="row mb-2">
                         <div class="col-auto">
@@ -111,11 +98,11 @@
                         </div>
                         <div class="col-auto">
                             <p>Tamaño:</p>
-                            <p id="tamanio" th:text=${accesorioMostrar.tamanio}></p>
+                            <p th:text=${accesorioMostrar.tamanio}></p>
                         </div>
                         <div class="col-auto">
-                            <p>Categoria:</p>
-                            <p id="categoria" th:text=${accesorioMostrar.categoria}></p>
+                            <p>Categoría:</p>
+                            <p th:text=${accesorioMostrar.categoria}></p>
                         </div>
                     </div>
                     <div class="row mb-2 ">
@@ -144,15 +131,13 @@
                                 id='aumentar' onclick="carrito(this)" th:max="${accesorioMostrar.stock}"
                                 value="aumentar">+</button>
                         </div>
-                        <div class="col align-items-left" id="contenedorCompraBoton">
-                            <button type="button compraBoton" id="compraBoton" th:id="${accesorioMostrar.id}"
-                                class="btn btn-outline-success ">Agregar al
-                                carrito
-                            </button>
+                        <div class="col align-items-left " id="contenedorCompraBoton">
+                            <button type="button " id="compraBoton" class="btn btn-outline-success compraBoton"
+                                th:id="${accesorioMostrar.id}">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>
-
+                
                 <!--------------------------------------------IMAGEN PRODUCTO---------------------------------------------------------------------------------------->
                 <div class="col ">
                     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -164,203 +149,177 @@
                             <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
                                 aria-label="Slide 3"></button>
                         </div>
-
                         <div class="carousel-inner">
                             <div class="carousel-item active" th:each="portada : ${datosPortada}">
-                                <img th:src="@{'data:image/jpeg;base64,'+${portada}}" class="d-block w-100 img-fluid "
-                                    alt="... " />
+                                <img class="d-block w-100 img-fluid " th:src="@{'data:image/jpeg;base64,'+${portada}}"
+                                    alt="... ">
                             </div>
                             <div class="carousel-item" th:each="foto : ${listaFotos}">
-                                <img src="#" th:src="@{'data:image/jpeg;base64,'+${foto}}"
-                                    class="d-block w-100 img-fluid " alt="... " />
+                                <img th:src="@{'data:image/jpeg;base64,'+${foto}}" class="d-block w-100 img-fluid "
+                                    alt="... ">
                             </div>
                         </div>
-
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Previous</span>
                         </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                            data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
+                        <button class="carousel-control-next" type="b ia-hidden=" true></span>
+                          <span class=" visually-hidden ">Next</span>
                         </button>
                     </div>
                 </div>
+                
                 <!-----------------------------------------GALERIA------------------------------------------------------------------------------------------->
-                <div class="col-1 ">
-                    <a href="# " data-bs-target="#carouselExampleCaptions " th:each="foto : ${listaFotos}"
-                        th:attr="data-bs-slide-to=${element.index}" class="active " aria-current="true "
-                        aria-label="Slide 1 ">
-                        <img src="#" th:src="@{'data:image/jpeg;base64,'+${foto}}" class="img-fluid mb-3 " alt=" " />
+                <div class=" col-1 ">
+                    <a href=" # " data-bs-target=" #carouselExampleCaptions "  th:each=" foto, iterador : ${listaFotos} "
+                     th:attr="data-bs-slide-to=${iterador.index+1}"
+                        class=" active " aria-current=" true " aria-label=" Slide 1 ">
+                        <img  src=" # " th:src=" @{ 'data:image/jpeg;base64,' +${foto}} " class=" img-fluid
+                            mb-3 " alt=" "/>
                     </a>
                 </div>
             </div>
         </div>
-        <div class="divisor ">
+        <div class=" divisor ">
         </div>
     </main>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Tu Compra</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">NOMBRE</th>
-                                <th scope="col">CANT</th>
-                                <th scope="col">PRECIO</th>
-                                <th scope="col">SUBTOTAL</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cartTableBody">
-                        </tbody>
-                    </table>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-8">
 
-                            </div>
-                            <div class="col-3 text-end">
-                                <h5>TOTAL:</h5>
-                            </div>
-                            <div class="col-1">
-                                <h5 id="cartTotal">$0</h5>
-                            </div>
+    <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js "
+            integrity=" sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p "
+            crossorigin=" anonymous "></script>
+    <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
+    <script>
+                $('.child').click(function (e) {
+                    if (!e) var e = window.event;
+                    e.cancelBubble = true;
+                    if (e.stopPropagation) e.stopPropagation();
+                });
+                $('.parent').click(function (e) {
+                });
 
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success">COMPRAR</button>
-                </div>
-            </div>
-        </div>
-    </div>
+                $('.compraBoton').click(function () {
+                    var botonId = $(this).attr('id');
+                    var nombre = $(" #nombre").text(); 
+                    var precio = $("#precio").text(); 
+                    var stock = $("#stock").text();
+                    addtocart(botonId, nombre, precio, stock);
+                });
+                
+                function addtocart(pid, nombre, precio,
+                    stock) { // var quantity=$("#quantity").val() !="" ? parseInt($("#quantity").val()) : 0; var
+                    quantity = $("#contador").text() != "" ? parseInt($("#contador").text()) : 1;
+                    stock = checkRemainingStock(stock, quantity, pid); 
+                    var cart = localStorage.getItem("cart"); 
+                    var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : []; 
+                     // si el cart esta vacia inicializa uin array vacio //get index of the json array where the productid is there ...
+                    var present_or_not = pcart.findIndex(item => item.productid == pid);
+                    //if the item not presnt , is null
+                    // si el producto no existe lo agregamos al cart
+                    if (cart == null || present_or_not == null || present_or_not == -1) {
+                        var product = {
+                            productid: pid,
+                            nombre: nombre,
+                            precio: precio,
+                            stock: stock,
+                            quantity: quantity
+                        };
+                        pcart.push(product);
+                        localStorage.setItem("cart", JSON.stringify(pcart));
+                    } else {
+                        //get the the json from index...
+                        var actual_stored_product = pcart[present_or_not];
+                        pcart.splice(present_or_not, 1); //remove the json object array
+                        //get the qty which was already prsnt
+                        var actual_qty = actual_stored_product.quantity == null || actual_stored_product.quantity == "" ? 0 : actual_stored_product.quantity;
+                        //update the value
+                        actual_stored_product.quantity = parseInt(actual_qty) + quantity;
+                        actual_stored_product.stock = parseInt(stock);
+                        //now..we have updated value..push obj again..
+                        pcart.push(actual_stored_product);
+                        //store the json in local Storage
+                        localStorage.setItem("cart", JSON.stringify(pcart));
+                    }
+                    console.log(JSON.stringify(pcart));
+                    // updatecart();
+                }
+
+                $('#cartButton').click(function () {
+                    cartPreview();
+                })
+
+                var cartPreview = function () {
+                    var cart = localStorage.getItem("cart");
+                    var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
+                    $('#cartTableBody').empty();
+                    if (cart) {
+                        var contador = 1;
+                        var total = 0;
+                        pcart.forEach(producto => {
+                            console.log('producto: ', producto);
+                            var cant = parseInt(producto.quantity, 10);
+
+                            var precio = parseInt(producto.precio, 10);
+
+                            total += cant * precio;
+
+                            var tr = $($.parseHTML('<tr>')).attr('id', 'prod' + producto.productid);
+                            var tdContador = $($.parseHTML('<td>')).text(contador);
+                            var tdNombre = $($.parseHTML(' < td > ')).text(producto.nombre);
+                            var tdPrecio = $($.parseHTML(' < td > ')).text(producto.precio);
+                            var tdCant = $($.parseHTML(' < td > ')).text(producto.quantity);
+                            var tdSubtotal = $($.parseHTML(' < td > ')).text(cant*precio);
+                            var quitarProducto = $($.parseHTML(' < td > ')).append(' < button id = "delete' + producto.productid + '"class= " btn bi bi-trash borrarBoton" ></i ></button > ');
+
+                            tr.append(tdContador);
+                            tr.append(tdNombre);
+                            tr.append(tdCant);
+                            tr.append(tdPrecio);
+                            tr.append(tdSubtotal);
+                            tr.append(quitarProducto);
+
+                            $('#cartTableBody').append(tr);
+
+                            contador++;
+                        });
+                        $('#cartTotal').text('$' + total);
+                    }
+                    $('.borrarBoton').click(function () {
+                        console.log('delete');
+                        var productId = $(this).attr('id').slice(6);;
+                        console.log('elementoInfoId: ' + productId);
+                        $('#prod' + productId).remove();
+
+                        var cart = localStorage.getItem("cart");
+                        var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
+                        var index = pcart.findIndex(item => item.productid == productId);
+                        pcart.splice(index, 1);
+                        localStorage.setItem("cart", JSON.stringify(pcart));
+                    });
+                };
+
+                var checkRemainingStock = function (stock, qty, pid) {
+                    console.log('stock: ' + stock);
+                    console.log('qty: ' + qty);
+
+                    stock -= qty;
+                    $("#stock").text(stock);
+                    $("#aumentar").attr('max',stock);
+                    if (stock <= 0 ) {
+                        $(".compraBoton").remove();
+                        var buttonSinStockContador = $($.parseHTML('<button>')).text('Sin Mas Stock');
+                        buttonSinStockContador.prop('disabled', true);
+
+                        buttonSinStockContador.addClass(['btn', 'btn-outline-success']);
+                        $("#contenedorCompraBoton").append(buttonSinStockContador);
+                    }
+                    return stock;
+                }
+    </script>
 </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js "
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p "
+        crossorigin="anonymous "></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js "
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p "
-    crossorigin="anonymous "></script>
-
-<script src="../static/js/app.js " th:src="@{/js/app.js}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script th:inline="javascript">
-
-    $('.compraBoton').click(function () {
-        var botonId = $(this).attr('id');
-        var nombre = $("#nombre").text();
-        var precio = $("#precio").text();
-        var stock = $("#stock").text();
-        addtocart(botonId, nombre, precio, stock);
-    });
-
-    function addtocart(pid, nombre, precio, stock) {
-        var quantity = $("#contador").val() != "" ? parseInt($("#contador").val()) : 1;
-        stock = checkRemainingStock(stock, quantity, pid);
-        var cart = localStorage.getItem("cart");
-        var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : []; // si el cart esta vacia inicializa uin array vacio
-        //get index of the json array where the productid is there ...
-        var present_or_not = pcart.findIndex(item => item.productid == pid);
-        //if the item not presnt , is null
-        // si el producto no existe lo agregamos al cart
-        if (cart == null || present_or_not == null || present_or_not == -1) {
-            var product = {
-                productid: pid,
-                nombre: nombre,
-                precio: precio,
-                stock: stock,
-                quantity: quantity
-            };
-            pcart.push(product);
-            localStorage.setItem("cart", JSON.stringify(pcart));
-        } else {
-            //get the the json from index...
-            var actual_stored_product = pcart[present_or_not];
-            pcart.splice(present_or_not, 1); //remove the json object array 
-            //get the qty which was already prsnt
-            var actual_qty = actual_stored_product.quantity == null || actual_stored_product.quantity == "" ? 0 : actual_stored_product.quantity;
-            //update the value
-            actual_stored_product.quantity = parseInt(actual_qty) + quantity;
-            actual_stored_product.stock = parseInt(stock);
-            //now..we have updated value..push obj again..
-            pcart.push(actual_stored_product);
-            //store the json in local Storage
-            localStorage.setItem("cart", JSON.stringify(pcart));
-        }
-        console.log(JSON.stringify(pcart));
-        // updatecart();
-    }
-    $('#cartButton').click(function () {
-        cartPreview();
-    })
-    var cartPreview = function () {
-        var cart = localStorage.getItem("cart");
-        var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
-        $('#cartTableBody').empty();
-        if (cart) {
-            var contador = 1;
-            var total = 0;
-            pcart.forEach(producto => {
-                console.log('producto: ', producto);
-                var cant = parseInt(producto.quantity, 10);
-
-                var precio = parseInt(producto.precio, 10);
-
-                total += cant * precio;
-
-                var tr = $($.parseHTML('<tr>')).attr('id', 'prod' + producto.productid);
-                var tdContador = $($.parseHTML('<td>')).text(contador);
-                var tdNombre = $($.parseHTML('<td>')).text(producto.nombre);
-                var tdPrecio = $($.parseHTML('<td>')).text(producto.precio);
-                var tdCant = $($.parseHTML('<td>')).text(producto.quantity);
-                var tdSubtotal = $($.parseHTML('<td>')).text(cant * precio);
-                var quitarProducto = $($.parseHTML('<td>')).append('<button id="delete' + producto.productid + '" class=" btn bi bi-trash borrarBoton"></i></button>');
-
-                tr.append(tdContador);
-                tr.append(tdNombre);
-                tr.append(tdCant);
-                tr.append(tdPrecio);
-                tr.append(tdSubtotal);
-                tr.append(quitarProducto);
-
-                $('#cartTableBody').append(tr);
-                contador++;
-            });
-            $('#cartTotal').text('$' + total);
-        }
-        $('.borrarBoton').click(function () {
-            console.log('delete');
-            var productId = $(this).attr('id').slice(6);;
-            console.log('elementoInfoId: ' + productId);
-            $('#prod' + productId).remove();
-
-            var cart = localStorage.getItem("cart");
-            var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
-            var index = pcart.findIndex(item => item.productid == productId);
-            pcart.splice(index, 1);
-            localStorage.setItem("cart", JSON.stringify(pcart));
-        });
-    };
-
-    var checkRemainingStock = function (stock, qty, pid) {
-        console.log('stock: ' + stock)
-        stock--;
-        $("#stock").text(stock);
-        if (stock === 0) {
-            $("#compraBoton").remove();
-            var buttonSinStockContador = $($.parseHTML('<button>')).text('Sin Mas Stock');
-            buttonSinStockContador.prop('disabled', true);
-            buttonSinStockContador.addClass(['btn', 'btn-outline-success']);
-            $("#contenedorCompraBoton").append(buttonSinStockContador);
-        }
-        return stock;
-    }
-</script>
+    <script src="../static/js/app.js " th:src="@{/js/app.js} "></script>
 </html>

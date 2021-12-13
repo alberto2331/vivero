@@ -55,7 +55,7 @@
             <!-------------------------------DESCRIPCIÓN--------------------------------------------------------->
             <div class="mb-3">
                 <label for="descripcion" class="form-label">Descripción:</label>
-                <textarea class="form-control" name="descripcion" id="descripcion" rows="3"></textarea>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3"></textarea>
             </div>
             <div class="row">
                 <!-------------------------------TAMAÑO------------------------------------------------------------->
@@ -69,24 +69,16 @@
                         <option value="no definido">No definido</option>
                     </select>
                 </div>
-                <!-------------------------------UBICACIÓN----------------------------------------------------------->
+                <!-------------------------------CATEGORIA----------------------------------------------------------->
                 <div class="col mb-3">
                     <label for="ubicacion" class="form-label">Categoria</label>
-    				<select class="form-select" type="text" id="categoria" name="categoria">
-                        <option selected value="">Categoria</option>
+                    <select class="form-select" type="text" id="categoria" name="categoria">
+                        <option selected value="">Categoría</option>
                         <option value="herramientas">Herramientas</option>
                         <option value="decoracion">Decoración</option>
                         <option value="fertilizantes">Fertilizantes</option>
                     </select>
                 </div>
-                
-                <!------------------------------------------------------------------------------------------>
-                <div class="col mb-3">
-
-                </div>
-                <!------------------------------------------------------------------------------------------>
-                <div class="col mb-3">
-
             </div>
             <div class="row  align-items-end">
                 <!-------------------------------STOCK----------------------------------------------------------->
@@ -95,7 +87,6 @@
                     <input id="stock" type="number" name="stock" class="form-control" value=0>
                 </div>
                 <!-------------------------------PRECIO----------------------------------------------------------->
-
                 <div class="col mb-3">
                     <label class="form-label" for="precio">Precio</label>
                     <div class="input-group">
@@ -103,16 +94,22 @@
                         <input id="precio" type="number" name="precio" step="any" class="form-control" value=0>
                     </div>
                 </div>
-
                 <!-------------------------------ACTIVO----------------------------------------------------------->
                 <div class="col mb-3">
-                    <input type="checkbox" class="btn-check" id="activo" autocomplete="off">
-                    <label class="btn btn-outline-primary container-fluid" for="activo">Activo</label><br>  
+                    <label class="form-label" for="stock">Activo</label>
+                    <select class="form-select" type="text" id="activo" name="activo">
+                        <option selected value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
                 </div>
                 <!-------------------------------DESTACADO------------------------------------------------------->
                 <div class="col mb-3">
-                    <input type="checkbox" class="btn-check" id="destacado" name="destacado" autocomplete="off">
-                    <label class="btn btn-outline-primary container-fluid" for="destacado">Destacado</label><br>
+                    <label class="form-label" for="stock">Destacado</label>
+                    <select class="form-select" type="text" id="destacado" name="destacado">
+                        <option selected value="">Destacado</option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
                 </div>
             </div>
             <!-------------------------------PORTADA---------------------------------------------------------->
@@ -138,7 +135,8 @@
             <!-------------------------------IMAGENES---------------------------------------------------------->
             <div class="mb-3">
                 <label class="control-label small" for="file_img">Imagenes</label>
-                <input class="form-control" name="imagenes" type="file" id="gallery-photo-add"  accept="image/png, .jpeg, .jpg, image/gif" multiple>
+                <input class="form-control" name="imagenes" type="file" id="gallery-photo-add"
+                    accept="image/png, .jpeg, .jpg, image/gif" multiple>
                 <div class="gallery d-flex mt-1 " style="max-width: 200px;"></div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
                 <script>
@@ -168,12 +166,12 @@
                 </script>
             </div>
             <!-------------------------------CARGAR-PRODUCTO--------------------------------------------------->
+            <button class="btn btn-primary container-fluid" type="submit">Cargar producto</button>
+            <div th:if="${error}" class="alert alert-danger alert dismissible fade show mt-3" role="alert">
+                <span th:text="${error}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+            </div>
         </form>
-        <div th:if="${error}" class="alert alert-danger alert dismissible fade show mt-3" role="alert">
-            <span th:text="${error}"></span>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
-        </div>  
-        <button class="btn btn-primary container-fluid" type="submit" style="float:right;">Cargar producto</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
