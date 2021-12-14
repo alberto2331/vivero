@@ -24,6 +24,7 @@ public class Cliente {
         this.direccion = direccion;
     }
 
+
     public Long getDni() {
         return dni;
     }
@@ -62,6 +63,8 @@ public class Cliente {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    
     }
 
 }
+
