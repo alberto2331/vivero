@@ -19,7 +19,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-
     <title>Document</title>
 </head>
 
@@ -347,13 +346,9 @@
                     var contador = 1;
                     var total = 0;
                     pcart.forEach(producto => {
-                        console.log('producto: ', producto);
                         var cant = parseInt(producto.quantity, 10);
-
                         var precio = parseInt(producto.precio, 10);
-
                         total += cant * precio;
-
                         var tr = $($.parseHTML('<tr>')).attr('id', 'prod' + producto.productid);
                         var tdContador = $($.parseHTML('<td>')).text(contador);
                         var tdNombre = $($.parseHTML('<td>')).text(producto.nombre);
@@ -395,7 +390,7 @@
                 var elementoInfoId = '#info' + pid;
                 $(elementoInfoId + " > .stock_text").text(stock);
                 if (stock === 0) {
-                    $("#" + pid).remove();
+                    $("#" + pid).remove(); 
                     var buttonSinStockContador = $($.parseHTML('<button>')).text('Sin Mas Stock');
                     buttonSinStockContador.prop('disabled', true);
                     buttonSinStockContador.addClass(['btW', 'btn-light', 'child']);
@@ -404,6 +399,7 @@
                 return stock;
             }	
 		$('#compraBoton').click(function () {
+            alert('hola');
             var compraArray = JSON.parse(localStorage.getItem("cart"));
             var id = [];
             var cant = [];
@@ -413,7 +409,6 @@
             })
             console.log(id);
             console.log(cant);
-
 		            $.ajax({
 		                type: "POST",
 		                url: "compra",
@@ -422,11 +417,12 @@
 		                    arrayCantidad: cant
 		                },
 		                success: function (result) {
-		                     alert('changed');
+                            alert('compra');
+                            console.log('Yendo a compra');
+                            window.location.href='http://localhost:8080/compra/guardar'
 		                }
 		            });
-		        }
-		        )	
+		        });
         </script>
 
 </body>
