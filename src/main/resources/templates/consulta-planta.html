@@ -409,9 +409,9 @@
             })
             console.log(id);
             console.log(cant);
-		            $.ajax({
+                $.ajax({
 		                type: "POST",
-		                url: "compra",
+		                url: window.location.origin+"/compra/compra",
 		                data: {
 		                    arrayId: id,
 		                    arrayCantidad: cant
@@ -419,10 +419,11 @@
 		                success: function (result) {
                             alert('compra');
                             console.log('Yendo a compra');
-                            window.location.href='http://localhost:8080/compra/guardar'
+                            window.location.href='http://localhost:8080/compra/formulario'
 		                }
 		            });
 		        });
+
         </script>
 
 </body>

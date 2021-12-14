@@ -3,6 +3,7 @@ package com.vivero.controladores;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,19 +15,51 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.vivero.entidades.Producto;
+import com.vivero.errores.ErrorServicio;
+import com.vivero.repositorios.ProductoRepositorio;
+import com.vivero.servicios.ProductoServicio;
+
 @Controller
+
 @RequestMapping("/compra")
 public class CompraControlador{
-	@RequestMapping(value = "/compra",method=RequestMethod.POST)
+	
+    /*      
+    Borrar. esto deberìamos cambiarlo de controlador. Al de compras si no me equivoco:
+    */
+	@Autowired
+	private ProductoServicio productoServicio;
+	
+	@Autowired
+	private ProductoRepositorio productoRepositorio;
+	
+	//La siguiente variable de scope general es para poder pasar la informacion que viene del carrito de un metodo a otro:
+	String[] detalleCompraId;
+	String[] detalleCompraCantidad;
+	
+   @RequestMapping(value = "/compra",method=RequestMethod.POST)
 	@ResponseBody
 	public String filter(		
-	        @RequestParam(value = "compra", required = false) String compra,
-	        HttpServletRequest request, HttpServletResponse response			
-			) {
+	        @RequestParam(value = "arrayId[]") String[] arrayId,
+	        @RequestParam(value = "arrayCantidad[]") String[] arrayCantidad,	        	       
+	        HttpServletRequest request, HttpServletResponse response			       
+			) throws ErrorServicio {
 
-	    System.out.println("compra" +compra.toString());
+   	//Completamos la info que recibimos por parametro del carrito en los Arrays "detalleCompra" de scope general:
+       detalleCompraId=arrayId;
+       detalleCompraCantidad=arrayCantidad;
+       
+	    for(int i=0; i<arrayId.length; i++){
+	    	Producto producto= productoServicio.buscarProducto(arrayId[i]);
+	    	producto.setStock(producto.getStock()-Integer.parseInt(arrayCantidad[i]));
+	    	System.out.println(producto.getStock());
+	    	productoRepositorio.save(producto);	    
+	    }
 	    return "index";
 	}
+	
+	//Fin metodo de carrito------------------------------------------------
 	
 	//Para navegar al formulario de compra. Entiendo que a este formulario deberíamos ir cuando usuario haga click en "COMPRAR" del carrito:
 	//El metodo "guardar" debería esta en el mismo controlador que contiene los:
