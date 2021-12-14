@@ -23,17 +23,12 @@ public class Compra {
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid",strategy = "uuid2")
 	private String id;
-
 	@ManyToOne
-	
 	private Cliente cliente;
 	private String medioPago;
-	
 	@ManyToMany
-	
 	private List<Planta> planta = new ArrayList<>();  
 	@ManyToMany
-
 	private List<Maceta> maceta = new ArrayList<>();
 	@ManyToMany
 	@JoinColumn
