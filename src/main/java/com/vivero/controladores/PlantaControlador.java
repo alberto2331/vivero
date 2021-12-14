@@ -372,39 +372,4 @@ public class PlantaControlador {
         //put("plantaModificar", plantaModificar);																						
         return "mostrar-planta";
     }
-    
-    /*      
-     Borrar. esto deberìamos cambiarlo de controlador. Al de compras si no me equivoco:
-     */
-	@Autowired
-	private ProductoServicio productoServicio;
-	
-	@Autowired
-	private ProductoRepositorio productoRepositorio;
-	
-	//La siguiente variable de scope general es para poder pasar la informacion que viene del carrito de un metodo a otro:
-	String[] detalleCompraId;
-	String[] detalleCompraCantidad;
-	
-    @RequestMapping(value = "/compra",method=RequestMethod.POST)
-	@ResponseBody
-	public String filter(		
-	        @RequestParam(value = "arrayId[]") String[] arrayId,
-	        @RequestParam(value = "arrayCantidad[]") String[] arrayCantidad,	        	       
-	        HttpServletRequest request, HttpServletResponse response			       
-			) throws ErrorServicio {
-
-    	//Completamos la info que recibimos por parametro del carrito en los Arrays "detalleCompra" de scope general:
-        detalleCompraId=arrayId;
-        detalleCompraCantidad=arrayCantidad;
-        
-	    for(int i=0; i<arrayId.length; i++){
-	    	Producto producto= productoServicio.buscarProducto(arrayId[i]);
-	    	producto.setStock(producto.getStock()-Integer.parseInt(arrayCantidad[i]));
-	    	System.out.println(producto.getStock());
-	    	productoRepositorio.save(producto);	    
-	    }
-	    return "index";
-	}	
-
 }
