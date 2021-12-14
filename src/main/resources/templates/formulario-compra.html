@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Links CSS bootsrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <!-- Links iconos bootstrap -->
+    <link rel=" stylesheet " href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css ">
+    <link rel="stylesheet" href="../static/css/estilos2.css" th:href="@{/css/estilos2.css}">
+
+    <!-- Links fuentes-->
+    <link rel="preconnect " href="https://fonts.googleapis.com ">
+    <link rel="preconnect " href="https://fonts.gstatic.com " crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap " rel="stylesheet ">
+
+
+    <title>Document</title>
+</head>
+
+<!-- style="background-color: tomato; " -->
+
+<body style="background-image:url(../img/fondo01.jpg);">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top ">
+        <div class="container-fluid " style=" background-color: rgb(255, 248, 239); ">
+            <a class="navbar-brand " href="/">OREVIV</a>
+            <div style="display:flex ">
+                <form class="d-flex mx-1 d-lg-none ">
+                    <input class="form-control me-2 " type="search " placeholder="Buscar " aria-label="Search ">
+                    <button class="btn btn-outline-success " type="submit "><i class="bi bi-search "></i>
+                    </button>
+                </form>
+                <button class="btn btn-outline-success mx-1 d-lg-none " type="submit "><i class="bi bi-cart-fill "></i>
+                </button>
+                <button class="navbar-toggler " type="button " data-bs-toggle="collapse "
+                    data-bs-target="#navbarSupportedContent " aria-controls="navbarSupportedContent "
+                    aria-expanded="false " aria-label="Toggle navigation ">
+                    <span class="navbar-toggler-icon "></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse " id="navbarSupportedContent ">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item ">
+                        <a class="nav-link active " aria-current="page " href="/consulta-planta.html " id="active ">Plantas</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="/consulta-maceta.html ">Macetas</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="/consulta-accesorio.html ">Accesorios</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Tendencias</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Nosotros</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="# ">Contacto</a>
+                    </li>
+                </ul>
+                <div class="p-2 bd-highlight d-none d-lg-flex ">
+                    <form class="d-flex mx-1 ">
+                        <input class="form-control me-2 " type="search " placeholder="Buscar " aria-label="Search ">
+                        <button class="btn btn-outline-success " type="submit "><i class="bi bi-search "></i>
+                        </button>
+                    </form>
+                    <button class="btn btn-outline-success mx-1 " type="submit "><i class="bi bi-cart-fill "></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="container">
+            <div style="height:30px;">
+
+            </div>
+            <form>
+                <div class="mt-5">
+                    <h2 style="font-size:1.3rem;">DATOS DE CONTACTO</h2>
+                </div>
+                <div class="mb-3">
+
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" aria-describedby="nombre" name="nombre">
+                    <div id="nombre" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="apellido" aria-describedby="apellido" name="apellido">
+                    <div id="apellido" class="form-text"></div>
+                </div>
+                <div>
+                    <label for="eemail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="mail">
+                    <div id="emailHelp" class="form-text"></div>
+                </div>
+                <div class="mt-5">
+                    <h2 style="font-size:1.3rem;">DATOS DE FACTURACIÓN</h2>
+                </div>
+                <div class="mb-3">
+                    <label for="dni" class="form-label">DNI</label>
+                    <input type="number" class="form-control" id="dni" aria-describedby="dni" name="mail">
+                    <div id="dni" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" aria-describedby="direccion" name="direccion">
+                    <div id="direccion" class="form-text"></div>
+                </div>
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="number" class="form-control" id="telefono" aria-describedby="telefono">
+                    <div id="telefono" class="form-text"></div>
+                </div>
+                <div class="mt-5">
+                    <h2 style="font-size:1.3rem;">MEDIOS DE PAGO</h2>
+                </div>
+                <!-------------------------FUNCIÓN OCULTAR Y MOSTRAR FORMULARIO TARJETA----------------------->
+                <script type="text/javascript">
+                    function showContent() {
+                        element = document.getElementById("tarjetaMostrar");
+                        check = document.getElementById("tarjeta1");
+                        check1 = document.getElementById("rapipago1");
+                        check2 = document.getElementById("transferencia1");
+                        check3 = document.getElementById("mercadopago1");
+                        if (check.checked) {
+                            element.style.display = 'block';
+
+                        }
+                        else if (check1.checked || check2.checked || check3.checked) {
+                            element.style.display = 'none';
+                        }
+                    }
+                </script>
+                <!------------------------------------------------------------------------------------------>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pago" id="tarjeta1" value="option1"
+                            onchange="javascript:showContent()" />
+                        <label class="form-check-label" for="tarjeta1">
+                            Tarjeta de crédito y débito
+                        </label>
+                    </div>
+
+                    <!------------------------FORMULARIO TARJETA--------------------------------------------->
+
+                    <div class="mt-3" id="tarjetaMostrar" style="display:none;">
+                        <div class="row g-2 mb-3">
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="floatingInputGrid"
+                                        placeholder="name@example.com">
+                                    <label for="floatingInputGrid">Número de tarjeta</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-md ">
+                                <div class="form-floating ">
+                                    <input type="number" class="form-control" id="floatingInputGrid"
+                                        placeholder="name@example.com">
+                                    <label for="floatingInputGrid">Titular de la Tarjeta</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md ">
+                                <div class="form-floating ">
+                                    <input type="number" class="form-control" id="floatingInputGrid"
+                                        placeholder="name@example.com">
+                                    <label for="floatingInputGrid">Vencimiento (MM/AA)</label>
+                                </div>
+
+                            </div>
+                            <div class="col-md ">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="floatingInputGrid"
+                                        placeholder="name@example.com">
+                                    <label for="floatingInputGrid">CVV</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="form-floating ">
+                        
+
+
+                                <select class="form-select" aria-label="cuotas2" id="floatingInputGrid">
+                                        
+                                    <option value="1">1</option>
+                                    <option value="2">3</option>
+                                    <option value="3">6</option>
+                                    <option value="4">12</option>
+                                   
+                                </select>
+                                <label for="floatingInputGrid">Cuotas</label>
+                            </div>
+
+
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md ">
+                                <div class="form-floating">
+                                    <select class="form-select" aria-label="dni2" id="floatingInputGrid">
+                                        
+                                        <option value="1">DNI</option>
+                                        <option value="2">Cédula</option>
+                                        <option value="3">L.C</option>
+                                        <option value="4">L.E</option>
+                                        <option value="5">Otro</option>
+                                    </select>
+                                    <label for="floatingInputGrid">Documento</label>
+
+
+
+                                </div>
+
+
+                            </div>
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control" id="floatingInputGrid"
+                                        placeholder="name@example.com">
+                                    <label for="floatingInputGrid">Documento del titular</label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!--------------------------------------------------------------------->
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pago" id="rapipago1" value="option2"
+                            onchange="javascript:showContent()">
+                        <label class="form-check-label" for="rapipago1">
+                            Rapipago o Pago Fácil
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pago" id="transferencia1" value="option3"
+                            onchange="javascript:showContent()">
+                        <label class="form-check-label" for="transferencia1">
+                            Transferencia Bancaria
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pago" id="mercadopago1" value="option4"
+                            onchange="javascript:showContent()">
+                        <label class="form-check-label" for="mercadopago1">
+                            Mercado Pago
+                        </label>
+                    </div>
+
+                </div>
+
+
+                <div class="mt-5 mb-3">
+                    <h2 style="font-size:1.3rem;">NOTAS DE PEDIDO</h2>
+                    <div class="mb-3">
+                        <!--<label for="notas" class="form-label"></label>-->
+                        <textarea class="form-control" id="notas" rows="3"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success container-fluid mb-3">Comprar</button>
+            </form>
+        </div>
+        </div>
+
+        <div class="divisor">
+        </div>
+
+    </main>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js "
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p "
+    crossorigin="anonymous "></script>
+
+<script src="../static/js/app.js " th:src="@{/js/app.js} "></script>
+
+</html>

@@ -38,8 +38,7 @@ public class Compra {
 	@ManyToMany
 	@JoinColumn
 	private List<Accesorio> accesorio = new ArrayList<>();
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date fechaCompra;
+	
 	private Double total;
 
 	public Compra() {
@@ -53,7 +52,6 @@ public class Compra {
 		this.planta = planta;
 		this.maceta = maceta;
 		this.accesorio = accesorio;
-		this.fechaCompra = fechaCompra;
 		this.total = total;
 	}
 	public String getId() {
@@ -91,12 +89,6 @@ public class Compra {
 	}
 	public void setAccesorio(List<Accesorio> accesorio) {
 		this.accesorio = accesorio;
-	}
-	public Date getFechaCompra() {
-		return fechaCompra;
-	}
-	public void setFechaCompra(Date fechaCompra) {
-		this.fechaCompra = fechaCompra;
 	}
 	public Double getTotal() {
 		return total;

@@ -260,7 +260,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success">COMPRAR</button>
+                        <button type="submit" id='compraBoton' class="btn btn-success">COMPRAR</button>
                     </div>
                 </div>
             </div>
@@ -394,6 +394,30 @@
                 }
                 return stock;
             }
+            $('#compraBoton').click(function () {
+            var compraArray = JSON.parse(localStorage.getItem("cart"));
+            var id = [];
+            var cant = [];
+            compraArray.forEach(function(objeto){
+                id.push(objeto.productid);
+                cant.push(objeto.quantity);
+            })
+            console.log(id);
+            console.log(cant);
+
+		            $.ajax({
+		                type: "POST",
+		                url: "compra",
+		                data: {
+		                    arrayId: id,
+		                    arrayCantidad: cant
+		                },
+		                success: function (result) {
+		                     alert('changed');
+		                }
+		            });
+		        }
+		        )	
 
         </script>
 
