@@ -180,19 +180,18 @@
             <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas} " style="height:45vh;">
                 <img class=" w-100  img-fluid" th:src="'/imagen/planta/'+*{planta.id}" alt="" style="height:45vh;" />
                 <div class="info" th:id="'info'+*{planta.id}">
-                    <a href="#" class="text-decoration-none parent">
+                    <a th:href="@{/planta/mostrarPlanta(id=*{planta.id})}" href="#" class="text-decoration-none parent">
                         <p class="nombre_text text-decoration-none text-white px-5 py-10  lh-1" th:text=${planta.nombre}
                             style="">PETUNIA</p>
                     </a>
                     <p class="precio_text" th:text=${planta.precio}>$800</p>
                     <p class="stock_text invisible" th:text=${planta.stock}>2</p>
-                    <button type="button" id="compra" th:id="*{planta.id}" class="btW btn-light child compraBoton">
+                    <button type="button" id="compra" th:id="*{planta.id}" class="btn btn-light child compraBoton">
                         COMPRAR
                     </button>
                 </div>
             </div>
         </div>
-
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -393,7 +392,7 @@
                     $("#" + pid).remove(); 
                     var buttonSinStockContador = $($.parseHTML('<button>')).text('Sin Mas Stock');
                     buttonSinStockContador.prop('disabled', true);
-                    buttonSinStockContador.addClass(['btW', 'btn-light', 'child']);
+                    buttonSinStockContador.addClass(['btn', 'btn-light', 'child']);
                     $(elementoInfoId).append(buttonSinStockContador);
                 }
                 return stock;

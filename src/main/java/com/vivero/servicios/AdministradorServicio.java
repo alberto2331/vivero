@@ -39,7 +39,7 @@ public class AdministradorServicio implements UserDetailsService{
 		Admin administrador = new Admin();
 		//Validaciones:
 		
-		if(!findByDni(dni).isEmpty()) {
+		if(!findByDni(dni).isPresent()) {
 			System.out.println(findByDni(dni)+"------------");
 			throw new Exception("El dni ya esta registrado");
 		}

@@ -171,12 +171,11 @@
     <!--------------------------------------------------------TARJETA PRODUCTO------------------------------------------------->
 
     <div>
-
         <div class="row">
             <div class="col-3 m-0 p-0 imgWrap" th:each="maceta : ${macetasFiltradas} " style="height:45vh;">
                 <img class=" w-100  img-fluid" th:src="'/imagen/maceta/'+*{maceta.id}" alt="" style="height:45vh;" />
                 <div class="info" th:id="'info'+*{maceta.id}">
-                    <a href="#" class="text-decoration-none parent">
+                    <a th:href="@{/maceta/mostrarMaceta(id=*{maceta.id})}" class="text-decoration-none parent">
                         <p class="nombre_text text-decoration-none text-white px-5 py-10  lh-1" th:text=${maceta.nombre}
                             style="">PETUNIA</p>
                     </a>
@@ -389,7 +388,7 @@
                     $("#" + pid).remove();
                     var buttonSinStockContador = $($.parseHTML('<button>')).text('Sin Mas Stock');
                     buttonSinStockContador.prop('disabled', true);
-                    buttonSinStockContador.addClass(['btW', 'btn-light', 'child']);
+                    buttonSinStockContador.addClass(['btn', 'btn-light', 'child']);
                     $(elementoInfoId).append(buttonSinStockContador);
                 }
                 return stock;
