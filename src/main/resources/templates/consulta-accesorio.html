@@ -163,7 +163,7 @@
                     </a>
                     <p class="precio_text" th:text=${accesorio.precio}></p>
                     <p class="stock_text invisible" th:text=${accesorio.stock}></p>
-                    <button type="button" id="compraBoton" th:id="*{accesorio.id}" class="btW btn-light child compraBoton">
+                    <button type="button" id="compra" th:id="*{accesorio.id}" class="btW btn-light child compraBoton">
                         COMPRAR
                     </button>
                 </div>
@@ -238,7 +238,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success">COMPRAR</button>
+                        <button type="submit" id="compraBoton" class="btn btn-success">COMPRAR</button>
                     </div>
                 </div>
             </div>
@@ -372,6 +372,28 @@
                 }
                 return stock;
             }
+            $('#compraBoton').click(function () {
+                console.log('comprando');
+                var compraArray = JSON.parse(localStorage.getItem("cart"));
+                var id = [];
+                var cant = [];
+                compraArray.forEach(function(objeto){
+                    id.push(objeto.productid);
+                    cant.push(objeto.quantity);
+                })
+                $.ajax({
+                    type: "POST",
+                    url: window.location.origin+"/compra/compra",
+                    data: {
+                        arrayId: id,
+                        arrayCantidad: cant
+                    },
+                    success: function (result) {
+                        console.log('Yendo a compra');
+                        window.location.href='http://localhost:8080/compra/formulario'
+                    }
+                });
+            });
 
     </script>
 </body>

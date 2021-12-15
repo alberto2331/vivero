@@ -82,7 +82,7 @@
             <div style="height:30px;">
 
             </div>
-            <form>
+            <form method="POST" action="/compra/guardar">
                 <div class="mt-5">
                     <h2 style="font-size:1.3rem;">DATOS DE CONTACTO</h2>
                 </div>
@@ -99,7 +99,7 @@
                     <div id="apellido" class="form-text"></div>
                 </div>
                 <div>
-                    <label for="eemail" class="form-label">Email</label>
+                    <label for="exampleInputEmail1" class="form-label">Email</label>
                     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="mail">
                     <div id="emailHelp" class="form-text"></div>
                 </div>
@@ -108,7 +108,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="dni" class="form-label">DNI</label>
-                    <input type="number" class="form-control" id="dni" aria-describedby="dni" name="mail">
+                    <input type="text" class="form-control" id="dni" aria-describedby="dni" name="dni">
                     <div id="dni" class="form-text"></div>
                 </div>
                 <div class="mb-3">
@@ -118,8 +118,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="number" class="form-control" id="telefono" aria-describedby="telefono">
-                    <div id="telefono" class="form-text"></div>
+                    <input type="number" class="form-control" id="telefono" aria-describedby="telefono" name="telefono">
+                    <div id="telefono2" class="form-text"></div>
                 </div>
                 <div class="mt-5">
                     <h2 style="font-size:1.3rem;">MEDIOS DE PAGO</h2>

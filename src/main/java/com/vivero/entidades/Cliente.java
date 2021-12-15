@@ -7,7 +7,7 @@ import javax.persistence.Id;
 public class Cliente {
 
     @Id
-    private Long dni;
+    private String dni;
     private String nombre;
     private Long telefono;
     private String mail;
@@ -16,7 +16,7 @@ public class Cliente {
     public Cliente() {	
     }
 
-    public Cliente(Long dni, String nombre, Long telefono, String mail, String direccion) {
+    public Cliente(String dni, String nombre, Long telefono, String mail, String direccion) {
         this.dni = dni;
         this.nombre = nombre;
         this.telefono = telefono;
@@ -25,11 +25,11 @@ public class Cliente {
     }
 
 
-    public Long getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(Long dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 

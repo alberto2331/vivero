@@ -182,7 +182,7 @@
                     </a>
                     <p class="precio_text" th:text=${maceta.precio}>$800</p>
                     <p class="stock_text invisible" th:text=${maceta.stock}>2</p>
-                    <button type="button" id="compraBoton" th:id="*{maceta.id}" class="btW btn-light child compraBoton">
+                    <button type="button" id="compra" th:id="*{maceta.id}" class="btW btn-light child compraBoton">
                         COMPRAR
                     </button>
                 </div>
@@ -395,29 +395,27 @@
                 return stock;
             }
             $('#compraBoton').click(function () {
-            var compraArray = JSON.parse(localStorage.getItem("cart"));
-            var id = [];
-            var cant = [];
-            compraArray.forEach(function(objeto){
-                id.push(objeto.productid);
-                cant.push(objeto.quantity);
-            })
-            console.log(id);
-            console.log(cant);
-
-		            $.ajax({
-		                type: "POST",
-		                url: "compra",
-		                data: {
-		                    arrayId: id,
-		                    arrayCantidad: cant
-		                },
-		                success: function (result) {
-		                     alert('changed');
-		                }
-		            });
-		        }
-		        )	
+                console.log('comprando');
+                var compraArray = JSON.parse(localStorage.getItem("cart"));
+                var id = [];
+                var cant = [];
+                compraArray.forEach(function(objeto){
+                    id.push(objeto.productid);
+                    cant.push(objeto.quantity);
+                })
+                $.ajax({
+                    type: "POST",
+                    url: window.location.origin+"/compra/compra",
+                    data: {
+                        arrayId: id,
+                        arrayCantidad: cant
+                    },
+                    success: function (result) {
+                        console.log('Yendo a compra');
+                        window.location.href='http://localhost:8080/compra/formulario'
+                    }
+                });
+            });
 
         </script>
 

@@ -3,6 +3,10 @@ package com.vivero.controladores;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.vivero.entidades.Cliente;
+import com.vivero.entidades.Compra;
+import com.vivero.repositorios.ClienteRepositorio;
+import com.vivero.repositorios.CompraRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +24,9 @@ import com.vivero.errores.ErrorServicio;
 import com.vivero.repositorios.ProductoRepositorio;
 import com.vivero.servicios.ProductoServicio;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 
 @RequestMapping("/compra")
@@ -33,6 +40,12 @@ public class CompraControlador{
 	
 	@Autowired
 	private ProductoRepositorio productoRepositorio;
+
+	@Autowired
+	private ClienteRepositorio clienteRepositorio;
+
+	@Autowired
+	private CompraRepositorio compraRepositorio;
 	
 	//La siguiente variable de scope general es para poder pasar la informacion que viene del carrito de un metodo a otro:
 	String[] detalleCompraId;
@@ -40,23 +53,15 @@ public class CompraControlador{
 	
    @RequestMapping(value = "/compra",method=RequestMethod.POST)
 	@ResponseBody
-	public String filter(		
+	public void filter(
 	        @RequestParam(value = "arrayId[]") String[] arrayId,
 	        @RequestParam(value = "arrayCantidad[]") String[] arrayCantidad,	        	       
 	        HttpServletRequest request, HttpServletResponse response			       
 			) throws ErrorServicio {
 
    	//Completamos la info que recibimos por parametro del carrito en los Arrays "detalleCompra" de scope general:
-       detalleCompraId=arrayId;
-       detalleCompraCantidad=arrayCantidad;
-       
-	    for(int i=0; i<arrayId.length; i++){
-	    	Producto producto= productoServicio.buscarProducto(arrayId[i]);
-	    	producto.setStock(producto.getStock()-Integer.parseInt(arrayCantidad[i]));
-	    	System.out.println(producto.getStock());
-	    	productoRepositorio.save(producto);	    
-	    }
-	    return "index";
+       detalleCompraId = arrayId;
+       detalleCompraCantidad = arrayCantidad;
 	}
 	
 	//Fin metodo de carrito------------------------------------------------
@@ -76,13 +81,40 @@ public class CompraControlador{
             @RequestParam String nombre,
             @RequestParam String apellido,
             @RequestParam String mail,
-            @RequestParam Long dni,
+            @RequestParam String dni,
             @RequestParam String direccion,
             @RequestParam String telefono,
-            @RequestParam String medioPago,
             //Falta implementar "detalle de compras" y "total de la compra"
             Model model
-    ) {
-    	return "Felicitaciones";
+    ) throws ErrorServicio {
+
+	   Cliente cliente = new Cliente();
+	   cliente.setDni(dni);
+	   cliente.setNombre(nombre +" "+ apellido);
+	   cliente.setDireccion(direccion);
+	   cliente.setTelefono(Long.parseLong(telefono));
+	   cliente.setMail(mail);
+
+	   clienteRepositorio.save(cliente);
+		Compra compra = new Compra();
+
+		compra.setCliente(cliente);
+		List<Producto> productosComprados= new ArrayList<>();
+		Double totalCompra =0.0;
+
+		for(int i=0; i<detalleCompraId.length; i++) {
+			Producto producto= productoServicio.buscarProducto(detalleCompraId[i]);
+			producto.setStock(producto.getStock()-Integer.parseInt(detalleCompraCantidad[i]));
+			System.out.println(producto.getStock());
+			totalCompra+=producto.getPrecio()*Integer.parseInt(detalleCompraCantidad[i]);
+			productoRepositorio.save(producto);
+			productosComprados.add(producto);
+		}
+		compra.setProductos(productosComprados);
+		compra.setTotal(totalCompra);
+		compra.setMedioPago("Developing");
+
+		compraRepositorio.save(compra);
+    	return "index";
     }
 }
