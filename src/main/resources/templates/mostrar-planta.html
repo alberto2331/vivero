@@ -45,34 +45,83 @@
             </div>
 
             <div class="collapse navbar-collapse " id="navbarSupportedContent ">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
-                    <li class="nav-item ">
-                        <a class="nav-link active " aria-current="page " href="# " id="active ">Plantas</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/planta/consultaPlanta">Plantas</a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="# ">Macetas</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/maceta/consultaMaceta">Macetas</a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="# ">Accesorios</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/accesorio/consultaAccesorio">Accesorios</a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="# ">Tendencias</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tendencias</a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="# ">Nosotros</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Nosotros</a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " href="# ">Contacto</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
                     </li>
                 </ul>
                 <div class="p-2 bd-highlight d-none d-lg-flex ">
-                    <form class="d-flex mx-1 ">
-                        <input class="form-control me-2 " type="search " placeholder="Buscar " aria-label="Search ">
-                        <button class="btn btn-outline-success " type="submit "><i class="bi bi-search "></i>
+                        <form class="needs-validation" action="/planta/filtrarPlanta" method="GET">
+                            <div class="d-flex">
+                                <input name="nombre" value="" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+
+                                <div style ="display:none;" class="form-group">
+                                    <label class=" control-label">Precio</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input  type="number" name="precioMinimo" class="form-control  mb-1" value=""
+                                                    placeholder="precio minimo">
+                                        </div>
+                                        <div class="col-6">
+                                            <input  type="number" name="precioMaximo" class="form-control col-6" value=""
+                                                    placeholder="precio maximo">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style ="display:none;" class="form-group">
+                                    <label class=" control-label">Tamaño</label>
+                                    <select class="form-select" aria-label="Default select example" name="tamanio">
+                                        <option selected value="">-</option>
+                                    </select>
+                                </div>
+                                <div style ="display:none;" class="form-group" >
+                                    <select class="form-select" aria-label="Default select example" name="destacadoController"
+                                            type="number">
+                                        <option selected value="0">-</option>
+                                    </select>
+                                </div>
+                                <div style ="display:none;" class="form-group">
+                                    <input type="text" name="codigo" class="form-control" value=""
+                                           placeholder="ingrese el codigo del producto">
+                                </div>
+                                <div style ="display:none;" class="form-group">
+                                    <select class="form-select" aria-label="Default select example" name="estilo">
+                                        <option selected value="">-</option>
+                                    </select>
+                                </div>
+                                <div style ="display:none;" class="form-group">
+                                    <select class="form-select" aria-label="Default select example" name="ubicacion">
+                                        <option selected value="">-</option>
+                                    </select>
+                                </div>
+                                <div style ="display:none;" class="form-group">
+                                    <select class="form-select" aria-label="Default select example" name="luz">
+                                        <option selected value="">-</option>
+                                    </select>
+                                </div>
+                                <!-- form-group // -->
+                                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                        <button class="btn btn-outline-success mx-1" id="cartButton" type="submit" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal"><i class="bi bi-cart-fill"></i>
                         </button>
-                    </form>
-                    <button class="btn btn-outline-success mx-1 " type="submit "><i class="bi bi-cart-fill "></i>
-                    </button>
                 </div>
             </div>
         </div>
@@ -83,7 +132,7 @@
             <div class="row ">
                 <div class="col ">
                     <div class="row mb-1 ">
-                        <h1 class="animacion " th:text=${plantaMostrar.nombre}>Alocasia </h1>
+                        <h1 class="animacion "  id="nombre" th:text=${plantaMostrar.nombre}>Alocasia </h1>
                     </div>
                     <div class="row mb-2 ">
                         <h2 id="precio" th:text=${plantaMostrar.precio}>$1400</h2>
@@ -214,6 +263,56 @@
 
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tu Compra</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <!-- <th scope="col">CÓDIGO</th> -->
+                                <!-- <th scope="col">TIPO</th> -->
+                                <th scope="col">NOMBRE</th>
+                                <th scope="col">CANT</th>
+                                <th scope="col">PRECIO</th>
+                                <th scope="col">SUBTOTAL</th>
+                            </tr>
+                            </thead>
+                            <tbody id="cartTableBody">
+                            </tbody>
+                        </table>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-8">
+
+                                </div>
+                                <div class="col-3 text-end">
+                                    <h5>TOTAL:</h5>
+                                </div>
+                                <div class="col-1">
+                                    <h5 id="cartTotal">$0</h5>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <!--La siguiente linea la agrego para enviar la info al controlador de compras-->
+                        <!--<form class="needs-validation" action="/compra/guardar" method="POST">
+                            <input hidden th:field="${producto.productid}" name="producto.productid">-->
+                        <button type="submit" id='compraBoton' class="btn btn-success">COMPRAR</button>
+                        <!--</form>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <script src=" https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js "
@@ -221,32 +320,26 @@
             crossorigin=" anonymous "></script>
             <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js "></script>
             <script>
-                $('.child').click(function (e) {
-                    if (!e) var e = window.event;
-                    e.cancelBubble = true;
-                    if (e.stopPropagation) e.stopPropagation();
-                });
-                $('.parent').click(function (e) {
-                });
 
                 $('.compraBoton').click(function () {
                     var botonId = $(this).attr('id');
-                    var nombre = $(" #nombre").text(); 
-                    var precio = $("#precio").text(); 
+                    var nombre = $(" #nombre").text();
+                    var precio = $("#precio").text();
                     var stock = $("#stock").text();
                     addtocart(botonId, nombre, precio, stock);
                 });
-                
+
                 function addtocart(pid, nombre, precio,
                     stock) { // var quantity=$("#quantity").val() !="" ? parseInt($("#quantity").val()) : 0; var
                     quantity = $("#contador").text() != "" ? parseInt($("#contador").text()) : 1;
-                    stock = checkRemainingStock(stock, quantity, pid); 
-                    var cart = localStorage.getItem("cart"); 
-                    var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : []; 
+                    stock = checkRemainingStock(stock, quantity, pid);
+                    var cart = localStorage.getItem("cart");
+                    var pcart = JSON.parse(cart) != null ? JSON.parse(cart) : [];
                      // si el cart esta vacia inicializa uin array vacio //get index of the json array where the productid is there ...
                     var present_or_not = pcart.findIndex(item => item.productid == pid);
                     //if the item not presnt , is null
                     // si el producto no existe lo agregamos al cart
+
                     if (cart == null || present_or_not == null || present_or_not == -1) {
                         var product = {
                             productid: pid,
@@ -255,6 +348,8 @@
                             stock: stock,
                             quantity: quantity
                         };
+                        console.log('PRODUCTO'+JSON.stringify(product));
+
                         pcart.push(product);
                         localStorage.setItem("cart", JSON.stringify(pcart));
                     } else {
@@ -287,20 +382,16 @@
                         var contador = 1;
                         var total = 0;
                         pcart.forEach(producto => {
-                            console.log('producto: ', producto);
                             var cant = parseInt(producto.quantity, 10);
-
                             var precio = parseInt(producto.precio, 10);
-
                             total += cant * precio;
-
                             var tr = $($.parseHTML('<tr>')).attr('id', 'prod' + producto.productid);
                             var tdContador = $($.parseHTML('<td>')).text(contador);
-                            var tdNombre = $($.parseHTML(' < td > ')).text(producto.nombre);
-                            var tdPrecio = $($.parseHTML(' < td > ')).text(producto.precio);
-                            var tdCant = $($.parseHTML(' < td > ')).text(producto.quantity);
-                            var tdSubtotal = $($.parseHTML(' < td > ')).text(cant*precio);
-                            var quitarProducto = $($.parseHTML(' < td > ')).append(' < button id = "delete' + producto.productid + '"class= " btn bi bi-trash borrarBoton" ></i ></button > ');
+                            var tdNombre = $($.parseHTML('<td>')).text(producto.nombre);
+                            var tdPrecio = $($.parseHTML('<td>')).text(producto.precio);
+                            var tdCant = $($.parseHTML('<td>')).text(producto.quantity);
+                            var tdSubtotal = $($.parseHTML('<td>')).text(cant * precio);
+                            var quitarProducto = $($.parseHTML('<td>')).append('<button id="delete' + producto.productid + '" class=" btn bi bi-trash borrarBoton"></i></button>');
 
                             tr.append(tdContador);
                             tr.append(tdNombre);
@@ -315,6 +406,7 @@
                         });
                         $('#cartTotal').text('$' + total);
                     }
+
                     $('.borrarBoton').click(function () {
                         console.log('delete');
                         var productId = $(this).attr('id').slice(6);;
@@ -346,6 +438,29 @@
                     }
                     return stock;
                 }
+
+                $('#compraBoton').click(function () {
+                    console.log('comprando');
+                    var compraArray = JSON.parse(localStorage.getItem("cart"));
+                    var id = [];
+                    var cant = [];
+                    compraArray.forEach(function(objeto){
+                        id.push(objeto.productid);
+                        cant.push(objeto.quantity);
+                    })
+                    $.ajax({
+                        type: "POST",
+                        url: window.location.origin+"/compra/compra",
+                        data: {
+                            arrayId: id,
+                            arrayCantidad: cant
+                        },
+                        success: function (result) {
+                            console.log('Yendo a compra');
+                            window.location.href='http://localhost:8080/compra/formulario'
+                        }
+                    });
+                });
 
             </script>
 

@@ -48,7 +48,6 @@ public class IndexControlador {
     @Autowired
     private ProductoRepositorio productoRepositorio;
 
-    
     @GetMapping("/")
     public String plantaDestacada( ModelMap modelo) {
                  
