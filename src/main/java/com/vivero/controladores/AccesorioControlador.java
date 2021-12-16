@@ -62,7 +62,7 @@ public class AccesorioControlador {
     @GetMapping("/consultaAccesorio")
     public String consultaAccesorio(ModelMap modelo) {
         //Este metodo es para traer todas los Accesorio de la base de datos
-        List<Accesorio> accesoriosFiltrados = accesorioServicio.listaAccesorios();
+        List<Accesorio> accesoriosFiltrados = accesorioServicio.listaAcceActivos();
         modelo.put("accesoriosFiltrados", accesoriosFiltrados);
         return "consulta-accesorio";
     }

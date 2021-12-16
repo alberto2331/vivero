@@ -190,6 +190,11 @@ public class AccesorioServicio {
         List<Accesorio> listaAccesorios = accesorioRepositorio.findAll();
         return listaAccesorios;
     }
+    
+    public List<Accesorio> listaAcceActivos() {
+        List<Accesorio> listaAcceActivos = accesorioRepositorio.listarAccActivos(true);
+        return listaAcceActivos;
+    }
 
     public List<Accesorio> listaAccesoriosFiltrados(String nombre, Double precioMinimo, Double precioMaximo, String tamanio, Boolean destacado, String codigo, String categoria) {
         //Tratamiendo de precios sin filtro especificados por usuario:
