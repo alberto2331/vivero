@@ -71,7 +71,7 @@ public class AccesorioServicio {
         }
 
         if (tamanio.length() == 0 | tamanio.equals("0")) {
-            throw new Exception("Debe elegir entre: Chico, Mediano o Grande");
+            throw new Exception("Debe elegir entre: Chico, Mediano, Grande o No Definido");
         }
 
         if (descripcion == null | descripcion.isEmpty() | descripcion.length() == 0) {
@@ -189,6 +189,11 @@ public class AccesorioServicio {
     public List<Accesorio> listaAccesorios() {
         List<Accesorio> listaAccesorios = accesorioRepositorio.findAll();
         return listaAccesorios;
+    }
+    
+    public List<Accesorio> listaAcceActivos() {
+        List<Accesorio> listaAcceActivos = accesorioRepositorio.listarAccActivos(true);
+        return listaAcceActivos;
     }
 
     public List<Accesorio> listaAccesoriosFiltrados(String nombre, Double precioMinimo, Double precioMaximo, String tamanio, Boolean destacado, String codigo, String categoria) {

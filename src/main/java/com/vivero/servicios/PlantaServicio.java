@@ -62,16 +62,16 @@ public class PlantaServicio {
 
     private void validar(String luz, String ubicacion, String estilo, String nombre, Double precio, Integer stock, String tamanio, String descripcion, MultipartFile portada, Boolean destacado) throws Exception {
         if (tamanio.length() == 0) {
-            throw new Exception("Debe elegir entre: Chico, Mediano o Grande");
+            throw new Exception("Debe elegir entre: Chico, Mediano,  Grande o No Definido");
         }
         if (luz.length() == 0) {
-            throw new Exception("Debe elegir entre: Poca, Media o Mucha");
+            throw new Exception("Debe elegir entre: sombra, media-sombra o sol");
         }
         if (estilo.length() == 0) {
-            throw new Exception("Debe elegir entre: Colgante o de tronco");
+            throw new Exception("Debe elegir entre: Con Flor o Sin Flor");
         }
         if (ubicacion.length() == 0) {
-            throw new Exception("Debe elegir entre: Interior o Exterior");
+            throw new Exception("Debe elegir entre: Interior, Exterior o Interior/Exterior");
         }
         if (portada == null | portada.isEmpty()) {
             throw new Exception("El archivo imagen está vacío. Favor de cargar una imagen");
