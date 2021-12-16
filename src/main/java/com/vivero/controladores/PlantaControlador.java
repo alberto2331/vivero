@@ -29,6 +29,7 @@ import javax.transaction.Transactional;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.json.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -51,6 +52,8 @@ public class PlantaControlador {
     @Autowired
     private FotoRepositorio fotoRepositorio;
 
+    //Este metodo protege la ruta y en caso de que el admin no este logueado lo lleva al login:
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/planta")
     public String registro() {
         return "planta-creacion.html";
@@ -69,11 +72,14 @@ public class PlantaControlador {
             @RequestParam MultipartFile portada,
             @RequestParam MultipartFile[] imagenes,
             @RequestParam Boolean destacado,
-            Model model
+            ModelMap model
     ) {
         try {
-            plantaServicio.cargarPlanta(luz, ubicacion, estilo, nombre, precio, stock, tamanio, descripcion, portada, imagenes, destacado);
-            return "index";
+            plantaServicio.cargarPlanta(luz, ubicacion, estilo, nombre, precio, stock, tamanio, descripcion, portada, imagenes, destacado);            
+            //Este metodo trae TODAS LAS PLANTAS ==> "plantaServicio.listaPlantas()"
+            List<Planta> plantasFiltradas = plantaServicio.listaPlantas();
+            model.put("plantasFiltradas", plantasFiltradas);            
+            return "modificar-planta";
         } catch (Exception e) {
             model.addAttribute("error", e.getMessage());
             return "planta-creacion";
@@ -86,7 +92,7 @@ public class PlantaControlador {
             ModelMap modelo
     ) {
         //Este metodo es para traer todas las plantas de la base de datos
-        List<Planta> plantasFiltradas = plantaServicio.listaPlantas();
+        List<Planta> plantasFiltradas = plantaServicio.listaPlantas();        
         modelo.put("plantasFiltradas", plantasFiltradas);
         return "consulta-planta";
     }
@@ -148,6 +154,8 @@ public class PlantaControlador {
      */
     Planta plantaModificar;
 
+    //Este metodo protege la ruta y en caso de que el admin no este logueado lo lleva al login:
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/modPlanta")
     public String modPlanta(
             ModelMap modelo

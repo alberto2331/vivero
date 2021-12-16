@@ -70,7 +70,7 @@ public class MacetaServicio {
             throw new ErrorServicio("El campo stock no puede quedar vacío");
         }
         if (tamanio == null || tamanio.isEmpty()) {
-            throw new ErrorServicio("Debe elegir entre: Chico, Mediano o Grande");
+            throw new ErrorServicio("Debe elegir entre: Chico, Mediano, Grande o No Definido");
         }
         if (descripcion == null || descripcion.isEmpty()) {
             throw new ErrorServicio("La descripción no puede quedar vacía");

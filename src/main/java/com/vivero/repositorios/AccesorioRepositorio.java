@@ -23,6 +23,6 @@ public interface AccesorioRepositorio extends JpaRepository<Accesorio, String> {
             + "and c.categoria like :categoria ")
     public List<Accesorio> listarAccesoriosSinDestacado(String nombre, Double precioMinimo, Double precioMaximo, String tamanio, String codigo, String categoria);
     
-    @Query("select c from Accesorio c where c.activo =:true ")   
+    @Query("select c from Accesorio c where c.activo = :activo ")
     public List<Accesorio> listarAccActivos( Boolean activo);
 }

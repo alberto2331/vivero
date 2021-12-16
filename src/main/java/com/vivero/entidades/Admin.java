@@ -1,7 +1,11 @@
 package com.vivero.entidades;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+
+import com.vivero.enums.Role;
 
 
 @Entity
@@ -13,12 +17,14 @@ public class Admin {
     private String lastName;
     private String username;
     private String password;
-    private String rol;
+    
+    @Enumerated(EnumType.STRING)
+    private Role rol;       
 
     public Admin() {
     }
 
-    public Admin(String dni, String name, String lastName, String username, String password, String rol) {
+    public Admin(String dni, String name, String lastName, String username, String password, Role rol) {
         this.dni = dni;
         this.name = name;
         this.lastName = lastName;
@@ -67,11 +73,11 @@ public class Admin {
 		this.password = password;
 	}
 
-	public String getRol() {
+	public Role getRol() {
 		return rol;
 	}
 
-	public void setRol(String rol) {
+	public void setRol(Role rol) {
 		this.rol = rol;
 	}
     

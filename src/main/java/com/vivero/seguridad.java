@@ -36,7 +36,7 @@ public class seguridad extends WebSecurityConfigurerAdapter{
 				.loginPage("/login")
 				.usernameParameter("username")
 				.passwordParameter("password")
-				.defaultSuccessUrl("/")
+				.defaultSuccessUrl("/planta/modPlanta")
 				.loginProcessingUrl("/logincheck")
 				.failureUrl("/login?error=error")
 				.permitAll()

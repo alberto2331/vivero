@@ -4,6 +4,7 @@ import com.vivero.entidades.Accesorio;
 import com.vivero.entidades.Foto;
 import com.vivero.entidades.Portada;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,8 @@ public class AccesorioControlador {
     @Autowired
     private FotoRepositorio fotoRepositorio;
 
+    //Este metodo protege la ruta y en caso de que el admin no este logueado lo lleva al login:
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/accesorio")
     public String registro() {
         return "accesorio-creacion.html";
@@ -50,7 +53,10 @@ public class AccesorioControlador {
     ) {
         try {
             accesorioServicio.cargarAccesorio(nombre, precio, stock, tamanio, descripcion, categoria, portada, imagenes, destacado);
-            return "index";
+            //Este metodo es para traer todas los accesorio de la base de datos
+            List<Accesorio> accesoriosFiltrados = accesorioServicio.listaAccesorios();
+            modelo.put("accesoriosFiltrados", accesoriosFiltrados);
+            return "modificar-accesorio";            
         } catch (Exception e) {
             // TODO Auto-generated catch block
             modelo.put("error", e.getMessage());
@@ -118,6 +124,9 @@ public class AccesorioControlador {
      */
     Accesorio accesorioModificar;
 
+    
+    //Este metodo protege la ruta y en caso de que el admin no este logueado lo lleva al login:          
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/modAccesorio")
     public String modAccesorio(
             ModelMap modelo

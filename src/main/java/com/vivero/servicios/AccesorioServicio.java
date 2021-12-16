@@ -71,7 +71,7 @@ public class AccesorioServicio {
         }
 
         if (tamanio.length() == 0 | tamanio.equals("0")) {
-            throw new Exception("Debe elegir entre: Chico, Mediano o Grande");
+            throw new Exception("Debe elegir entre: Chico, Mediano, Grande o No Definido");
         }
 
         if (descripcion == null | descripcion.isEmpty() | descripcion.length() == 0) {

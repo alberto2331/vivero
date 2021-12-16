@@ -15,6 +15,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +34,9 @@ public class MacetaControlador {
 
     @Autowired
     private FotoRepositorio fotoRepositorio;
-
+  
+    //Este metodo protege la ruta y en caso de que el admin no este logueado lo lleva al login:
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("/maceta")
     public String registro() {
         return "maceta-creacion.html";
@@ -54,10 +57,13 @@ public class MacetaControlador {
     ) {
         try {
             macetaServicio.cargarMaceta(nombre, precio, stock, tamanio, descripcion, portada, imagenes, color, material, destacado);
-            return "index";
+            ////Este metodo trae TODAS LAS MACETAS ==> "macetaServicio.listaMacetas()"
+            List<Maceta> macetasFiltradas = macetaServicio.listaMaceta();
+            modelo.put("macetasFiltradas", macetasFiltradas);            
+            return "modificar-maceta";
         } catch (Exception e) {
             modelo.addAttribute("error", e.getMessage());
-            return "planta-creacion";
+            return "maceta-creacion";
         }
     }
 
@@ -185,7 +191,9 @@ public class MacetaControlador {
     Maceta macetaModificar;
    
     
-       @GetMapping("/modMaceta")
+  //Este metodo protege la ruta y en caso de que el admin no este logueado lo lleva al login:
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @GetMapping("/modMaceta")
     public String modMaceta(
             ModelMap modelo
     ) {
