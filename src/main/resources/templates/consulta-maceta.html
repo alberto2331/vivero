@@ -234,7 +234,7 @@
                     <p class="precio_text" th:text=${maceta.precio}>$800</p>
                     <p class="stock_text invisible" th:text=${maceta.stock}>2</p>
                     <span th:if="${maceta.stock != 0}">
-                        <button type="button" id="compra" th:id="*{maceta.id}" class="btW btn-light child compraBoton">
+                        <button type="button" id="compra" th:id="*{maceta.id}" class="btn btn-light child compraBoton">
                             COMPRAR
                         </button>
                     </span>
