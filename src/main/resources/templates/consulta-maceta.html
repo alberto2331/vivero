@@ -64,11 +64,63 @@
                     </li>
                 </ul>
                 <div class="p-2 bd-highlight d-none d-lg-flex">
-                    <form class="d-flex mx-1">
-                        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i>
-                        </button>
-                    </form>
+                        <form class="needs-validation" action="/maceta/filtrarMaceta" method="GET">
+                            <div class="d-flex">
+                                <input id="nombre" name="nombre" value="" class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+                                <div style ="display:none;" class="form-group">
+                                    <label class=" control-label">Precio</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input  type="number" name="precioMinimo" class="form-control  mb-1" value=""
+                                                    placeholder="precio minimo">
+                                        </div>
+                                        <div class="col-6">
+                                            <input  type="number" name="precioMaximo" class="form-control col-6" value=""
+                                                    placeholder="precio maximo">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style ="display:none;" class="form-group">
+                                    <label class=" control-label">Tamaño</label>
+                                    <select class="form-select" aria-label="Default select example" name="tamanio">
+                                        <option selected value="">-</option>
+                                    </select>
+                                </div>
+                                <div style ="display:none;" class="form-group" >
+                                    <select class="form-select" aria-label="Default select example" name="destacadoController"
+                                            type="number">
+                                        <option selected value="0">-</option>
+                                    </select>
+                                </div>
+                                <div style ="display:none;" class="form-group">
+                                    <input id="nombre" type="text" name="codigo" class="form-control" value=""
+                                           placeholder="ingrese el codigo del producto">
+                                </div>
+                                <div style ="display:none;" class="form-group">
+                                    <label class=" control-label">Color</label>
+                                    <select class="form-select" aria-label="Default select example" name="color">
+                                        <option selected value="">Color</option>
+                                        <option value="amarillo">Amarillo</option>
+                                        <option value="rojo">Rojo</option>
+                                        <option value="azul">Azul</option>
+                                        <option value="negro">Negro</option>
+                                        <option value="arena">Arena</option>
+                                    </select>
+                                </div>
+                                <div style ="display:none;" class="form-group">
+                                    <label class=" control-label">Material</label>
+                                    <select class="form-select" aria-label="Default select example" name="material">
+                                        <option selected value="">Material</option>
+                                        <option value="plastico">Plástico</option>
+                                        <option value="ceramica">Cerámica</option>
+                                        <option value="madera">Madera</option>
+                                        <option value="hormigon">Hormigón</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-outline-success" type="submit"><i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
                     <button class="btn btn-outline-success mx-1" id="cartButton" type="submit" data-bs-toggle="modal"
                         data-bs-target="#exampleModal"><i class="bi bi-cart-fill"></i>
                     </button>
@@ -96,7 +148,7 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form class="needs-validation" action="/planta/filtrarPlanta" method="GET">
+            <form class="needs-validation" action="/maceta/filtrarMaceta" method="GET">
                 <div class="form-group">
                     <label class=" control-label">El nombre de la planta contiene:</label>
                     <input id="nombre" type="text" name="nombre" class="form-control" value="">
@@ -181,9 +233,16 @@
                     </a>
                     <p class="precio_text" th:text=${maceta.precio}>$800</p>
                     <p class="stock_text invisible" th:text=${maceta.stock}>2</p>
-                    <button type="button" id="compra" th:id="*{maceta.id}" class="btW btn-light child compraBoton">
-                        COMPRAR
-                    </button>
+                    <span th:if="${maceta.stock != 0}">
+                        <button type="button" id="compra" th:id="*{maceta.id}" class="btn btn-light child compraBoton">
+                            COMPRAR
+                        </button>
+                    </span>
+                    <span th:if="${maceta.stock == 0}">
+                        <button type="button"  th:id="*{maceta.id}" class="btn btn-light child compraBoton" disabled>
+                            Sin Stock
+                        </button>
+                    </span>
                 </div>
             </div>
         </div>

@@ -134,19 +134,24 @@
 								style="">PETUNIA</p>
 						</a>
 					</span>
-					<span th:if="${planta.tipo == 'accesorio'}">
-
-						
+					<span th:if="${planta.tipo == 'accesorio'}" >
 						<a th:href="@{/accesorio/mostrarAccesorio(id=*{planta.id})}" href="#" class="text-decoration-none parent">
-							<p class="nombre_text text-decoration-none text-white px-5 py-10  lh-1" th:text=${planta.nombre}
+							<p class="nombre_text text-decoration-none text-white px-5 py-10  lh-1" id="nombre" th:text=${planta.nombre}
 								style="">PETUNIA</p>
 						</a>
 					</span>
 					<p class="precio_text" th:text=${planta.precio}>$800</p>
 					<p class="stock_text invisible" th:text=${planta.stock}>2</p>
-					<button type="button" id="compra" th:id="*{planta.id}" class="btW btn-light child compraBoton">
-						COMPRAR
-					</button>
+					<span th:if="${planta.stock != 0}">
+						<button type="button" id="compra" th:id="*{planta.id}" class="btn btn-light child compraBoton">
+							COMPRAR
+						</button>
+					</span>
+					<span th:if="${planta.stock == 0}">
+						<button type="button" class="btn btn-light child compraBoton" disabled>
+							Sin Stock
+						</button>
+					</span>
 				</div>
 			</div>
 		</div>
@@ -215,7 +220,7 @@
 
                 // var nombre = $( "#info3b601cc1-80d5-4ecd-8499-ae52737c6f09 > .nombre_text" ).text();
 
-                var nombre = $(elementoInfoId + " > a > .nombre_text").text();
+                var nombre = $(elementoInfoId + " > span > a > .nombre_text").text();
 
                 var precio = $(elementoInfoId + " > .precio_text").text();
 
