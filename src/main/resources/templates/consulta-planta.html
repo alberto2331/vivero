@@ -145,13 +145,13 @@
             <form class="needs-validation" action="/planta/filtrarPlanta" method="GET">
                 <div class="form-group">
                     <label class=" control-label">El nombre de la planta contiene:</label>
-                    <input id="nombre" type="text" name="nombre" class="form-control" value="">
+                    <input type="text" name="nombre" class="form-control" value="">
                 </div> <!-- form-group // -->
                 <div class="form-group">
                     <label class=" control-label">Precio</label>
                     <div class="row">
                         <div class="col-6">
-                            <input id="nombre" type="number" name="precioMinimo" class="form-control  mb-1" value=""
+                            <input type="number" name="precioMinimo" class="form-control  mb-1" value=""
                                 placeholder="precio minimo">
                         </div>
                         <div class="col-6">
@@ -233,9 +233,16 @@
                     </a>
                     <p class="precio_text" th:text=${planta.precio}>$800</p>
                     <p class="stock_text invisible" th:text=${planta.stock}>2</p>
-                    <button type="button" id="compra" th:id="*{planta.id}" class="btn btn-light child compraBoton">
-                        COMPRAR
-                    </button>
+                    <span th:if="${planta.stock != 0}">
+                        <button type="button" id="compra" th:id="*{planta.id}" class="btn btn-light child compraBoton">
+                            COMPRAR
+                        </button>
+                    </span>
+                    <span th:if="${planta.stock == 0}">
+                        <button type="button"  th:id="*{planta.id}" class="btn btn-light child compraBoton" disabled>
+                            Sin Stock
+                        </button>
+                    </span>
                 </div>
             </div>
         </div>

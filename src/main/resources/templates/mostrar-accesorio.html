@@ -169,8 +169,15 @@
                                 value="aumentar">+</button>
                         </div>
                         <div class="col align-items-left " id="contenedorCompraBoton">
+                        <span th:if="${accesorioMostrar.stock != 0}">
                             <button type="button " id="compraBoton" class="btn btn-outline-success compraBoton"
-                                th:id="${accesorioMostrar.id}">Agregar al carrito</button>
+                                    t  th:id="${accesorioMostrar.id}">Agregar al carrito</button>
+                        </span>
+                        <span th:if="${accesorioMostrar.stock == 0}">
+                            <button type="button" class="btn btn-light child compraBoton" disabled>
+                                Sin Stock
+                            </button>
+                        </span>
                         </div>
                     </div>
                 </div>

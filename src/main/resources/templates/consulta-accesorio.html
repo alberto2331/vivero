@@ -199,9 +199,16 @@
                     </a>
                     <p class="precio_text" th:text=${accesorio.precio}></p>
                     <p class="stock_text invisible" th:text=${accesorio.stock}></p>
-                    <button type="button" id="compra" th:id="*{accesorio.id}" class="btn btn-light child compraBoton">
-                        COMPRAR
-                    </button>
+                    <span th:if="${accesorio.stock != 0}">
+                        <button type="button" id="compra" th:id="*{accesorio.id}" class="btn btn-light child compraBoton">
+                            COMPRAR
+                        </button>
+                    </span>
+                    <span th:if="${accesorio.stock == 0}">
+                        <button type="button"  th:id="*{accesorio.id}" class="btn btn-light child compraBoton" disabled>
+                            Sin Stock
+                        </button>
+                    </span>
                 </div>
             </div>
         </div>
