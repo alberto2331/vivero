@@ -1,6 +1,7 @@
 package com.vivero.repositorios;
 
 
+import com.vivero.entidades.Accesorio;
 import com.vivero.entidades.Planta;
 
 import java.util.List;
@@ -28,5 +29,8 @@ public interface PlantaRepositorio extends JpaRepository <Planta, String>{
 				+ "and c.ubicacion like :ubicacion "
 			+ "and c.luz like :luz")
 	public List<Planta> listarPlantasSinDestacado(String nombre, Double precioMinimo, Double precioMaximo, String tamanio, String codigo, String estilo, String ubicacion,String luz);
+
+   @Query("select c from Planta c where c.activo = :activo ")
+    public List<Planta> listarPlaActivas( Boolean activo);
 }
 

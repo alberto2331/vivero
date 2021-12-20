@@ -1,5 +1,6 @@
 package com.vivero.repositorios;
 
+import com.vivero.entidades.Accesorio;
 import com.vivero.entidades.Maceta;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,4 +26,7 @@ public interface MacetaRepositorio extends JpaRepository<Maceta, String> {
 
     public List<Maceta> listarMacetasSinDestacado(String nombre, Double precioMinimo, Double precioMaximo, String tamanio, String codigo, String color, String material);
 
+    //Verificar si funciona:
+    @Query("select c from Maceta c where c.activo = :activo ")
+    public List<Maceta> listarMacActivos( Boolean activo);
 }

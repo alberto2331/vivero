@@ -1,5 +1,6 @@
 package com.vivero.servicios;
 
+import com.vivero.entidades.Accesorio;
 import com.vivero.entidades.Foto;
 import com.vivero.entidades.Planta;
 import com.vivero.entidades.Portada;
@@ -197,6 +198,11 @@ public class PlantaServicio {
     public List<Planta> listaPlantas() {
     	List<Planta> listaPlantas=plantaRepositorio.findAll();
     	return listaPlantas;
+    }
+    
+    public List<Planta> listaPlaActivas() {
+        List<Planta> listaPlaActivos = plantaRepositorio.listarPlaActivas(true);
+        return listaPlaActivos;
     }
 
     public List<Planta> listaPlantasFiltradas(String nombre, Double precioMinimo, Double precioMaximo, String tamanio, Boolean destacado, String codigo,String estilo, String ubicacion, String luz) {

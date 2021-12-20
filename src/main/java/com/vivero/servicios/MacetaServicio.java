@@ -1,5 +1,6 @@
 package com.vivero.servicios;
 
+import com.vivero.entidades.Accesorio;
 import com.vivero.entidades.Foto;
 import com.vivero.entidades.Maceta;
 import com.vivero.entidades.Portada;
@@ -94,6 +95,11 @@ public class MacetaServicio {
     public List<Maceta> listaMaceta() {
         List<Maceta> listaMacetas = macetaRepositorio.findAll();
         return listaMacetas;
+    }
+    
+    public List<Maceta> listaMacActivas() {
+        List<Maceta> listaMacActivos = macetaRepositorio.listarMacActivos(true);
+        return listaMacActivos;
     }
 
     public List<Maceta> listaMacetasFiltradas(String nombre, Double precioMinimo, Double precioMaximo, String tamanio, Boolean destacado, String codigo, String color, String material) {

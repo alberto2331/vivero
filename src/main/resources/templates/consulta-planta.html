@@ -13,7 +13,7 @@
     <!-- Links iconos bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css">
 
-    <link rel="stylesheet" href="../static/css/estilos.css" th:href="@{/css/estilos.css}">
+    <link rel="stylesheet" href="../static/css/estilos2.css" th:href="@{/css/estilos2.css}">
 
     <!-- Links fuentes-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
     <title>Document</title>
 </head>
 
-<body>
+<body style="background-image:url(../img/fondo01.jpg);">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">OREVIV</a>
@@ -224,15 +224,15 @@
     <div>
 
         <div class="row">
-            <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas} " style="height:45vh;">
+            <div class="col-3 m-0 p-0 imgWrap" th:each="planta : ${plantasFiltradas} ">
                 <img class=" w-100  img-fluid" th:src="'/imagen/planta/'+*{planta.id}" alt="" style="height:45vh;" />
                 <div class="info" th:id="'info'+*{planta.id}">
                     <a th:href="@{/planta/mostrarPlanta(id=*{planta.id})}" href="#" class="text-decoration-none parent">
                         <p class="nombre_text text-decoration-none text-white px-5 py-10  lh-1" th:text=${planta.nombre}
                             style="">PETUNIA</p>
                     </a>
-                    <p class="precio_text" th:text=${planta.precio}>$800</p>
-                    <p class="stock_text invisible" th:text=${planta.stock}>2</p>
+                    <p class="precio_text" th:text=${planta.precio} style="margin-bottom: 0rem !important;">$800</p>
+                    <p class="stock_text invisible" th:text=${planta.stock} style="margin-bottom: 0rem !important;">2</p>
                     <span th:if="${planta.stock != 0}">
                         <button type="button" id="compra" th:id="*{planta.id}" class="btn btn-light child compraBoton">
                             COMPRAR

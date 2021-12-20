@@ -92,7 +92,7 @@ public class PlantaControlador {
             ModelMap modelo
     ) {
         //Este metodo es para traer todas las plantas de la base de datos
-        List<Planta> plantasFiltradas = plantaServicio.listaPlantas();        
+        List<Planta> plantasFiltradas = plantaServicio.listaPlaActivas();        
         modelo.put("plantasFiltradas", plantasFiltradas);
         return "consulta-planta";
     }
